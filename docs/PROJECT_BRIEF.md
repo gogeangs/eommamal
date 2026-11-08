@@ -112,6 +112,7 @@
 
 ## 7. 디자인 원칙
 
+- **모든 이미지는 투명 배경 PNG**(알파 채널). 흰 배경, 배경색, 바둑판 무늬를 그리지 않음. 배경색은 앱이 깔아 줌.
 - **그림책 느낌**: 둥글고 부드러운 형태, 은은한 종이 질감의 평면 채색. 굵은 검은 외곽선·3D·사진풍 금지.
 - **그림 안에 글자·숫자 절대 금지** (앱이 7개 언어로 글을 따로 얹음).
 - **문화 존중**: 고정관념 소품·과장된 옷차림 금지. 각 나라 장면은 그 나라 사람이 보아도 자연스러워야 함.
@@ -138,14 +139,14 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 | 순서 | 묶음 | 개수 | 크기·배경 | 파일 이름 |
 |---|---|---|---|---|
-| 1 | 캐릭터 시트 | 7 | 1536×1024, 흰 배경 | `char-mini`, `char-nabi`, `char-star`, `char-owl`, `char-puppy`, `char-frog-sparrow`, `char-grandma` |
-| 2 | 앱 아이콘 | 1 | 1024×1024, 초록 배경, 가운데 70% 안전 영역 | `app-icon` |
-| 3 | 동화 장면 | 18 | 1536×1024 가로형, 아래 15%에 중요 요소 두지 않기 | `star-01`~`06`, `umbrella-01`~`06`, `seollal-01`~`06` |
+| 1 | 캐릭터 시트 | 7 | 1536×1024, 투명 배경 | `char-mini`, `char-nabi`, `char-star`, `char-owl`, `char-puppy`, `char-frog-sparrow`, `char-grandma` |
+| 2 | 앱 아이콘 | 1 | 1024×1024, 투명 배경(초록 바탕은 앱이 입힘), 가운데 70% 안전 영역 | `app-icon` |
+| 3 | 동화 장면 | 18 | 1536×1024, 투명 배경, 하늘·벽 없이 인물·소품·발밑 땅만 (비네트), 아래 15%에 중요 요소 두지 않기 | `star-01`~`06`, `umbrella-01`~`06`, `seollal-01`~`06` |
 | 4 | 낱말 아이콘 | 18 | 1024×1024, **투명 배경**, 대상 하나만 가운데 | `word-star`, `word-night`, `word-cat`, `word-tree`, `word-sky`, `word-owl`, `word-umbrella`, `word-rain`, `word-puppy`, `word-frog`, `word-sparrow`, `word-rainbow`, `word-seollal`, `word-hanbok`, `word-grandma`, `word-pouch`, `word-tteokguk`, `word-yut` |
 | 5 | 화면용 일러스트 | 6 | 투명 배경 | `ui-act-quiz`, `ui-act-trace`, `ui-act-dict`, `ui-welcome`(1536×1024), `ui-empty-words`, `ui-celebrate` |
-| 6 | 문화 비교 카드 | 6 | 1536×1024 | `culture-ru`, `culture-mn`, `culture-vi`, `culture-uz`, `culture-zh`, `culture-world` |
+| 6 | 문화 비교 카드 | 6 | 1536×1024, 투명 배경, 비네트 | `culture-ru`, `culture-mn`, `culture-vi`, `culture-uz`, `culture-zh`, `culture-world` |
 
-모든 파일은 **PNG 원본**으로 저장합니다. 웹용 변환·크기 조절·앱 반영은 Claude가 합니다.
+모든 파일은 **투명 배경 PNG 원본**으로 저장합니다. 앱이 그림 뒤에 깔 배경색: 『작은 별』 밤하늘 남색 `#1E2A4A`, 『노란 우산』 비 오는 회청색(무지개 장면은 맑은 하늘색), 『설날 아침』 따뜻한 한지색. 웹용 변환·크기 조절·앱 반영은 Claude가 합니다.
 작은 UI 아이콘(탭 메뉴, 화살표, 재생 버튼)은 아이콘 세트로 처리하므로 만들지 않습니다.
 
 ## 9. 작업 방식
