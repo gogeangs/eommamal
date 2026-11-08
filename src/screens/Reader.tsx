@@ -91,7 +91,7 @@ export function Reader({ storyId }: { storyId: string }) {
           x0.current = null;
         }}
       >
-        <Scene key={page} art={pg.art()} />
+        <Scene key={page} page={pg} alt={pg.ko} />
       </div>
       <div className="text">
         {showMother && (

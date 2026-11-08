@@ -4,10 +4,18 @@ import { useProgress } from '../lib/progress';
 import { hasVoice, speak } from '../lib/speech';
 import { useNav, type HomeTab } from '../nav';
 import type { ReactNode } from 'react';
+import type { Page } from '../content/types';
 
-/** A full 320x220 story illustration. Content is our own static SVG markup. */
-export function Scene({ art, className = 'panel' }: { art: string; className?: string }) {
-  return <div className={className} dangerouslySetInnerHTML={{ __html: svg(art) }} />;
+/** A story picture: the finished illustration when there is one, else the drawn SVG placeholder. */
+export function Scene({ page, className = 'panel', alt = '' }: { page: Page; className?: string; alt?: string }) {
+  if (page.img) {
+    return (
+      <div className={className}>
+        <img src={import.meta.env.BASE_URL + page.img} alt={alt} decoding="async" />
+      </div>
+    );
+  }
+  return <div className={className} dangerouslySetInnerHTML={{ __html: svg(page.art()) }} />;
 }
 
 /** Square picture for a vocabulary word. */

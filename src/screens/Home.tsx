@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ALL_WORDS, LANGS, STORIES, type LangId, type Story } from '../content';
-import { svg } from '../content/art.js';
-import { Tile, WordCard } from '../components/ui';
+import { Scene, Tile, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { useNav, type HomeTab } from '../nav';
 
@@ -69,7 +68,7 @@ function BookCard({ s, wide = false }: { s: Story; wide?: boolean }) {
   );
   return (
     <button className={`book${wide ? ' wide' : ''}`} onClick={() => nav({ view: 'read', story: s.id })}>
-      <div className="cover" dangerouslySetInnerHTML={{ __html: svg(s.pages[0].art()) }} />
+      <Scene page={s.pages[0]} className="cover" />
       {wide ? (
         <div>
           {s.culture && <span className="ctag">문화 비교 카드</span>}
@@ -90,7 +89,7 @@ function ContinueCard() {
   const page = p.pages[s.id];
   return (
     <button className="continue" onClick={() => nav({ view: 'read', story: s.id })}>
-      <div className="cover" dangerouslySetInnerHTML={{ __html: svg(s.pages[page].art()) }} />
+      <Scene page={s.pages[page]} className="cover" />
       <div>
         <span className="label" style={{ margin: 0 }}>이어 읽기</span>
         <b lang={p.lang}>{s.title[p.lang]}</b>

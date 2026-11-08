@@ -137,4 +137,8 @@ export const CULTURE={
 };
 export const ASK={ru:'Как встречают Новый год в нашей семье? Спроси у мамы и папы!',mn:'Манай гэр бүл шинэ жилийг яаж угтдаг вэ? Ээж аавaасаа асуугаарай!',vi:'Nhà mình đón năm mới thế nào? Hãy hỏi bố mẹ nhé!',uz:"Bizning oilamiz Yangi yilni qanday kutib oladi? Ota-onangdan so'ra!",zh:'我们家怎么过新年？去问问爸爸妈妈吧！',en:'How does your family celebrate New Year? Ask your mom and dad!'};
 
+// Finished illustrations (public/images/stories). Pages without one fall back to the drawn SVG.
+const IMAGES={star:6};
+STORIES.forEach(s=>{if(IMAGES[s.id])s.pages.forEach((p,i)=>{p.img=`images/stories/${s.id}-${String(i+1).padStart(2,'0')}.webp`});});
+
 STORIES.forEach(s=>{s.pages.forEach((p,i)=>p.w=PW[s.id][i]);s.words=[...new Set(PW[s.id].flat())]});

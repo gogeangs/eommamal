@@ -33,7 +33,7 @@ export const bird=(x,y)=>`<g transform="translate(${x} ${y})"><ellipse cx="0" cy
 export const rainbow=()=>['#E86A5A','#F2B533','#F7DC6F','#5FAE5A','#5B8FD6','#8A6CC9'].map((c,i)=>`<path d="M30 190 A130 130 0 0 1 290 190" transform="translate(0 ${i*8})" stroke="${c}" stroke-width="8" fill="none"/>`).join('');
 export const tree=()=>`<rect x="228" y="60" width="16" height="140" fill="#5A3E2B"/><circle cx="236" cy="70" r="40" fill="#2E5A47"/><circle cx="206" cy="96" r="26" fill="#2E5A47"/><circle cx="264" cy="100" r="26" fill="#2E5A47"/><line x1="236" y1="120" x2="196" y2="104" stroke="#5A3E2B" stroke-width="6"/>`;
 
-export const svg=b=>`<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">${b}</svg>`;
+export const svg=b=>`<svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">${b}</svg>`;
 export const room=(extra='')=>`<rect width="320" height="220" fill="#F6EBD9"/><rect y="150" width="320" height="70" fill="#E3C79C"/><g fill="none" stroke="#C9A877" stroke-width="3"><rect x="34" y="28" width="70" height="80" fill="#FBF5EA"/><line x1="69" y1="28" x2="69" y2="108"/><line x1="34" y1="54" x2="104" y2="54"/><line x1="34" y1="81" x2="104" y2="81"/></g>${extra}`;
 export const hanbokGirl=(x,y,bow=0)=>`<g transform="translate(${x} ${y}) rotate(${bow} 0 40)"><path d="M-22 58 L-12 14 L12 14 L22 58Z" fill="#F08FAE"/><path d="M-13 8 L13 8 L15 22 L-15 22Z" fill="#F7D046"/><path d="M0 14 l-8 14 M0 14 l6 12" stroke="#D2443B" stroke-width="3"/>
  <circle cx="0" cy="-4" r="13" fill="#F1C9A5"/><path d="M-14 -4 Q-14 -20 0 -19 Q14 -20 14 -4 Q8 -12 0 -12 Q-8 -12 -14 -4Z" fill="#3A2A22"/><circle cx="-12" cy="-12" r="6" fill="#3A2A22"/>

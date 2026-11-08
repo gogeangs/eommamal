@@ -27,7 +27,7 @@ h2{font-family:var(--display);font-weight:400;font-size:1.25rem;margin:0}
 .chip[aria-pressed="true"] small{color:var(--sun-ink)}
 .shelf{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .book{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:8px;min-width:0}
-.book .cover{border-radius:14px;overflow:hidden;aspect-ratio:320/220;max-width:100%;box-shadow:0 2px 0 var(--line)}
+.book .cover{border-radius:14px;overflow:hidden;aspect-ratio:3/2;max-width:100%;box-shadow:0 2px 0 var(--line)}
 .book .cover svg{display:block;width:100%;height:100%}
 .book b{font-family:var(--display);font-weight:400;font-size:1.1rem;line-height:1.2}
 .book span{color:var(--muted);font-size:.9rem;font-family:var(--ko)}
@@ -41,7 +41,7 @@ h2{font-family:var(--display);font-weight:400;font-size:1.25rem;margin:0}
 .seg{display:flex;background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:3px}
 .seg button{font:inherit;font-size:.8rem;font-weight:800;border:0;background:none;color:var(--muted);padding:6px 10px;border-radius:999px;cursor:pointer;font-family:var(--ko)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.panel{border-radius:18px;overflow:hidden;aspect-ratio:320/220;max-width:100%;touch-action:pan-y}
+.panel{border-radius:18px;overflow:hidden;aspect-ratio:3/2;max-width:100%;touch-action:pan-y}
 .panel svg{display:block;width:100%;height:100%}
 .text{display:flex;flex-direction:column;gap:14px;min-height:150px}
 .mother{font-size:1.45rem;font-weight:800;line-height:1.45;margin:0}
@@ -164,7 +164,7 @@ img{max-width:100%}
 
 /* books tab */
 .continue{font:inherit;display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:14px;align-items:center;text-align:left;border:0;background:var(--card);color:var(--ink);border-radius:18px;padding:10px;cursor:pointer;box-shadow:0 2px 0 var(--line)}
-.continue .cover{border-radius:12px;overflow:hidden;aspect-ratio:320/220}.continue .cover svg{display:block;width:100%;height:100%}
+.continue .cover{border-radius:12px;overflow:hidden;aspect-ratio:3/2}.continue .cover svg{display:block;width:100%;height:100%}
 .continue>div{display:flex;flex-direction:column;gap:3px;min-width:0}
 .continue b{font-family:var(--display);font-weight:400;font-size:1.15rem;line-height:1.2}
 .continue span{color:var(--muted);font-size:.85rem;font-family:var(--ko)}
@@ -187,3 +187,8 @@ img{max-width:100%}
 .summary div{background:var(--card);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:2px}
 .summary b{font-family:var(--display);font-weight:400;font-size:1.8rem;line-height:1;font-variant-numeric:tabular-nums}
 .summary span{font-family:var(--ko);font-size:.8rem;color:var(--muted)}
+
+/* story pictures: finished illustrations and SVG placeholders share a 3:2 frame */
+.panel,.cover{background:#1E2A4A}
+.panel img,.cover img{display:block;width:100%;height:100%;object-fit:cover}
+.panel svg,.cover svg{display:block;width:100%;height:100%}
