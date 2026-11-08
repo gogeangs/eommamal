@@ -26,6 +26,7 @@ export type WriteMode = 'blocks' | 'keys';
 
 export interface Progress {
   lang: LangId;
+  langChosen: boolean; // false until the family picks their language once
   mode: ReadMode;
   scope: string;
   dictMode: WriteMode;
@@ -39,6 +40,7 @@ export interface Progress {
 
 const DEFAULTS: Progress = {
   lang: 'ru',
+  langChosen: false,
   mode: 'both',
   scope: 'all',
   dictMode: 'blocks',

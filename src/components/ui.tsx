@@ -2,7 +2,7 @@ import { ICON, V, langById } from '../content';
 import { svg } from '../content/art.js';
 import { useProgress } from '../lib/progress';
 import { hasVoice, speak } from '../lib/speech';
-import { useNav } from '../nav';
+import { useNav, type HomeTab } from '../nav';
 import type { ReactNode } from 'react';
 
 /** A full 320x220 story illustration. Content is our own static SVG markup. */
@@ -53,11 +53,11 @@ export function WordCard({ id }: { id: string }) {
   );
 }
 
-export function TopBar({ label = '‹ 책장', children }: { label?: string; children?: ReactNode }) {
+export function TopBar({ label = '‹ 책장', tab = 'books', children }: { label?: string; tab?: HomeTab; children?: ReactNode }) {
   const nav = useNav();
   return (
     <div className="top">
-      <button className="ghost" onClick={() => nav({ view: 'home' })}>
+      <button className="ghost" onClick={() => nav({ view: 'home', tab })}>
         {label}
       </button>
       {children}

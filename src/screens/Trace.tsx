@@ -173,7 +173,7 @@ export function Trace({ storyId }: { storyId: string }) {
   const sy = syllables(V[w].ko);
   return (
     <>
-      <TopBar label="✕ 그만하기" />
+      <TopBar label="✕ 그만하기" tab="study" />
       <Progress label="따라 쓰기 · 획순" i={wi} n={words.length} />
       <div className="tword">
         <div className="tw-tile"><Tile id={w} /></div>

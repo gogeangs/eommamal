@@ -70,7 +70,7 @@ export function Quiz({ storyId }: { storyId: string }) {
 
   return (
     <>
-      <TopBar label="✕ 그만하기" />
+      <TopBar label="✕ 그만하기" tab="study" />
       <Progress label="낱말 놀이" i={i} n={rounds.length} />
       <section className="stack">
         {r.type === 'listen' ? (
