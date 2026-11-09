@@ -53,7 +53,7 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
           </div>
           <p lang={p.lang} className="parent-tip">아이와 모국어로 먼저 읽고 한국어로 다시 읽어 보세요.</p>
         </section>}
-        {!welcome && <button className="btn2" onClick={onClose}>닫기</button>
+        {!welcome && <button className="btn2" onClick={onClose}>닫기</button>}
       </div>
     </div>
   );
