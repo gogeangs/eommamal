@@ -192,3 +192,5 @@ img{max-width:100%}
 .panel,.cover{background:#1E2A4A}
 .panel img,.cover img{display:block;width:100%;height:100%;object-fit:cover}
 .panel svg,.cover svg{display:block;width:100%;height:100%}
+
+.tile.art img{width:82%;height:82%;object-fit:contain;display:block}

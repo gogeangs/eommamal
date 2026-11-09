@@ -1,4 +1,4 @@
-import { ICON, V, langById } from '../content';
+import { ICON, V, WORD_ART, langById } from '../content';
 import { svg } from '../content/art.js';
 import { useProgress } from '../lib/progress';
 import { hasVoice, speak } from '../lib/speech';
@@ -20,6 +20,13 @@ export function Scene({ page, className = 'panel', alt = '' }: { page: Page; cla
 
 /** Square picture for a vocabulary word. */
 export function Tile({ id, dim = false }: { id: string; dim?: boolean }) {
+  if (WORD_ART[id]) {
+    return (
+      <span className={`tile art${dim ? ' dim' : ''}`} style={{ background: WORD_ART[id] }}>
+        <img src={`${import.meta.env.BASE_URL}images/words/${id}.webp`} alt="" decoding="async" />
+      </span>
+    );
+  }
   const [draw, viewBox] = ICON[id];
   return (
     <span

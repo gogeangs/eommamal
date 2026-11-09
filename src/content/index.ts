@@ -55,3 +55,9 @@ export function shuffle<T>(a: T[]): T[] {
 }
 
 export const langById = (id: LangId) => LANGS.find((l) => l.id === id)!;
+
+/** Finished word icons under public/images/words, with the light tile color each sits on. */
+export const WORD_ART: Record<string, string> = {
+  star: '#FFF1C7', night: '#E2E6F2', cat: '#FCE8D4', tree: '#E2EFDF', sky: '#FFF6DA',
+  owl: '#F2E6D8', umbrella: '#EAF2F7', rain: '#FFF6DA', puppy: '#F3E9DC',
+};
