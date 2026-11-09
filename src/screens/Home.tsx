@@ -35,7 +35,25 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
             </button>
           ))}
         </div>
-        {!welcome && <button className="btn2" onClick={onClose}>닫기</button>}
+        {!welcome && <section className="parent-settings">
+          <h3>보호자 설정</h3>
+          <p>아이의 읽기 방식과 글자 크기를 바꿀 수 있어요.</p>
+          <div className="seg parent-setting-row" role="group" aria-label="읽기 언어">
+            <button aria-pressed={p.mode === 'both'} onClick={() => set('mode','both')}>두 언어</button>
+            <button aria-pressed={p.mode === 'mo'} onClick={() => set('mode','mo')}>모국어</button>
+            <button aria-pressed={p.mode === 'ko'} onClick={() => set('mode','ko')}>한국어</button>
+          </div>
+          <div className="seg parent-setting-row" role="group" aria-label="글자 크기">
+            <button aria-pressed={p.textSize === 'm'} onClick={() => set('textSize','m')}>보통 글자</button>
+            <button aria-pressed={p.textSize === 'l'} onClick={() => set('textSize','l')}>큰 글자</button>
+          </div>
+          <div className="seg parent-setting-row" role="group" aria-label="받아쓰기 방식">
+            <button aria-pressed={p.dictMode === 'blocks'} onClick={() => set('dictMode','blocks')}>글자 블록</button>
+            <button aria-pressed={p.dictMode === 'keys'} onClick={() => set('dictMode','keys')}>자판 입력</button>
+          </div>
+          <p lang={p.lang} className="parent-tip">아이와 모국어로 먼저 읽고 한국어로 다시 읽어 보세요.</p>
+        </section>}
+        {!welcome && <button className="btn2" onClick={onClose}>닫기</button>
       </div>
     </div>
   );
@@ -174,7 +192,7 @@ function WordsTab() {
         </section>
       )}
       <section>
-        <p className="label">낱말장 · 눌러서 들어요</p>
+        <p className="label">{t(p.lang,'words')} · 내 낱말을 눌러 들어요</p>
         <div className="wbook">
           {ALL_WORDS.filter((id) => p.learned.includes(id)).map((id) =>
             p.learned.includes(id) ? (
@@ -231,7 +249,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 
-      <details className="parent-footer"><summary>🔒 보호자 안내 · 문의</summary><p lang={p.lang}>{['ru','mn','vi','uz','zh','en'].includes(p.lang) ? '아이와 모국어로 먼저 읽고 한국어로 다시 읽어 보세요.' : ''}</p><footer className="home-foot">
+      <details className="parent-footer"><summary>🔒 보호자 안내 · 문의</summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
         <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
         <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
       </footer></details>
