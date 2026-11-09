@@ -342,6 +342,7 @@ body{font-size:18px}
 .opts .opt:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}
 
 .ctag.folk{background:var(--leaf-soft);color:var(--leaf)}
+.ctag.life{background:#E3EEF8;color:#2E5A86}
 
 /* sentence dictation (stage 2) */
 .sent-slots{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;min-height:64px}
@@ -412,3 +413,5 @@ body{font-size:18px}
 .admin-page{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
 .admin-pic{align-self:start;height:auto}
 @media (min-width:600px){.admin-page{grid-template-columns:240px minmax(0,1fr)}.admin-page:has(.admin-pic.square){grid-template-columns:140px minmax(0,1fr)}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ctag.life{background:#20344A;color:#BFD8F0}}
+:root[data-theme="dark"] .ctag.life{background:#20344A;color:#BFD8F0}

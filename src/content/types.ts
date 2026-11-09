@@ -16,6 +16,8 @@ export interface Story {
   pages: Page[];
   words: string[];
   culture?: boolean;
+  /** everyday life at kindergarten or school */
+  life?: boolean;
   /** a Korean folktale */
   folk?: boolean;
   /** short phrases for sentence dictation; w = hint picture */

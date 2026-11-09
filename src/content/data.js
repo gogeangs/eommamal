@@ -1,6 +1,6 @@
 // Story, vocabulary and culture content. Text in every supported language lives here.
 /* eslint-disable */
-import {mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
+import {classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
 
 export const LANGS=[
  {id:'ru',name:'Русский',ko:'러시아어',tts:'ru-RU'},
@@ -174,6 +174,42 @@ Object.assign(ICON,{
 });
 PW.axe=[['woodcutter','mountain'],['axe','pond'],['woodcutter'],['spirit','pond'],['gold','axe'],['axe'],['axe'],['gold'],['axe','pond'],['gold'],['spirit'],['woodcutter']];
 
+/* ---------- 첫날, 안녕! — first day at kindergarten. Translations are drafts for native review. ---------- */
+STORIES.splice(2,0,{id:'firstday',life:true,
+ title:{ko:'첫날, 안녕!',ru:'Первый день, привет!',mn:'Анхны өдөр, сайн уу!',vi:'Ngày đầu tiên, xin chào!',uz:'Birinchi kun, salom!',zh:'第一天，你好！',en:'Hello, First Day!'},
+ sub:'유치원에 처음 간 날, 꼭 필요한 말',
+ pages:[
+ {art:()=>classroom(door(250,64))+mom(120,96)+ari(170,116),
+  ko:"오늘은 아리가 유치원에 가는 첫날이에요. 아리는 엄마 손을 꼭 잡았어요.",ru:"Сегодня Ари первый день идёт в детский сад. Он крепко держит маму за руку.",mn:"Өнөөдөр Ари анх удаа цэцэрлэгт явах өдөр. Ари ээжийнхээ гарыг чанга атгав.",vi:"Hôm nay là ngày đầu tiên Ari đi mẫu giáo. Ari nắm chặt tay mẹ.",uz:"Bugun Ari birinchi marta bog'chaga boradigan kun. Ari onasining qo'lini mahkam ushladi.",zh:"今天是阿里第一天上幼儿园。阿里紧紧地牵着妈妈的手。",en:"Today is Ari's first day at kindergarten. Ari holds Mom's hand tight."},
+ {art:()=>classroom()+teacher(200,96)+ari(110,116),
+  ko:"선생님이 웃으며 말했어요. \"안녕! 만나서 반가워.\" 아리는 작은 목소리로 인사했어요. \"안녕하세요.\"",ru:"Учительница улыбнулась: «Привет! Рада с тобой познакомиться». Ари тихо поздоровался: «Здравствуйте».",mn:"Багш инээмсэглэн хэлэв: «Сайн уу! Танилцсандаа баяртай байна». Ари аяархан мэндлэв: «Сайн байна уу».",vi:"Cô giáo mỉm cười nói: \"Chào con! Cô rất vui được gặp con.\" Ari khẽ chào: \"Con chào cô ạ.\"",uz:"O'qituvchi jilmayib dedi: \"Salom! Tanishganimdan xursandman.\" Ari sekingina salomlashdi: \"Assalomu alaykum.\"",zh:"老师笑着说：\"你好！很高兴见到你。\"阿里小声地问好：\"老师好。\"",en:"The teacher smiled. \"Hello! Nice to meet you.\" Ari said softly, \"Hello.\""},
+ {art:()=>classroom()+ari(160,112)+'<g opacity=".85">'+girl(70,130)+girl(250,130)+'</g>',
+  ko:"\"제 이름은 아리예요.\" 아리가 말하자 친구들이 손뼉을 쳤어요.",ru:"«Меня зовут Ари», — сказал он, и друзья захлопали в ладоши.",mn:"«Миний нэрийг Ари гэдэг» гэж хэлэхэд найзууд нь алга ташив.",vi:"\"Mình tên là Ari.\" Ari vừa nói xong, các bạn liền vỗ tay.",uz:"\"Mening ismim Ari.\" Ari shunday deyishi bilan do'stlari qarsak chalishdi.",zh:"\"我叫阿里。\"阿里一说完，小朋友们就拍起了手。",en:"\"My name is Ari.\" When Ari said it, his new friends clapped."},
+ {art:()=>classroom(blocks(250,170))+ari(90,116)+girl(180,120),
+  ko:"놀이 시간에 아리는 혼자 서 있었어요. 그때 미니가 다가왔어요. \"같이 놀자!\"",ru:"Во время игр Ари стоял один. Тут к нему подошла Мини: «Давай играть вместе!»",mn:"Тоглоомын цагаар Ари ганцаараа зогсож байв. Тэр үед Мини ойртож ирэв. «Хамт тоглоё!»",vi:"Giờ chơi, Ari đứng một mình. Lúc ấy, Mini đi tới. \"Mình chơi cùng nhau nhé!\"",uz:"O'yin vaqtida Ari yolg'iz turardi. Shu payt Mini yaqinlashdi: \"Kel, birga o'ynaymiz!\"",zh:"游戏时间，阿里一个人站着。这时，米妮走了过来：\"我们一起玩吧！\"",en:"At playtime, Ari stood all alone. Then Mini came over. \"Let's play together!\""},
+ {art:()=>classroom(toilet(270,150,1.1))+teacher(190,96)+ari(110,116),
+  ko:"아리는 화장실에 가고 싶었어요. 아리는 용기를 내어 말했어요. \"선생님, 화장실 가고 싶어요.\"",ru:"Ари захотел в туалет. Он набрался смелости и сказал: «Учительница, можно мне в туалет?»",mn:"Ари бие засах газар орохыг хүсэв. Тэр зориг гарган хэлэв: «Багш аа, би бие засах газар орж болох уу?»",vi:"Ari muốn đi vệ sinh. Ari lấy hết can đảm nói: \"Thưa cô, con muốn đi vệ sinh ạ.\"",uz:"Arining hojatxonaga borgisi keldi. U jur'at qilib dedi: \"Ustoz, hojatxonaga borsam maylimi?\"",zh:"阿里想上厕所。他鼓起勇气说：\"老师，我想上厕所。\"",en:"Ari needed the bathroom. He was brave and said, \"Teacher, I need to go to the bathroom.\""},
+ {art:()=>classroom('<rect x="40" y="150" width="240" height="16" rx="4" fill="#C8935A"/>'+bowl(120,140)+bowl(200,140))+ari(120,96)+girl(200,100),
+  ko:"점심시간이에요. 따끈한 밥과 국이 나왔어요. \"잘 먹겠습니다!\"",ru:"Время обеда. Подали горячий рис и суп. «Спасибо, приятного аппетита!»",mn:"Үдийн хоолны цаг боллоо. Халуун будаа, шөл гарч ирэв. «Баярлалаа, хоолоо идье!»",vi:"Đến giờ ăn trưa. Cơm và canh nóng hổi được dọn ra. \"Con mời cô, mời các bạn ăn cơm!\"",uz:"Tushlik vaqti bo'ldi. Issiq guruch va sho'rva keltirildi. \"Rahmat, yoqimli ishtaha!\"",zh:"午饭时间到了。热乎乎的米饭和汤端上来了。\"谢谢，我要开始吃饭啦！\"",en:"It is lunchtime. Warm rice and soup are served. \"Thank you for the food!\""},
+ {art:()=>classroom(door(270,64))+teacher(190,96)+ari(110,126,.9)+shoes(130,196,.8),
+  ko:"집에 갈 시간, 아리는 혼자 신발을 신기가 어려웠어요. \"도와주세요.\" 선생님이 웃으며 도와주셨어요.",ru:"Пора домой, но Ари никак не мог сам надеть ботинки. «Помогите, пожалуйста». Учительница с улыбкой помогла.",mn:"Гэртээ харих цаг болов. Ари гутлаа ганцаараа өмсөж чадсангүй. «Туслаарай». Багш инээмсэглэн тусалжээ.",vi:"Đến giờ về, Ari không tự đi giày được. \"Cô giúp con với ạ.\" Cô giáo mỉm cười giúp Ari.",uz:"Uyga qaytish vaqti bo'ldi, ammo Ari oyoq kiyimini o'zi kiya olmadi. \"Yordam bering.\" O'qituvchi jilmayib yordam berdi.",zh:"该回家了，阿里自己穿不好鞋子。\"请帮帮我。\"老师笑着帮了他。",en:"Time to go home, but Ari could not put on his shoes by himself. \"Please help me.\" The teacher smiled and helped."},
+ {art:()=>yard()+mom(250,110)+ari(190,128)+girl(80,130),
+  ko:"엄마가 데리러 왔어요. 아리는 친구들에게 손을 흔들었어요. \"안녕, 내일 또 만나!\"",ru:"Мама пришла за Ари. Он помахал друзьям: «Пока, увидимся завтра!»",mn:"Ээж нь Арийг авахаар ирэв. Ари найзууддаа гар даллав. «Баяртай, маргааш уулзъя!»",vi:"Mẹ đến đón Ari. Ari vẫy tay chào các bạn. \"Tạm biệt, mai gặp lại nhé!\"",uz:"Onasi Arini olib ketgani keldi. Ari do'stlariga qo'l silkitdi: \"Xayr, ertaga ko'rishamiz!\"",zh:"妈妈来接阿里了。阿里向朋友们挥挥手：\"再见，明天见！\"",en:"Mom came to pick Ari up. Ari waved to his friends. \"Bye, see you tomorrow!\""},
+ ]});
+Object.assign(V,{
+ teacher:{ko:'선생님',ru:'учитель',mn:'багш',vi:'cô giáo',uz:"o'qituvchi",zh:'老师',en:'teacher',bg:'#E6F0DF'},
+ friend:{ko:'친구',ru:'друг',mn:'найз',vi:'bạn',uz:"do'st",zh:'朋友',en:'friend',bg:'#FCE8D4'},
+ toilet:{ko:'화장실',ru:'туалет',mn:'бие засах газар',vi:'nhà vệ sinh',uz:'hojatxona',zh:'厕所',en:'bathroom',bg:'#EAF2F7'},
+ rice:{ko:'밥',ru:'рис',mn:'будаа',vi:'cơm',uz:'guruch',zh:'米饭',en:'rice',bg:'#FFF6DA'},
+});
+Object.assign(ICON,{
+ teacher:[()=>teacher(0,0),'-28 -28 56 96'],
+ friend:[()=>ari(-14,0,.9)+girl(16,2),'-34 -26 68 88'],
+ toilet:[()=>toilet(0,0,1.2),'-30 -36 60 64'],
+ rice:[()=>bowl(0,0,1.2),'-28 -24 56 48'],
+});
+PW.firstday=[['teacher'],['teacher'],['friend'],['friend'],['toilet','teacher'],['rice'],['teacher'],['friend']];
+
 
 export const CULTURE={
  ru:{place:'러시아',head:'Новый год в России',items:[['В России Новый год встречают 1 января.','러시아에서는 1월 1일에 새해를 맞아요.'],['В каждом доме наряжают ёлку.','집집마다 새해 나무 ‘욜카’를 꾸며요.'],['Дед Мороз приносит детям подарки.','‘마로스 할아버지’가 아이들에게 선물을 가져다줘요.']]},
@@ -191,6 +227,7 @@ const PHRASES={
  star:[['작은 별','star'],['별이 떨어졌어요','star'],['고양이 나비','cat'],['높은 나무','tree'],['부엉이가 날아왔어요','owl'],['하늘로 돌아갔어요','sky']],
  umbrella:[['비가 와요','rain'],['노란 우산','umbrella'],['같이 쓰자','umbrella'],['강아지를 만났어요','puppy'],['모두 함께','frog'],['무지개가 떴어요','rainbow']],
  seollal:[['설날 아침','seollal'],['고운 한복','hanbok'],['새해 복 많이 받으세요','grandma'],['복주머니를 주셨어요','pouch'],['떡국을 먹었어요','tteokguk'],['윷놀이를 했어요','yut']],
+ firstday:[['안녕하세요','teacher'],['제 이름은 아리예요','friend'],['같이 놀자','friend'],['화장실 가고 싶어요','toilet'],['잘 먹겠습니다','rice'],['도와주세요','teacher']],
  axe:[['착한 나무꾼','woodcutter'],['도끼가 빠졌어요','axe'],['금도끼 은도끼','gold'],['제 도끼예요','axe'],['욕심쟁이 이웃','axe'],['정직한 마음','woodcutter']],
 };
 STORIES.forEach(s=>{if(PHRASES[s.id])s.phrases=PHRASES[s.id].map(([ko,w])=>({ko,w}));});
