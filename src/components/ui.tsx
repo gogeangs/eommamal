@@ -1,4 +1,5 @@
 import { ICON, V, WORD_ART, langById } from '../content';
+import { t } from '../lib/childUi';
 import { svg } from '../content/art.js';
 import { useProgress } from '../lib/progress';
 import { hasVoice, speak } from '../lib/speech';
@@ -95,7 +96,7 @@ export function Progress({ label, i, n }: { label: string; i: number; n: number 
         </p>
       </div>
       <div className="bar">
-        <i style={{ width: `${(i / n) * 100}%` }} />
+        <i style={{ width: `${((i + 1) / Math.max(n, 1)) * 100}%` }} />
       </div>
     </>
   );
