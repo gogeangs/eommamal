@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { t } from '../lib/childUi';
 import { ALL_WORDS, UI, V, findStory, looksAlike, pickSession, shuffle } from '../content';
 import { Progress, Tile, TopBar } from '../components/ui';
 import { useProgress } from '../lib/progress';
@@ -28,6 +29,7 @@ export function Quiz({ storyId }: { storyId: string }) {
   const [tried, setTried] = useState(false);
   const [wrong, setWrong] = useState<string[]>([]);
   const [right, setRight] = useState<string | null>(null);
+  const [readyNext, setReadyNext] = useState(false);
   const ui = UI[p.lang];
   const r = rounds[i];
 
@@ -57,12 +59,14 @@ export function Quiz({ storyId }: { storyId: string }) {
       if (!tried) setStars((s) => s + 1);
       addWord('learned', id);
       sayKo(id);
-      setTimeout(() => {
+      setReadyNext(true);
+      /* Child controls the pace: no abrupt automatic advance. */
+      /* setTimeout(() => {
         setI((x) => x + 1);
         setTried(false);
         setWrong([]);
         setRight(null);
-      }, 1300);
+      }, 1300); */
     } else {
       setWrong((w) => [...w, id]);
       setTried(true);
@@ -78,7 +82,7 @@ export function Quiz({ storyId }: { storyId: string }) {
       <section className="stack">
         {r.type === 'listen' ? (
           <>
-            <p className="qtitle">소리를 듣고 그림을 골라요</p>
+            <p className="qtitle">{t(p.lang,'choose')}</p>
             <p className="lead" lang={p.lang}>{ui.lp}</p>
             <button className="btn2" onClick={() => sayKo(r.w)}>▶ 다시 듣기</button>
           </>
@@ -106,9 +110,10 @@ export function Quiz({ storyId }: { storyId: string }) {
           </button>
         ))}
       </div>
-      <p className="fb">
-        {right ? `${V[r.w].ko} · ${V[r.w][p.lang]} — ${ui.ok}` : wrong.length ? '다시 들어 보고 골라 볼까요?' : ''}
+      <p className="fb" aria-live="polite">
+        {right ? `${V[r.w].ko} · ${V[r.w][p.lang]} — ${t(p.lang,'wellDone')}` : wrong.length ? `${t(p.lang,'retry')} · 다시 들어 보고 골라 볼까요?` : ''}
       </p>
+      {readyNext && <button className="play next-round" onClick={() => {setI(x=>x+1);setTried(false);setWrong([]);setRight(null);setReadyNext(false);}}>{t(p.lang,'next')} · 다음 ▶</button>}
     </>
   );
 }

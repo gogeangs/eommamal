@@ -37,6 +37,7 @@ export interface Progress {
   quizStars: Record<string, number>; // best first-try score per story
   dictStars: Record<string, number>;
   pages: Record<string, number>; // last page read per story
+  lastOpenedStoryId: string; // most recently opened book
 }
 
 const DEFAULTS: Progress = {
@@ -52,6 +53,7 @@ const DEFAULTS: Progress = {
   quizStars: {},
   dictStars: {},
   pages: {},
+  lastOpenedStoryId: '',
 };
 
 function load(): Progress {

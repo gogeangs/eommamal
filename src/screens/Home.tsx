@@ -1,18 +1,9 @@
 import { useState } from 'react';
+import { t } from '../lib/childUi';
 import { ALL_WORDS, LANGS, STORIES, type LangId, type Story } from '../content';
 import { Illus, Scene, Tile, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { useNav, type HomeTab } from '../nav';
-
-/** Short reading tip for parents, in their own language. */
-const PARENT_TIP: Record<LangId, string> = {
-  ru: 'Сначала прочитайте вместе на родном языке, потом — по-корейски.',
-  mn: 'Эхлээд эх хэлээрээ хамт уншаад, дараа нь солонгосоор уншаарай.',
-  vi: 'Hãy cùng con đọc bằng tiếng mẹ đẻ trước, rồi đọc lại bằng tiếng Hàn.',
-  uz: "Avval ona tilida birga o'qing, keyin koreyschada qayta o'qing.",
-  zh: '先和孩子用母语一起读，再用韩语读一遍。',
-  en: 'Read together in your home language first, then again in Korean.',
-};
 
 /* ---------- language ---------- */
 
@@ -44,6 +35,24 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
             </button>
           ))}
         </div>
+        {!welcome && <section className="parent-settings">
+          <h3>보호자 설정</h3>
+          <p>아이의 읽기 방식과 글자 크기를 바꿀 수 있어요.</p>
+          <div className="seg parent-setting-row" role="group" aria-label="읽기 언어">
+            <button aria-pressed={p.mode === 'both'} onClick={() => set('mode','both')}>두 언어</button>
+            <button aria-pressed={p.mode === 'mo'} onClick={() => set('mode','mo')}>모국어</button>
+            <button aria-pressed={p.mode === 'ko'} onClick={() => set('mode','ko')}>한국어</button>
+          </div>
+          <div className="seg parent-setting-row" role="group" aria-label="글자 크기">
+            <button aria-pressed={p.textSize === 'm'} onClick={() => set('textSize','m')}>보통 글자</button>
+            <button aria-pressed={p.textSize === 'l'} onClick={() => set('textSize','l')}>큰 글자</button>
+          </div>
+          <div className="seg parent-setting-row" role="group" aria-label="받아쓰기 방식">
+            <button aria-pressed={p.dictMode === 'blocks'} onClick={() => set('dictMode','blocks')}>글자 블록</button>
+            <button aria-pressed={p.dictMode === 'keys'} onClick={() => set('dictMode','keys')}>자판 입력</button>
+          </div>
+          <p lang={p.lang} className="parent-tip">아이와 모국어로 먼저 읽고 한국어로 다시 읽어 보세요.</p>
+        </section>}
         {!welcome && <button className="btn2" onClick={onClose}>닫기</button>}
       </div>
     </div>
@@ -52,19 +61,14 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
 
 /* ---------- books tab ---------- */
 
-function BookCard({ s, wide = false }: { s: Story; wide?: boolean }) {
+function BookCard({ s, wide = true }: { s: Story; wide?: boolean }) {
   const { p } = useProgress();
   const nav = useNav();
-  const q = p.quizStars[s.id];
-  const d = p.dictStars[s.id];
   const info = (
     <>
       <b lang={p.lang}>{s.title[p.lang]}</b>
-      <span>{s.title.ko} · {s.sub}</span>
-      <em className="meta">
-        {s.pages.length}쪽 · {q != null ? `★ ${q} / ${s.words.length}` : `낱말 ${s.words.length}개`}
-        {d != null ? ` · ✎ ${d} / ${s.words.length}` : ''}
-      </em>
+      <span>{s.title.ko}</span>
+      <span className="book-sub">{s.sub}</span>
     </>
   );
   return (
@@ -85,14 +89,15 @@ function BookCard({ s, wide = false }: { s: Story; wide?: boolean }) {
 function ContinueCard() {
   const { p } = useProgress();
   const nav = useNav();
-  const s = STORIES.find((x) => (p.pages[x.id] ?? 0) > 0);
+  const s = STORIES.find((x) => x.id === p.lastOpenedStoryId && (p.pages[x.id] ?? 0) > 0)
+    ?? STORIES.find((x) => (p.pages[x.id] ?? 0) > 0);
   if (!s) return null;
   const page = p.pages[s.id];
   return (
     <button className="continue" onClick={() => nav({ view: 'read', story: s.id })}>
       <Scene page={s.pages[page]} className="cover" />
       <div>
-        <span className="label" style={{ margin: 0 }}>이어 읽기</span>
+        <span className="label" style={{ margin: 0 }}>{t(p.lang, 'continue')} · 이어 읽기</span>
         <b lang={p.lang}>{s.title[p.lang]}</b>
         <span>{s.title.ko} · {page + 1} / {s.pages.length}쪽</span>
         <div className="mini-bar"><i style={{ width: `${((page + 1) / s.pages.length) * 100}%` }} /></div>
@@ -107,18 +112,14 @@ function BooksTab() {
   return (
     <>
       <ContinueCard />
-      <p className="tip" lang={p.lang}>
-        <b>{PARENT_TIP[p.lang]}</b>
-        <span lang="ko">모국어로 먼저 함께 읽고, 한국어로 다시 읽어 보세요.</span>
-      </p>
       <section>
-        <p className="label">이야기</p>
+        <p className="label">{t(p.lang, 'newStories')} · 새 이야기</p>
         <div className="shelf">
-          {STORIES.filter((s) => !s.culture).map((s) => <BookCard key={s.id} s={s} />)}
+          {STORIES.filter((s) => !s.culture).map((s) => <BookCard key={s.id} s={s} wide />)}
         </div>
       </section>
       <section>
-        <p className="label">문화 이야기 · 한국과 우리 나라</p>
+        <p className="label">우리의 문화 이야기</p>
         {STORIES.filter((s) => s.culture).map((s) => <BookCard key={s.id} s={s} wide />)}
       </section>
     </>
@@ -128,9 +129,9 @@ function BooksTab() {
 /* ---------- study tab ---------- */
 
 const ACTIVITIES = [
-  { view: 'quiz', icon: '◎', name: '낱말 놀이', hint: '소리를 듣고 그림을 골라요. 글을 몰라도 할 수 있어요.', step: '알아보기' },
-  { view: 'trace', icon: '✍', name: '따라 쓰기', hint: '번호와 화살표를 따라 획순대로 써요.', step: '따라 쓰기' },
-  { view: 'dict', icon: '✎', name: '받아쓰기', hint: '듣고 글자 블록이나 자판으로 써요.', step: '혼자 쓰기' },
+  { view: 'quiz', name: '낱말 놀이', step: '알아보기' },
+  { view: 'trace', name: '따라 쓰기', step: '따라 쓰기' },
+  { view: 'dict', name: '받아쓰기', step: '혼자 쓰기' },
 ] as const;
 
 function StudyTab() {
@@ -139,16 +140,17 @@ function StudyTab() {
   const scopes: [string, string][] = [['all', '모든 낱말'], ...STORIES.map((s): [string, string] => [s.id, s.title.ko])];
   return (
     <>
-      <section className="stack">
+      <details className="parent-scope">
+        <summary>이야기 선택 · 모든 낱말</summary>
         <p className="label" style={{ margin: 0 }}>무엇으로 공부할까요?</p>
         <div className="chips" role="group" aria-label="공부할 낱말">
           {scopes.map(([id, name]) => (
             <button key={id} className="chip" aria-pressed={p.scope === id} onClick={() => set('scope', id)}>{name}</button>
           ))}
         </div>
-      </section>
+      </details>
       <section className="stack">
-        <p className="label" style={{ margin: 0 }}>순서대로 하면 좋아요</p>
+        <p className="label" style={{ margin: 0 }}>그림을 누르고 놀아요</p>
         <ol className="act-list">
           {ACTIVITIES.map((a, i) => (
             <li key={a.view}>
@@ -156,8 +158,8 @@ function StudyTab() {
                 <span className="act-icon" aria-hidden="true"><Illus name={`act-${a.view}`} className="" /></span>
                 <span className="act-text">
                   <small>{i + 1}단계 · {a.step}</small>
-                  <b>{a.name}</b>
-                  <span>{a.hint}</span>
+                  <b>{a.view === 'quiz' ? t(p.lang,'play') : a.view === 'trace' ? t(p.lang,'trace') : t(p.lang,'dictation')}</b>
+                  <span>{a.name}</span>
                 </span>
                 <span className="go-arrow" aria-hidden="true">›</span>
               </button>
@@ -176,22 +178,23 @@ function WordsTab() {
   const pct = Math.round((p.learned.length / ALL_WORDS.length) * 100);
   return (
     <>
-      <section className="summary">
+      <details className="parent-stats"><summary>모은 낱말 기록 보기</summary><section className="summary">
         <div><b>{p.learned.length}</b><span>모은 낱말</span></div>
         <div><b>{p.written.length}</b><span>받아쓴 낱말</span></div>
         <div><b>{p.traced.length}</b><span>따라 쓴 낱말</span></div>
       </section>
+      </details>
       <div className="mini-bar" aria-label={`전체 낱말 중 ${pct}% 모음`}><i style={{ width: `${pct}%` }} /></div>
       {p.learned.length === 0 && (
         <section className="empty-words">
           <Illus name="empty-words" className="illus empty-art" />
-          <p>아직 모은 낱말이 없어요. 공부 탭의 낱말 놀이로 첫 낱말을 모아 보세요.</p>
+          <p>낱말 친구를 만나러 가 볼까요? 놀기에서 시작해요!</p>
         </section>
       )}
       <section>
-        <p className="label">낱말장 · 눌러서 들어요</p>
+        <p className="label">{t(p.lang,'words')} · 내 낱말을 눌러 들어요</p>
         <div className="wbook">
-          {ALL_WORDS.map((id) =>
+          {ALL_WORDS.filter((id) => p.learned.includes(id)).map((id) =>
             p.learned.includes(id) ? (
               <WordCard key={id} id={id} />
             ) : (
@@ -227,17 +230,17 @@ export function Home({ tab }: { tab: HomeTab }) {
   const nav = useNav();
   const [sheet, setSheet] = useState(false);
   const lang = LANGS.find((l) => l.id === p.lang)!;
-  const [title, lead] = TITLES[tab];
+  const [title] = TITLES[tab];
 
   return (
     <>
       <header className="home-head">
         <div>
           <h1>{title}</h1>
-          <p className="lead">{lead}</p>
+          <p className="lead">{tab === 'books' ? t(p.lang,'storyPrompt') : tab === 'study' ? `${t(p.lang,'play')} · 그림을 보고 소리를 들어요` : `${t(p.lang,'words')} · 내가 모은 낱말`}</p>
         </div>
         <button className="lang-btn" onClick={() => setSheet(true)} aria-label={`우리 집 말: ${lang.ko}. 바꾸기`}>
-          <small>우리 집 말</small>
+          <small>🔒 {t(p.lang, 'parent')}</small>
           <b>{lang.name} ▾</b>
         </button>
       </header>
@@ -246,17 +249,18 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 
-      <footer className="home-foot">
+      <details className="parent-footer"><summary>🔒 보호자 안내 · 문의</summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
         <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
         <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
-      </footer>
+      </footer></details>
 
       <div className="tabbar-space" aria-hidden="true" />
       <nav className="tabbar" aria-label="메뉴">
-        {TABS.map((t) => (
-          <button key={t.id} aria-current={tab === t.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: t.id })}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.icon} /></svg>
-            <span>{t.label}</span>
+        {TABS.map((item) => (
+          <button key={item.id} aria-current={tab === item.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: item.id })}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={item.icon} /></svg>
+            <span>{item.id === 'books' ? '이야기' : item.id === 'study' ? '놀기' : '내 낱말'}</span>
+            <small>{t(p.lang,item.id === 'books' ? 'books' : item.id === 'study' ? 'play' : 'words')}</small>
           </button>
         ))}
       </nav>

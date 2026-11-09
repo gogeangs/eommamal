@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { t } from '../lib/childUi';
 import { UI, V, findStory, syllables, SESSION, pickSession } from '../content';
 import { Illus, Progress, Tile, TopBar, WordCard } from '../components/ui';
 import { matches, partial, strokesFor, type Pt } from '../lib/hangul';
@@ -87,7 +88,7 @@ export function Trace({ storyId }: { storyId: string }) {
       if (badTrail) path(badTrail, C.bad, W * 0.6);
       if (trail) path(trail, C.leaf, W * 0.8);
     };
-    const hint = () => setMsg({ text: `${ST.length}획 중 ${stroke + 1}번째 획 · 노란 숫자에서 시작해 화살표 쪽으로 그어요` });
+    const hint = () => setMsg({ text: `노란 점에서 시작해요 · ${stroke + 1}/${ST.length}` });
 
     const demo = () => {
       cancelAnimationFrame(raf); busy = true;
@@ -130,7 +131,7 @@ export function Trace({ storyId }: { storyId: string }) {
         } else hint();
       } else {
         miss++; badTrail = u; draw();
-        setMsg({ text: miss >= 3 ? '획순을 다시 보여 줄게요. 잘 보고 따라 해요.' : '다시 해 볼까요? 노란 숫자에서 시작해 화살표 쪽으로 그어요.', bad: true });
+        setMsg({ text: miss >= 3 ? '다시 보여 줄게요!' : `${t(p.lang,'retry')} · 노란 점에서 시작해요.`, bad: true });
         timers.push(window.setTimeout(() => { badTrail = null; if (!busy) draw(); }, 700));
         if (miss >= 3) { miss = 0; timers.push(window.setTimeout(demo, 400)); }
       }
@@ -191,9 +192,9 @@ export function Trace({ storyId }: { storyId: string }) {
       <div className="pad">
         <canvas ref={canvasRef} role="img" aria-label={`${sy[si]} 글자를 획순대로 따라 쓰는 칸`} />
       </div>
-      <p className="fb" style={{ color: msg.bad ? '#E06A55' : undefined }}>{msg.text}</p>
+      <p className="fb" aria-live="polite" style={{ color: msg.bad ? '#E06A55' : undefined }}>{msg.text}</p>
       <div className="tools">
-        <button className="btn2" onClick={() => setDemoTick((t) => t + 1)}>▶ 획순 보기</button>
+        <button className="btn2" onClick={() => setDemoTick((t) => t + 1)}>▶ 획순 보기 · 따라 해요</button>
         <button className="btn2" onClick={() => { setDemoTick(0); setRound((x) => x + 1); }}>이 글자 다시</button>
       </div>
     </>

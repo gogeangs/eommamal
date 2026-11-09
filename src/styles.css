@@ -276,3 +276,63 @@ img{max-width:100%}
 .sheet{gap:12px;padding-top:18px}
 .lang-opt{min-height:60px;padding:10px 14px}
 @media (max-height:700px){.welcome-art{display:none}}
+
+/* Child-friendly layout: generous surfaces, quiet type hierarchy */
+body{font-size:18px}
+.wrap{gap:18px}
+.home-head h1{font-size:1.85rem}
+.home-head .lead{font-size:1rem}
+.book.wide{width:100%;min-height:154px;padding:12px;background:var(--card);border:2px solid var(--line);border-radius:22px;box-shadow:0 3px 0 var(--line)}
+.book.wide .cover{width:49%;border-radius:16px;box-shadow:none}
+.book.wide b{font-size:1.28rem}
+.book.wide .book-sub{font-size:.85rem}
+.book.wide>div{gap:6px}
+.shelf{grid-template-columns:1fr;gap:12px}
+.continue{min-height:140px;border:2px solid var(--sun);box-shadow:0 3px 0 var(--line)}
+.label{font-size:.88rem;letter-spacing:0}
+.tabbar button{font-size:.95rem;min-height:64px}
+.tabbar button small{font-size:.67rem;font-weight:700;line-height:1.2}
+.tabbar svg{width:28px;height:28px}
+.btn2,.play{min-height:60px}
+.act-row{min-height:116px;border-radius:22px}
+.act-icon{width:72px;height:72px}
+.act-text b{font-size:1.3rem}
+.parent-scope,.parent-stats{padding:10px;background:var(--card);border:1.5px solid var(--line);border-radius:18px}
+.parent-scope summary,.parent-stats summary{font-family:var(--ko);font-size:.9rem;cursor:pointer}
+.parent-scope .chips{margin-top:12px}
+.wbook{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.wcard{border-radius:22px;background:var(--card);padding:12px;min-height:160px}
+.wcard .tile{border-radius:16px}
+.wcard b{font-size:1.2rem}
+.wcard span{font-size:.9rem}
+.opts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.opt{min-height:126px;border-radius:24px;padding:14px;box-shadow:0 3px 0 var(--line)}
+.opt .tile{min-height:92px}
+.next-round{width:100%;font-size:1.2rem}
+.reader-settings{padding:12px;border-radius:20px;background:var(--card);border:1.5px solid var(--line)}
+.reader-tools{flex-wrap:wrap}
+.reader-small-heading{display:none}
+.reader .w{display:inline-block;border-radius:10px;background:var(--leaf-soft);padding:3px 6px;margin:1px;min-height:38px}
+.scene-btn{border-radius:24px;overflow:hidden}
+.scene-btn .tap-hint{width:52px;height:52px}
+.controls{grid-template-columns:62px 1fr 76px;gap:8px}
+.controls .round{width:100%;min-height:60px;height:60px;font-size:1.1rem;font-weight:800}
+.controls .play{min-height:60px}
+.sheet{border-radius:28px 28px 0 0}
+.lang-opt{min-height:72px;border-radius:20px}
+@media(max-width:380px){.book.wide .cover{width:43%}.controls{grid-template-columns:52px 1fr 68px}.opt{min-height:112px}}
+
+/* Parent area and progressive dictation */
+.parent-settings{display:flex;flex-direction:column;gap:10px;border-top:1.5px solid var(--line);padding-top:14px}
+.parent-settings h3{font-size:1.15rem;margin:0;font-family:var(--ko)}
+.parent-settings p{font-size:.85rem;color:var(--muted);margin:0}
+.parent-setting-row{align-self:stretch;justify-content:space-between;flex-wrap:wrap}
+.parent-setting-row button{flex:1;font-size:.85rem}
+.parent-footer{padding:10px 0;font-size:.85rem;color:var(--muted)}
+.parent-footer>summary{font-weight:700;cursor:pointer}
+.dict-options{padding:8px 0}
+.dict-options summary{font-size:.85rem;color:var(--muted);cursor:pointer}
+.dict-options .seg{margin-top:10px;max-width:100%}
+.dict-options .seg button{min-width:0}
+.fb{font-size:1rem;min-height:1.5em}
+@media (prefers-reduced-motion:reduce){.opt,.book,.play,.round{animation:none!important;transition:none!important}}

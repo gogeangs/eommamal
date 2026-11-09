@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { t } from '../lib/childUi';
 import { NO_VOICE, UI, V, findStory, langById, splitKorean } from '../content';
 import { Scene, Tile, TopBar, useSayWord } from '../components/ui';
 import { useProgress, type ReadMode } from '../lib/progress';
@@ -33,6 +34,7 @@ export function Reader({ storyId }: { storyId: string }) {
   const [speaking, setSpeaking] = useState(false);
   const [hi, setHi] = useState<Hi>(null);
   const [voiceNote, setVoiceNote] = useState('');
+  const [showTools, setShowTools] = useState(false);
   const lang = langById(p.lang);
   const ui = UI[p.lang];
   const pg = st.pages[page];
@@ -45,6 +47,7 @@ export function Reader({ storyId }: { storyId: string }) {
 
   useEffect(() => {
     set('pages', { ...p.pages, [st.id]: page });
+    set('lastOpenedStoryId', st.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   useEffect(() => () => stopSpeaking(), []);
@@ -106,6 +109,9 @@ export function Reader({ storyId }: { storyId: string }) {
   return (
     <div className="reader">
       <TopBar>
+        <button className="size-btn" aria-expanded={showTools} onClick={() => setShowTools(v => !v)}>⚙ {t(p.lang, 'settings')}</button>
+      </TopBar>
+      {showTools && <div className="reader-settings" role="group" aria-label="읽기 설정">
         <div className="reader-tools">
           <button
             className="size-btn"
@@ -121,8 +127,8 @@ export function Reader({ storyId }: { storyId: string }) {
             <button aria-pressed={p.mode === 'ko'} onClick={() => setMode('ko')}>한국어</button>
           </div>
         </div>
-      </TopBar>
-      <div>
+      </div>}
+      <div className={page > 0 ? 'reader-small-heading' : ''}>
         <h2 lang={p.lang}>{st.title[p.lang]}</h2>
         <p className="lead" style={{ margin: '2px 0 0' }}>{st.title.ko}</p>
       </div>
@@ -178,7 +184,7 @@ export function Reader({ storyId }: { storyId: string }) {
       </div>
 
       <section>
-        <p className="label">이 쪽의 낱말 · 눌러서 들어요</p>
+        <p className="label">그림 낱말 · 눌러서 들어요</p>
         <div className="pw">
           {pg.w.map((id) => (
             <button key={id} className="pchip" onClick={() => say(id)}>
@@ -204,10 +210,10 @@ export function Reader({ storyId }: { storyId: string }) {
           <div className="controls">
             <button className="round" aria-label="이전 쪽" disabled={page === 0} onClick={() => go(-1)}>‹</button>
             <button className="play" onClick={readAloud}>
-              {speaking ? `■ ${ui.stop}` : `▶ ${ui.listen} · 듣기`}
+              {speaking ? `■ ${ui.stop}` : `▶ ${ui.listen} · ${t(p.lang,'listen')}`}
             </button>
             <button className={`round${last ? ' go' : ''}`} aria-label={last ? '다 읽었어요' : '다음 쪽'} onClick={() => go(1)}>
-              {last ? '✓' : '›'}
+              {last ? '✓ 끝' : '다음 ›'}
             </button>
           </div>
         </div>
