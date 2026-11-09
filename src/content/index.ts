@@ -60,4 +60,11 @@ export const langById = (id: LangId) => LANGS.find((l) => l.id === id)!;
 export const WORD_ART: Record<string, string> = {
   star: '#FFF1C7', night: '#E2E6F2', cat: '#FCE8D4', tree: '#E2EFDF', sky: '#FFF6DA',
   owl: '#F2E6D8', umbrella: '#EAF2F7', rain: '#FFF6DA', puppy: '#F3E9DC',
+  frog: '#FFF1C7', sparrow: '#E6F0DF', rainbow: '#EAF2F7', seollal: '#EAF2F7', hanbok: '#E6F0DF',
+  grandma: '#FFF1C7', pouch: '#FFF6DA', tteokguk: '#E6F0DF',
 };
+
+/** Word pairs whose pictures look alike; the word game never offers one as a wrong choice for the other. */
+const LOOKALIKE: [string, string][] = [['seollal', 'pouch'], ['sky', 'rainbow'], ['night', 'star']];
+export const looksAlike = (a: string, b: string) =>
+  LOOKALIKE.some(([x, y]) => (x === a && y === b) || (x === b && y === a));

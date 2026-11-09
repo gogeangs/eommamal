@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ALL_WORDS, UI, V, findStory, shuffle } from '../content';
+import { ALL_WORDS, UI, V, findStory, looksAlike, shuffle } from '../content';
 import { Progress, Tile, TopBar } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { speak } from '../lib/speech';
@@ -11,7 +11,7 @@ const makeRounds = (words: string[]): Round[] =>
   shuffle(words).map((w, i) => ({
     w,
     type: i % 2 ? 'see' : 'listen',
-    opts: shuffle([w, ...shuffle(ALL_WORDS.filter((x) => x !== w)).slice(0, 2)]),
+    opts: shuffle([w, ...shuffle(ALL_WORDS.filter((x) => x !== w && !looksAlike(x, w))).slice(0, 2)]),
   }));
 
 const sayKo = (id: string) => speak([{ text: V[id].ko, lang: 'ko-KR', rate: 0.7 }]);
