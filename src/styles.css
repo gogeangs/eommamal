@@ -321,3 +321,18 @@ body{font-size:18px}
 .sheet{border-radius:28px 28px 0 0}
 .lang-opt{min-height:72px;border-radius:20px}
 @media(max-width:380px){.book.wide .cover{width:43%}.controls{grid-template-columns:52px 1fr 68px}.opt{min-height:112px}}
+
+/* Parent area and progressive dictation */
+.parent-settings{display:flex;flex-direction:column;gap:10px;border-top:1.5px solid var(--line);padding-top:14px}
+.parent-settings h3{font-size:1.15rem;margin:0;font-family:var(--ko)}
+.parent-settings p{font-size:.85rem;color:var(--muted);margin:0}
+.parent-setting-row{align-self:stretch;justify-content:space-between;flex-wrap:wrap}
+.parent-setting-row button{flex:1;font-size:.85rem}
+.parent-footer{padding:10px 0;font-size:.85rem;color:var(--muted)}
+.parent-footer>summary{font-weight:700;cursor:pointer}
+.dict-options{padding:8px 0}
+.dict-options summary{font-size:.85rem;color:var(--muted);cursor:pointer}
+.dict-options .seg{margin-top:10px;max-width:100%}
+.dict-options .seg button{min-width:0}
+.fb{font-size:1rem;min-height:1.5em}
+@media (prefers-reduced-motion:reduce){.opt,.book,.play,.round{animation:none!important;transition:none!important}}
