@@ -1,128 +1,11 @@
 # 엄마말 그림책 — 남은 이미지 프롬프트
 
-완료: 캐릭터 시트 7장, 앱 아이콘, 동화 장면 18장, 낱말 아이콘 18개. **남은 이미지 12장**과 다시 만들기 7장(권장 5장 + 선택 2장)입니다.
+완료: 캐릭터 시트 7장, 앱 아이콘, 동화 장면 18장, 낱말 아이콘 18개, 화면용 일러스트 6장. **남은 이미지 6장(문화 비교 카드)**과 다시 만들기 9장(권장 5장 + 선택 4장)입니다.
 
 - 각 프롬프트를 그대로 복사해서 ChatGPT에 붙여 넣으세요. 공통 규칙(그림체·색·글자 금지·투명 배경·크기·파일 이름)이 모두 들어 있어요.
 - **첨부**가 적힌 항목은 저장소 `art/characters/` 의 정리된 캐릭터 시트를 함께 올려 주세요.
-- 화면용 일러스트 6장, 문화 비교 카드 6장은 각각 **한 대화에서 이어서** 만들면 그림체가 맞아요.
+- 문화 비교 카드 6장은 **한 대화에서 이어서** 만들면 그림체가 맞아요. 완성 후에는 꼭 해당 나라 출신 분께 확인받으세요.
 - 나비는 동화 장면에 맞춰 **스카프 없이** 그리도록 했어요.
-
-
----
-
-## 화면용 일러스트
-
-### 공부 탭 1단계 "낱말 놀이"
-
-저장 이름: `ui-act-quiz.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Illustration for the 'word game' activity: a child's ear with small sound waves next to three picture cards, one card glowing as the right choice. Cards show simple shapes only.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: ui-act-quiz.png
-```
-
-### 공부 탭 2단계 "따라 쓰기"
-
-저장 이름: `ui-act-trace.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Illustration for the 'stroke-order tracing' activity: a child's fingertip tracing a dotted curved stroke on grid paper, with a small round yellow start dot and an arrow showing direction. No real letters or numbers.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: ui-act-trace.png
-```
-
-### 공부 탭 3단계 "받아쓰기"
-
-저장 이름: `ui-act-dict.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Illustration for the 'dictation' activity: three wooden letter blocks with blank faces being placed into a row of empty boxes, a small speaker shape nearby.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: ui-act-dict.png
-```
-
-### 처음 열 때 언어 고르기 화면
-
-저장 이름: `ui-welcome.png`  ·  첨부: char-mini.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-A parent and Mini sitting together on a cozy floor cushion reading an open picture book; two soft speech bubbles in different colors (green and yellow) rise from the book, empty inside. The parent's ethnicity is ambiguous. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous.
-
-Format: Landscape 1536x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: ui-welcome.png
-```
-
-### 낱말장이 비어 있을 때
-
-저장 이름: `ui-empty-words.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-An empty open wooden treasure box with a few sparkles around it, waiting to be filled with word cards. Hopeful mood.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: ui-empty-words.png
-```
-
-### 놀이·받아쓰기 결과 화면
-
-저장 이름: `ui-celebrate.png`  ·  첨부: char-mini.png, char-nabi.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Nabi the cat and Mini cheering with arms up, confetti and three big sunflower-yellow stars around them. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: ui-celebrate.png
-```
 
 
 ---
@@ -240,7 +123,9 @@ File name: culture-world.png
 
 ---
 
-## 다시 만들기 권장
+## 다시 만들기
+
+**권장**은 이야기 흐름이나 문화 정확도에 영향을 주는 것, **(선택)**은 캐릭터 일관성을 위한 것이에요.
 
 ### 『작은 별』 1쪽 — 밤하늘에서 작은 별 하나가 떨어졌어요.
 
@@ -392,4 +277,48 @@ Format: Square 1024x1024, transparent background.
 Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
 
 File name: word-grandma.png
+```
+
+### 처음 열 때 언어 고르기 화면
+
+이유: (선택) 아이가 미니와 머리 모양·옷이 달라요.
+
+저장 이름: `ui-welcome.png`  ·  첨부: char-mini.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
+
+A parent and Mini sitting together on a cozy floor cushion reading an open picture book; two soft speech bubbles in different colors (green and yellow) rise from the book, empty inside. The parent's ethnicity is ambiguous. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous. The girl must be Mini exactly as in the attached sheet: shoulder-length dark brown hair with a small side bun and orange hair clip, coral-red dress with a white round collar.
+
+Format: Landscape 1536x1024, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: ui-welcome.png
+```
+
+### 놀이·받아쓰기 결과 화면
+
+이유: (선택) 고양이가 삼색 고양이, 아이가 다른 옷차림이라 나비·미니로 보이지 않아요.
+
+저장 이름: `ui-celebrate.png`  ·  첨부: char-mini.png, char-nabi.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
+
+Nabi the cat and Mini cheering with arms up, confetti and three big sunflower-yellow stars around them. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous. The cat must be Nabi exactly as in the attached sheet: orange tabby with stripes, no scarf or collar. The girl must be Mini exactly as in the attached sheet: shoulder-length dark brown hair with a small side bun and orange hair clip, coral-red dress with a white round collar. No overalls.
+
+Format: Square 1024x1024, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: ui-celebrate.png
 ```
