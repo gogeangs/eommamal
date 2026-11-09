@@ -23,7 +23,7 @@ const sayKo = (text: string, rate = 0.75) => speak([{ text, lang: 'ko-KR', rate 
 
 /** Dictation: hear a word and spell it with letter blocks or the keyboard. */
 export function Dictation({ storyId }: { storyId: string }) {
-  const { p, set, addWord } = useProgress();
+  const { p, set, addWord, miss: missWord, hit } = useProgress();
   const st = findStory(storyId);
   const [seed, setSeed] = useState(0);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,7 +76,7 @@ export function Dictation({ storyId }: { storyId: string }) {
     const word = V[r.w].ko;
     if (answer === word) {
       setDone(true);
-      if (miss === 0 && !hint) setStars((s) => s + 1);
+      if (miss === 0 && !hint) { setStars((s) => s + 1); hit(r.w); }
       addWord('written', r.w);
       addWord('learned', r.w);
       setMsg(`${word} · ${V[r.w][p.lang]} — ${ui.ok}`);
@@ -85,6 +85,7 @@ export function Dictation({ storyId }: { storyId: string }) {
     } else {
       const m = miss + 1;
       setMiss(m);
+      if (m === 1) missWord(r.w);
       setShake((s) => s + 1);
       setMsg(m >= 3 ? `정답은 “${word}”예요. 따라 써 볼까요?` : `${t(p.lang,'retry')} · 다시 들어 볼까요?`);
       if (m >= 3) setHint(true);

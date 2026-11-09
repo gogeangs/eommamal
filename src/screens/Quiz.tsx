@@ -19,7 +19,7 @@ const sayKo = (id: string) => speak([{ text: V[id].ko, lang: 'ko-KR', rate: 0.7 
 
 /** Word game: hear a word and pick the picture, or see a picture and pick the Korean word. */
 export function Quiz({ storyId }: { storyId: string }) {
-  const { p, addWord } = useProgress();
+  const { p, addWord, miss, hit } = useProgress();
   const st = findStory(storyId);
   const [seed, setSeed] = useState(0);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,13 +56,14 @@ export function Quiz({ storyId }: { storyId: string }) {
     if (right) return;
     if (id === r.w) {
       setRight(id);
-      if (!tried) setStars((s) => s + 1);
+      if (!tried) { setStars((s) => s + 1); hit(id); }
       addWord('learned', id);
       sayKo(id);
       setReadyNext(true);
       // The child moves on with the 'next' button, at their own pace.
     } else {
       setWrong((w) => [...w, id]);
+      if (!tried) miss(r.w);
       setTried(true);
       // Children who can't read yet need to hear the word again, not just see a shake.
       setTimeout(() => sayKo(r.w), 350);

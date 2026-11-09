@@ -11,6 +11,7 @@ import { Trace } from './screens/Trace';
 import { Contact } from './screens/Contact';
 import { Sentence } from './screens/Sentence';
 import { Admin } from './screens/Admin';
+import { Parent } from './screens/Parent';
 import { contentStore, previewActive } from './lib/contentStore';
 
 // Routes live in the URL hash (#read-star, #quiz-all …) so the back button and shared links work.
@@ -22,13 +23,14 @@ function parse(hash: string): Route {
   if (h === 'study' || h === 'words') return { view: 'home', tab: h };
   if (h === 'contact') return { view: 'contact' };
   if (h === 'admin') return { view: 'admin' };
+  if (h === 'parent') return { view: 'parent' };
   const m = hash.replace(/^#/, '').match(/^(read|done|quiz|dict|trace|sent)-([a-z]+)$/);
   if (!m || !hasStory(m[2])) return { view: 'home' };
   if ((m[1] === 'read' || m[1] === 'done') && m[2] === 'all') return { view: 'home' };
   return { view: m[1] as Exclude<Route['view'], 'home'>, story: m[2] };
 }
 const toHash = (r: Route) =>
-  r.view === 'home' ? (r.tab && r.tab !== 'books' ? `#${r.tab}` : '') : r.view === 'contact' ? '#contact' : r.view === 'admin' ? '#admin' : `#${r.view}-${r.story}`;
+  r.view === 'home' ? (r.tab && r.tab !== 'books' ? `#${r.tab}` : '') : r.view === 'contact' ? '#contact' : r.view === 'admin' ? '#admin' : r.view === 'parent' ? '#parent' : `#${r.view}-${r.story}`;
 
 export function App() {
   const [route, setRoute] = useState<Route>(() => parse(location.hash));
@@ -69,6 +71,7 @@ export function App() {
     case 'trace': screen = <Trace storyId={route.story} />; break;
     case 'contact': screen = <Contact />; break;
     case 'admin': screen = <Admin />; break;
+    case 'parent': screen = <Parent />; break;
     case 'sent': screen = <Sentence storyId={route.story} />; break;
     default: screen = <Home tab={route.tab ?? 'books'} />;
   }

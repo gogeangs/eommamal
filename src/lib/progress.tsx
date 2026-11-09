@@ -1,24 +1,28 @@
 // Learner settings and progress, kept in this browser (localStorage).
+// Several children can share one device: each child (profile) has its own set of keys.
 // A server-backed store (Supabase) can replace this module without touching the screens.
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 import type { LangId } from '../content/types';
 
-const PREFIX = 'emb-';
+const ROOT = 'emb-';
 
-function read<T>(key: string, fallback: T): T {
+function readKey<T>(key: string, fallback: T): T {
   try {
-    const v = localStorage.getItem(PREFIX + key);
+    const v = localStorage.getItem(key);
     return v == null ? fallback : (JSON.parse(v) as T);
   } catch {
     return fallback;
   }
 }
-function write(key: string, value: unknown) {
+function writeKey(key: string, value: unknown) {
   try {
-    localStorage.setItem(PREFIX + key, JSON.stringify(value));
+    localStorage.setItem(key, JSON.stringify(value));
   } catch {
     /* storage unavailable: keep working in memory */
   }
+}
+function removeKey(key: string) {
+  try { localStorage.removeItem(key); } catch { /* ignore */ }
 }
 
 export type ReadMode = 'both' | 'mo' | 'ko';
@@ -39,6 +43,9 @@ export interface Progress {
   dictStars: Record<string, number>;
   pages: Record<string, number>; // last page read per story
   lastOpenedStoryId: string; // most recently opened book
+  finished: string[]; // stories read to the last page at least once
+  misses: Record<string, number>; // word → wrong answers not yet made up for by a later first-try answer
+  days: string[]; // dates (YYYY-MM-DD, local) the child read or played, newest last
 }
 
 const DEFAULTS: Progress = {
@@ -56,51 +63,148 @@ const DEFAULTS: Progress = {
   dictStars: {},
   pages: {},
   lastOpenedStoryId: '',
+  finished: [],
+  misses: {},
+  days: [],
 };
+const KEYS = Object.keys(DEFAULTS) as (keyof Progress)[];
+/** Settings a new child copies from the child currently using the device. */
+const SHARED: (keyof Progress)[] = ['lang', 'langChosen', 'mode', 'textSize', 'dictMode'];
 
-function load(): Progress {
+/* ---------- profiles ---------- */
+
+export interface Profile { id: string; name: string; avatar: string }
+export const AVATARS = ['cat', 'puppy', 'frog', 'owl', 'sparrow', 'star'];
+const FIRST: Profile = { id: 'p1', name: '', avatar: 'cat' };
+
+// The first child keeps the original keys (emb-learned …) so existing records carry over.
+const prefix = (pid: string) => (pid === 'p1' ? ROOT : `${ROOT}${pid}-`);
+
+function loadProfiles(): Profile[] {
+  const list = readKey<Profile[]>(`${ROOT}profiles`, []);
+  return list.length ? list : [FIRST];
+}
+
+function load(pid: string): Progress {
   const p = { ...DEFAULTS };
-  (Object.keys(DEFAULTS) as (keyof Progress)[]).forEach((k) => {
-    (p as Record<string, unknown>)[k] = read(k, DEFAULTS[k]);
-  });
+  KEYS.forEach((k) => { (p as Record<string, unknown>)[k] = readKey(prefix(pid) + k, DEFAULTS[k]); });
   return p;
 }
+
+const today = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
+type WordList = 'learned' | 'written' | 'traced' | 'sentences' | 'finished';
 
 interface Ctx {
   p: Progress;
   set: <K extends keyof Progress>(key: K, value: Progress[K]) => void;
-  addWord: (list: 'learned' | 'written' | 'traced' | 'sentences', id: string) => void;
+  addWord: (list: WordList, id: string) => void;
   bestScore: (kind: 'quizStars' | 'dictStars', storyId: string, score: number) => void;
+  /** a wrong answer for this word (call once per round) */
+  miss: (id: string) => void;
+  /** a first-try right answer: makes up for one earlier miss */
+  hit: (id: string) => void;
+  profiles: Profile[];
+  profile: Profile;
+  switchProfile: (id: string) => void;
+  addProfile: (name: string, avatar: string) => void;
+  updateProfile: (id: string, patch: Partial<Omit<Profile, 'id'>>) => void;
+  removeProfile: (id: string) => void;
+  resetProfile: (id: string) => void;
 }
 
 const ProgressContext = createContext<Ctx | null>(null);
 
 export function ProgressProvider({ children }: { children: ReactNode }) {
-  const [p, setP] = useState<Progress>(load);
+  const [profiles, setProfiles] = useState<Profile[]>(loadProfiles);
+  const [pid, setPid] = useState<string>(() => {
+    const id = readKey<string>(`${ROOT}profile`, 'p1');
+    return loadProfiles().some((x) => x.id === id) ? id : 'p1';
+  });
+  const [p, setP] = useState<Progress>(() => load(pid));
+
+  const saveProfiles = (list: Profile[]) => { writeKey(`${ROOT}profiles`, list); setProfiles(list); };
 
   const set = useCallback(<K extends keyof Progress>(key: K, value: Progress[K]) => {
-    write(key, value);
+    writeKey(prefix(pid) + key, value);
     setP((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  }, [pid]);
 
-  const addWord = useCallback((list: 'learned' | 'written' | 'traced' | 'sentences', id: string) => {
+  /** Applies a change and records today as a learning day. */
+  const change = useCallback((fn: (prev: Progress) => Partial<Progress> | null) => {
     setP((prev) => {
-      if (prev[list].includes(id)) return prev;
-      const next = [...prev[list], id];
-      write(list, next);
-      return { ...prev, [list]: next };
+      const patch = fn(prev);
+      if (!patch) return prev;
+      const d = today();
+      if (prev.days[prev.days.length - 1] !== d) patch.days = [...prev.days, d].slice(-120);
+      (Object.keys(patch) as (keyof Progress)[]).forEach((k) => writeKey(prefix(pid) + k, patch[k]));
+      return { ...prev, ...patch };
     });
-  }, []);
+  }, [pid]);
+
+  const addWord = useCallback((list: WordList, id: string) => {
+    change((prev) => (prev[list].includes(id) ? {} : { [list]: [...prev[list], id] }));
+  }, [change]);
 
   const bestScore = useCallback((kind: 'quizStars' | 'dictStars', storyId: string, score: number) => {
-    setP((prev) => {
-      const next = { ...prev[kind], [storyId]: Math.max(prev[kind][storyId] ?? 0, score) };
-      write(kind, next);
-      return { ...prev, [kind]: next };
+    change((prev) => ({ [kind]: { ...prev[kind], [storyId]: Math.max(prev[kind][storyId] ?? 0, score) } }));
+  }, [change]);
+
+  const miss = useCallback((id: string) => {
+    change((prev) => ({ misses: { ...prev.misses, [id]: (prev.misses[id] ?? 0) + 1 } }));
+  }, [change]);
+
+  const hit = useCallback((id: string) => {
+    change((prev) => {
+      const n = prev.misses[id];
+      if (!n) return {};
+      const misses = { ...prev.misses };
+      if (n > 1) misses[id] = n - 1; else delete misses[id];
+      return { misses };
     });
+  }, [change]);
+
+  const switchProfile = useCallback((id: string) => {
+    writeKey(`${ROOT}profile`, id);
+    setPid(id);
+    setP(load(id));
   }, []);
 
-  const value = useMemo(() => ({ p, set, addWord, bestScore }), [p, set, addWord, bestScore]);
+  const addProfile = useCallback((name: string, avatar: string) => {
+    const id = `p${Date.now().toString(36)}`;
+    SHARED.forEach((k) => writeKey(prefix(id) + k, p[k]));
+    saveProfiles([...profiles, { id, name, avatar }]);
+    switchProfile(id);
+  }, [p, profiles, switchProfile]);
+
+  const updateProfile = useCallback((id: string, patch: Partial<Omit<Profile, 'id'>>) => {
+    saveProfiles(profiles.map((x) => (x.id === id ? { ...x, ...patch } : x)));
+  }, [profiles]);
+
+  const clearData = (id: string, keepShared: boolean) =>
+    KEYS.forEach((k) => { if (!(keepShared && SHARED.includes(k))) removeKey(prefix(id) + k); });
+
+  const removeProfile = useCallback((id: string) => {
+    if (profiles.length < 2) return;
+    clearData(id, false);
+    const list = profiles.filter((x) => x.id !== id);
+    saveProfiles(list);
+    if (id === pid) switchProfile(list[0].id);
+  }, [profiles, pid, switchProfile]);
+
+  const resetProfile = useCallback((id: string) => {
+    clearData(id, true);
+    if (id === pid) setP(load(id));
+  }, [pid]);
+
+  const profile = profiles.find((x) => x.id === pid) ?? profiles[0];
+  const value = useMemo(
+    () => ({ p, set, addWord, bestScore, miss, hit, profiles, profile, switchProfile, addProfile, updateProfile, removeProfile, resetProfile }),
+    [p, set, addWord, bestScore, miss, hit, profiles, profile, switchProfile, addProfile, updateProfile, removeProfile, resetProfile],
+  );
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
 }
 
@@ -109,3 +213,6 @@ export function useProgress() {
   if (!c) throw new Error('useProgress must be used inside ProgressProvider');
   return c;
 }
+
+/** Display name for a child; the first child may have no name yet. */
+export const childName = (pr: Profile, i: number) => pr.name.trim() || `아이 ${i + 1}`;

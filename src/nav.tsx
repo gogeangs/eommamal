@@ -5,6 +5,7 @@ export type Route =
   | { view: 'home'; tab?: HomeTab }
   | { view: 'contact' }
   | { view: 'admin' }
+  | { view: 'parent' }
   | { view: 'read' | 'done' | 'quiz' | 'dict' | 'trace' | 'sent'; story: string };
 
 /** replace: swap the current history entry, so the back button skips the screen being left. */

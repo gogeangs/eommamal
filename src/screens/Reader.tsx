@@ -25,7 +25,7 @@ const tokenAt = (toks: { start: number }[], ch: number) => {
 type Hi = { line: 'mo' | 'ko'; word: number } | null;
 
 export function Reader({ storyId }: { storyId: string }) {
-  const { p, set } = useProgress();
+  const { p, set, addWord } = useProgress();
   const nav = useNav();
   const say = useSayWord();
   const st = findStory(storyId);
@@ -66,6 +66,7 @@ export function Reader({ storyId }: { storyId: string }) {
     setVoiceNote('');
     if (d > 0 && last) {
       set('pages', { ...p.pages, [st.id]: 0 });
+      addWord('finished', st.id);
       nav({ view: 'done', story: st.id });
       return;
     }

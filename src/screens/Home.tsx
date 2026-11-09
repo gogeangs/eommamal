@@ -2,13 +2,16 @@ import { useState } from 'react';
 import { t } from '../lib/childUi';
 import { ALL_WORDS, LANGS, STORIES, type LangId, type Story } from '../content';
 import { Illus, Scene, Tile, WordCard } from '../components/ui';
-import { useProgress } from '../lib/progress';
+import { childName, useProgress } from '../lib/progress';
+import { Avatar } from './Parent';
+import { pt } from '../lib/parentUi';
 import { useNav, type HomeTab } from '../nav';
 
 /* ---------- language ---------- */
 
 function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => void }) {
   const { p, set } = useProgress();
+  const nav = useNav();
   const pick = (id: LangId) => {
     set('lang', id);
     set('langChosen', true);
@@ -36,6 +39,9 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
           ))}
         </div>
         {!welcome && <section className="parent-settings">
+          <button className="parent-link" onClick={() => nav({ view: 'parent' })}>
+            <span><span lang={p.lang}>{pt(p.lang, 'title')}</span> · 우리 아이 기록 보기</span><span aria-hidden="true">›</span>
+          </button>
           <h3>보호자 설정</h3>
           <p>아이의 읽기 방식과 글자 크기를 바꿀 수 있어요.</p>
           <div className="seg parent-setting-row" role="group" aria-label="읽기 언어">
@@ -178,10 +184,12 @@ function StudyTab() {
 
 function WordsTab() {
   const { p } = useProgress();
+  const nav = useNav();
   const pct = Math.round((p.learned.length / ALL_WORDS.length) * 100);
   return (
     <>
-      <details className="parent-stats"><summary>모은 낱말 기록 보기</summary><section className="summary">
+      <details className="parent-stats"><summary>모은 낱말 기록 보기</summary>
+      <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>우리 아이 기록 자세히 보기 (보호자용)</span><span aria-hidden="true">›</span></button><section className="summary">
         <div><b>{p.learned.length}</b><span>모은 낱말</span></div>
         <div><b>{p.written.length}</b><span>받아쓴 낱말</span></div>
         <div><b>{p.traced.length}</b><span>따라 쓴 낱말</span></div>
@@ -228,8 +236,31 @@ const TITLES: Record<HomeTab, [string, string]> = {
   words: ['내 낱말장', '맞힌 낱말이 모여요. 받아쓰기까지 하면 ✎ 표시가 붙어요'],
 };
 
+function ChildSheet({ onClose }: { onClose: () => void }) {
+  const { profiles, profile, switchProfile } = useProgress();
+  const nav = useNav();
+  return (
+    <div className="sheet-backdrop" onClick={onClose}>
+      <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="child-title" onClick={(e) => e.stopPropagation()}>
+        <h2 id="child-title">누가 읽을까요?</h2>
+        <div className="lang-list">
+          {profiles.map((pr, i) => (
+            <button key={pr.id} className="lang-opt child-opt" aria-pressed={pr.id === profile.id} onClick={() => { switchProfile(pr.id); onClose(); }}>
+              <Avatar pr={pr} size={44} />
+              <b>{childName(pr, i)}</b>
+            </button>
+          ))}
+        </div>
+        <button className="btn2" onClick={() => nav({ view: 'parent' })}>아이 추가·관리 (보호자)</button>
+        <button className="btn2" onClick={onClose}>닫기</button>
+      </div>
+    </div>
+  );
+}
+
 export function Home({ tab }: { tab: HomeTab }) {
-  const { p } = useProgress();
+  const { p, profiles, profile } = useProgress();
+  const [kids, setKids] = useState(false);
   const nav = useNav();
   const [sheet, setSheet] = useState(false);
   const lang = LANGS.find((l) => l.id === p.lang)!;
@@ -242,10 +273,18 @@ export function Home({ tab }: { tab: HomeTab }) {
           <h1>{title}</h1>
           <p className="lead">{tab === 'books' ? t(p.lang,'storyPrompt') : tab === 'study' ? `${t(p.lang,'play')} · 그림을 보고 소리를 들어요` : `${t(p.lang,'words')} · 내가 모은 낱말`}</p>
         </div>
+        <div className="home-actions">
+        {profiles.length > 1 && (
+          <button className="child-chip" onClick={() => setKids(true)} aria-label={`지금 읽는 아이: ${childName(profile, profiles.indexOf(profile))}. 바꾸기`}>
+            <Avatar pr={profile} size={36} />
+            <span>{childName(profile, profiles.indexOf(profile))}</span>
+          </button>
+        )}
         <button className="lang-btn" onClick={() => setSheet(true)} aria-label={`우리 집 말: ${lang.ko}. 바꾸기`}>
           <small>{t(p.lang, 'parent')}</small>
           <b>{lang.name} ▾</b>
         </button>
+        </div>
       </header>
 
       {tab === 'books' && <BooksTab />}
@@ -253,6 +292,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'words' && <WordsTab />}
 
       <details className="parent-footer"><summary>보호자 안내 · 문의</summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
+        <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span><span lang={p.lang}>{pt(p.lang, 'title')}</span> · 우리 아이 기록</span><span aria-hidden="true">›</span></button>
         <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
         <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
         <button className="foot-link quiet" onClick={() => nav({ view: 'admin' })}>콘텐츠 관리 (운영자용) ›</button>
@@ -270,6 +310,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       </nav>
 
       {(sheet || !p.langChosen) && <LanguageSheet welcome={!p.langChosen} onClose={() => setSheet(false)} />}
+      {kids && <ChildSheet onClose={() => setKids(false)} />}
     </>
   );
 }
