@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { t } from '../lib/childUi';
 import { ALL_WORDS, LANGS, STORIES, type LangId, type Story } from '../content';
 import { Illus, Scene, Tile, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
@@ -52,19 +53,14 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
 
 /* ---------- books tab ---------- */
 
-function BookCard({ s, wide = false }: { s: Story; wide?: boolean }) {
+function BookCard({ s, wide = true }: { s: Story; wide?: boolean }) {
   const { p } = useProgress();
   const nav = useNav();
-  const q = p.quizStars[s.id];
-  const d = p.dictStars[s.id];
   const info = (
     <>
       <b lang={p.lang}>{s.title[p.lang]}</b>
-      <span>{s.title.ko} · {s.sub}</span>
-      <em className="meta">
-        {s.pages.length}쪽 · {q != null ? `★ ${q} / ${s.words.length}` : `낱말 ${s.words.length}개`}
-        {d != null ? ` · ✎ ${d} / ${s.words.length}` : ''}
-      </em>
+      <span>{s.title.ko}</span>
+      <span className="book-sub">{s.sub}</span>
     </>
   );
   return (
@@ -85,14 +81,15 @@ function BookCard({ s, wide = false }: { s: Story; wide?: boolean }) {
 function ContinueCard() {
   const { p } = useProgress();
   const nav = useNav();
-  const s = STORIES.find((x) => (p.pages[x.id] ?? 0) > 0);
+  const s = STORIES.find((x) => x.id === p.lastOpenedStoryId && (p.pages[x.id] ?? 0) > 0)
+    ?? STORIES.find((x) => (p.pages[x.id] ?? 0) > 0);
   if (!s) return null;
   const page = p.pages[s.id];
   return (
     <button className="continue" onClick={() => nav({ view: 'read', story: s.id })}>
       <Scene page={s.pages[page]} className="cover" />
       <div>
-        <span className="label" style={{ margin: 0 }}>이어 읽기</span>
+        <span className="label" style={{ margin: 0 }}>{t(p.lang, 'continue')} · 이어 읽기</span>
         <b lang={p.lang}>{s.title[p.lang]}</b>
         <span>{s.title.ko} · {page + 1} / {s.pages.length}쪽</span>
         <div className="mini-bar"><i style={{ width: `${((page + 1) / s.pages.length) * 100}%` }} /></div>
@@ -107,18 +104,14 @@ function BooksTab() {
   return (
     <>
       <ContinueCard />
-      <p className="tip" lang={p.lang}>
-        <b>{PARENT_TIP[p.lang]}</b>
-        <span lang="ko">모국어로 먼저 함께 읽고, 한국어로 다시 읽어 보세요.</span>
-      </p>
       <section>
-        <p className="label">이야기</p>
+        <p className="label">{t(p.lang, 'newStories')} · 새 이야기</p>
         <div className="shelf">
-          {STORIES.filter((s) => !s.culture).map((s) => <BookCard key={s.id} s={s} />)}
+          {STORIES.filter((s) => !s.culture).map((s) => <BookCard key={s.id} s={s} wide />)}
         </div>
       </section>
       <section>
-        <p className="label">문화 이야기 · 한국과 우리 나라</p>
+        <p className="label">우리의 문화 이야기</p>
         {STORIES.filter((s) => s.culture).map((s) => <BookCard key={s.id} s={s} wide />)}
       </section>
     </>
@@ -139,16 +132,17 @@ function StudyTab() {
   const scopes: [string, string][] = [['all', '모든 낱말'], ...STORIES.map((s): [string, string] => [s.id, s.title.ko])];
   return (
     <>
-      <section className="stack">
+      <details className="parent-scope">
+        <summary>이야기 선택 · 모든 낱말</summary>
         <p className="label" style={{ margin: 0 }}>무엇으로 공부할까요?</p>
         <div className="chips" role="group" aria-label="공부할 낱말">
           {scopes.map(([id, name]) => (
             <button key={id} className="chip" aria-pressed={p.scope === id} onClick={() => set('scope', id)}>{name}</button>
           ))}
         </div>
-      </section>
+      </details>
       <section className="stack">
-        <p className="label" style={{ margin: 0 }}>순서대로 하면 좋아요</p>
+        <p className="label" style={{ margin: 0 }}>그림을 누르고 놀아요</p>
         <ol className="act-list">
           {ACTIVITIES.map((a, i) => (
             <li key={a.view}>
@@ -176,11 +170,12 @@ function WordsTab() {
   const pct = Math.round((p.learned.length / ALL_WORDS.length) * 100);
   return (
     <>
-      <section className="summary">
+      <details className="parent-stats"><summary>모은 낱말 기록 보기</summary><section className="summary">
         <div><b>{p.learned.length}</b><span>모은 낱말</span></div>
         <div><b>{p.written.length}</b><span>받아쓴 낱말</span></div>
         <div><b>{p.traced.length}</b><span>따라 쓴 낱말</span></div>
       </section>
+      </details>
       <div className="mini-bar" aria-label={`전체 낱말 중 ${pct}% 모음`}><i style={{ width: `${pct}%` }} /></div>
       {p.learned.length === 0 && (
         <section className="empty-words">
@@ -191,7 +186,7 @@ function WordsTab() {
       <section>
         <p className="label">낱말장 · 눌러서 들어요</p>
         <div className="wbook">
-          {ALL_WORDS.map((id) =>
+          {ALL_WORDS.filter((id) => p.learned.includes(id)).map((id) =>
             p.learned.includes(id) ? (
               <WordCard key={id} id={id} />
             ) : (
@@ -234,10 +229,10 @@ export function Home({ tab }: { tab: HomeTab }) {
       <header className="home-head">
         <div>
           <h1>{title}</h1>
-          <p className="lead">{lead}</p>
+          <p className="lead">{tab === 'books' ? '오늘은 어떤 이야기를 볼까요?' : tab === 'study' ? '그림을 보고, 소리를 듣고 놀아요!' : '내가 모은 낱말 친구들'}</p>
         </div>
         <button className="lang-btn" onClick={() => setSheet(true)} aria-label={`우리 집 말: ${lang.ko}. 바꾸기`}>
-          <small>우리 집 말</small>
+          <small>🔒 {t(p.lang, 'parent')}</small>
           <b>{lang.name} ▾</b>
         </button>
       </header>
@@ -256,7 +251,7 @@ export function Home({ tab }: { tab: HomeTab }) {
         {TABS.map((t) => (
           <button key={t.id} aria-current={tab === t.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: t.id })}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.icon} /></svg>
-            <span>{t.label}</span>
+            <span>{t.id === 'books' ? '이야기' : t.id === 'study' ? '놀기' : '내 낱말'}</span><small>{t.id === 'books' ? ['Истории','Үлгэр','Truyện','Ertaklar','故事','Stories'][LANGS.findIndex(l=>l.id===p.lang)] : t.id === 'study' ? ['Играть','Тоглох','Chơi',"O'ynash",'游戏','Play'][LANGS.findIndex(l=>l.id===p.lang)] : ['Мои слова','Миний үгс','Từ của em',"So'zlarim",'我的词语','My words'][LANGS.findIndex(l=>l.id===p.lang)]}</small>
           </button>
         ))}
       </nav>
