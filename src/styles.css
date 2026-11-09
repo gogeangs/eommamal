@@ -340,3 +340,5 @@ body{font-size:18px}
 /* fixes after the child-friendly UI merge */
 .book.wide{box-sizing:border-box;max-width:100%}
 .opts .opt:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}
+
+.ctag.folk{background:var(--leaf-soft);color:var(--leaf)}

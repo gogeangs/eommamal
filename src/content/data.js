@@ -1,6 +1,6 @@
 // Story, vocabulary and culture content. Text in every supported language lives here.
 /* eslint-disable */
-import {star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
+import {mountain,axe,pond,woodcutter,spirit,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
 
 export const LANGS=[
  {id:'ru',name:'Русский',ko:'러시아어',tts:'ru-RU'},
@@ -126,6 +126,42 @@ Object.assign(ICON,{
 
 const PW={star:[['star','night'],['cat'],['star'],['tree','sky'],['owl'],['sky','star']],umbrella:[['rain','umbrella'],['puppy'],['umbrella'],['frog','sparrow'],['umbrella'],['rainbow']]};
 PW.seollal=[['seollal','hanbok'],['grandma'],['pouch'],['tteokguk'],['yut'],['seollal']];
+/* ---------- Korean folktale: 금도끼 은도끼 (public domain). Translations are drafts for native review. ---------- */
+STORIES.push({id:'axe',folk:true,
+ title:{ko:'금도끼 은도끼',ru:'Золотой топор, серебряный топор',mn:'Алтан сүх, мөнгөн сүх',vi:'Rìu vàng, rìu bạc',uz:'Oltin bolta, kumush bolta',zh:'金斧头银斧头',en:'The Golden Axe and the Silver Axe'},
+ sub:'정직한 나무꾼 이야기 · 한국 전래 동화',
+ pages:[
+ {art:()=>mountain(woodcutter(140,120)+axe(176,140,'#9AA3AD',1,20)+tree()),
+  ko:'옛날 옛날, 산속에 착한 나무꾼이 살았어요.',ru:'Давным-давно в горах жил добрый дровосек.',mn:'Эрт урьд цагт ууланд сайхан сэтгэлтэй модчин амьдардаг байжээ.',vi:'Ngày xửa ngày xưa, trên núi có một bác tiều phu hiền lành.',uz:"Qadim zamonda tog'da mehribon bir o'tinchi yashardi.",zh:'很久很久以前，山里住着一个善良的樵夫。',en:'Long, long ago, a kind woodcutter lived in the mountains.'},
+ {art:()=>mountain(pond(170,170)+woodcutter(80,112)+axe(170,150,'#9AA3AD',1,140)),
+  ko:'나무를 하다가 도끼가 연못에 퐁당 빠졌어요.',ru:'Он рубил дрова, и топор — плюх! — упал в пруд.',mn:'Мод хагалж байтал сүх нь цөөрөм рүү пал хийтэл унажээ.',vi:'Đang đốn củi thì chiếc rìu rơi tõm xuống ao.',uz:"O'tin yorayotganda boltasi hovuzga shalop etib tushib ketdi.",zh:'砍柴的时候，斧头“扑通”一声掉进了池塘。',en:'While he was chopping wood, his axe fell — splash! — into the pond.'},
+ {art:()=>mountain(pond(170,176)+spirit(170,96)+woodcutter(70,112)),
+  ko:'연못에서 하얀 수염의 산신령이 나타났어요.',ru:'Из пруда появился горный дух с белой бородой.',mn:'Цөөрмөөс цагаан сахалтай уулын сүнс гарч ирэв.',vi:'Từ dưới ao, một ông tiên râu trắng hiện ra.',uz:"Hovuzdan oq soqolli tog' ruhi paydo bo'ldi.",zh:'池塘里出现了一位白胡子山神。',en:'A mountain spirit with a white beard rose from the pond.'},
+ {art:()=>mountain(pond(170,176)+spirit(190,96)+axe(150,92,'#F2B533',1.2,-20)+woodcutter(70,112)),
+  ko:'"이 금도끼가 네 도끼냐?" "아니요, 제 도끼는 쇠도끼예요."',ru:'«Это твой золотой топор?» — «Нет, мой топор железный».',mn:'«Энэ алтан сүх чинийх үү?» «Үгүй ээ, миний сүх төмөр сүх».',vi:'"Rìu vàng này có phải của con không?" "Thưa không, rìu của con là rìu sắt ạ."',uz:'"Bu oltin bolta seniki-mi?" "Yo\'q, mening boltam temir bolta."',zh:'“这把金斧头是你的吗？”“不是，我的是铁斧头。”',en:'"Is this golden axe yours?" "No, mine is an iron axe."'},
+ {art:()=>mountain(spirit(220,100)+woodcutter(110,112)+axe(70,140,'#F2B533',1,-15)+axe(150,150,'#D9DEE4',1,10)+axe(185,150,'#9AA3AD',1,20)),
+  ko:'산신령은 정직한 나무꾼에게 금도끼와 은도끼도 주었어요.',ru:'Горный дух подарил честному дровосеку ещё золотой и серебряный топоры.',mn:'Уулын сүнс үнэнч модчинд алтан, мөнгөн сүхийг бас өгөв.',vi:'Ông tiên tặng bác tiều phu thật thà cả rìu vàng và rìu bạc.',uz:"Tog' ruhi rostgo'y o'tinchiga oltin va kumush boltani ham sovg'a qildi.",zh:'山神把金斧头和银斧头也送给了诚实的樵夫。',en:'The spirit gave the honest woodcutter the golden and silver axes too.'},
+ {art:()=>mountain(woodcutter(110,112)+axe(150,140,'#F2B533',1,10)+'<circle cx="250" cy="50" r="22" fill="#F7DC6F"/>'),
+  ko:'정직한 마음이 제일 소중해요. 나무꾼은 오래오래 행복하게 살았어요.',ru:'Честное сердце дороже всего. Дровосек жил долго и счастливо.',mn:'Үнэнч сэтгэл хамгаас эрхэм. Модчин урт удаан аз жаргалтай амьдарчээ.',vi:'Tấm lòng thật thà là quý nhất. Bác tiều phu sống hạnh phúc mãi mãi.',uz:"Rostgo'y qalb hammadan qimmat. O'tinchi uzoq va baxtli yashadi.",zh:'诚实的心最珍贵。樵夫从此过上了幸福的生活。',en:'An honest heart matters most. The woodcutter lived happily ever after.'},
+ ]});
+Object.assign(V,{
+ woodcutter:{ko:'나무꾼',ru:'дровосек',mn:'модчин',vi:'tiều phu',uz:"o'tinchi",zh:'樵夫',en:'woodcutter',bg:'#DCEBDD'},
+ mountain:{ko:'산',ru:'гора',mn:'уул',vi:'núi',uz:"tog'",zh:'山',en:'mountain',bg:'#DCEBDD'},
+ axe:{ko:'도끼',ru:'топор',mn:'сүх',vi:'cái rìu',uz:'bolta',zh:'斧头',en:'axe',bg:'#F3E9DC'},
+ pond:{ko:'연못',ru:'пруд',mn:'цөөрөм',vi:'cái ao',uz:'hovuz',zh:'池塘',en:'pond',bg:'#EAF2F7'},
+ spirit:{ko:'산신령',ru:'горный дух',mn:'уулын сүнс',vi:'ông tiên núi',uz:"tog' ruhi",zh:'山神',en:'mountain spirit',bg:'#F4F1E8'},
+ gold:{ko:'금',ru:'золото',mn:'алт',vi:'vàng',uz:'oltin',zh:'金子',en:'gold',bg:'#FFF1C7'},
+});
+Object.assign(ICON,{
+ woodcutter:[()=>woodcutter(0,0),'-26 -24 52 84'],
+ mountain:[()=>'<path d="M-30 20 L-8 -18 L4 0 L14 -12 L30 20Z" fill="#6E9F6A"/><path d="M-8 -18 L-2 -8 L-14 -8Z" fill="#FFFFFF"/>','-32 -30 64 56'],
+ axe:[()=>axe(0,0,'#9AA3AD',1,15),'-32 -34 64 66'],
+ pond:[()=>pond(0,0,26),'-30 -14 60 28'],
+ spirit:[()=>spirit(0,0),'-30 -26 66 90'],
+ gold:[()=>'<path d="M-22 10 L-14 -8 L14 -8 L22 10Z" fill="#F2B533"/><path d="M-10 -8 L-6 -16 L6 -16 L10 -8Z" fill="#F7D046"/>','-26 -22 52 38'],
+});
+PW.axe=[['woodcutter','mountain'],['axe','pond'],['spirit'],['gold','axe'],['gold'],['woodcutter']];
+
 
 export const CULTURE={
  ru:{place:'러시아',head:'Новый год в России',items:[['В России Новый год встречают 1 января.','러시아에서는 1월 1일에 새해를 맞아요.'],['В каждом доме наряжают ёлку.','집집마다 새해 나무 ‘욜카’를 꾸며요.'],['Дед Мороз приносит детям подарки.','‘마로스 할아버지’가 아이들에게 선물을 가져다줘요.']]},

@@ -16,6 +16,8 @@ export interface Story {
   pages: Page[];
   words: string[];
   culture?: boolean;
+  /** a Korean folktale */
+  folk?: boolean;
 }
 export interface Word extends Text { bg: string }
 export interface CultureCard { place: string; head: string; items: [string, string][] }

@@ -210,7 +210,7 @@ export function Reader({ storyId }: { storyId: string }) {
           <div className="controls">
             <button className="round" aria-label="이전 쪽" disabled={page === 0} onClick={() => go(-1)}>‹</button>
             <button className="play" onClick={readAloud}>
-              {speaking ? `■ ${ui.stop}` : `▶ ${ui.listen} · ${t(p.lang,'listen')}`}
+              {speaking ? `■ ${ui.stop}` : `▶ ${ui.listen} · 듣기`}
             </button>
             <button className={`round${last ? ' go' : ''}`} aria-label={last ? '다 읽었어요' : '다음 쪽'} onClick={() => go(1)}>
               {last ? '✓ 끝' : '다음 ›'}

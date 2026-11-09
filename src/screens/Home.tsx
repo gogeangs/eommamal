@@ -77,6 +77,7 @@ function BookCard({ s, wide = true }: { s: Story; wide?: boolean }) {
       {wide ? (
         <div>
           {s.culture && <span className="ctag">문화 비교 카드</span>}
+          {s.folk && <span className="ctag folk">한국 전래 동화</span>}
           {info}
         </div>
       ) : (
