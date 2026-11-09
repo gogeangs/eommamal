@@ -1,14 +1,15 @@
-import { ASK, CULTURE, UI, findStory, langById } from '../content';
+import { CULTURE, UI, findStory, langById } from '../content';
 import { t } from '../lib/childUi';
 import { Illus, TopBar, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { hasVoice, speak, type SpeechItem } from '../lib/speech';
 import { useNav } from '../nav';
 
-/** Compares Korean New Year with the learner's own culture, in both languages. */
-function CultureCard() {
+/** Compares the Korean holiday in the story with the learner's own culture, in both languages. */
+function CultureCard({ storyId }: { storyId: string }) {
   const { p } = useProgress();
-  const c = CULTURE[p.lang];
+  const set = CULTURE[storyId];
+  const c = set.cards[p.lang];
   const tts = langById(p.lang).tts;
   const read = () => {
     const q: SpeechItem[] = [];
@@ -21,11 +22,12 @@ function CultureCard() {
   };
   return (
     <section className="culture" aria-labelledby="ch">
-      <img className="culture-art" src={`${import.meta.env.BASE_URL}images/culture/${p.lang}.webp`} alt="" decoding="async" />
+      <img className="culture-art" src={`${import.meta.env.BASE_URL}images/culture/${set.img}${p.lang}.webp`} alt="" decoding="async"
+        onError={(e) => { e.currentTarget.hidden = true; }} />
       <span className="ctag">문화 비교</span>
       <div>
         <h2 id="ch" lang={p.lang}>{c.head}</h2>
-        <p className="lead" style={{ margin: '2px 0 0' }}>{c.place}의 새해는 어떨까요?</p>
+        <p className="lead" style={{ margin: '2px 0 0' }}>{c.place}{set.lead}</p>
       </div>
       <ol>
         {c.items.map(([m, k], i) => (
@@ -40,8 +42,8 @@ function CultureCard() {
       </ol>
       <button className="btn2 listen-c" onClick={read}>▶ {UI[p.lang].listen} · 듣기</button>
       <div className="ask">
-        <p className="mo" lang={p.lang}>{ASK[p.lang]}</p>
-        <p className="k">우리 집은 새해를 어떻게 보내요? 엄마 아빠에게 물어봐요!</p>
+        <p className="mo" lang={p.lang}>{set.ask[p.lang]}</p>
+        <p className="k">{set.askKo}</p>
       </div>
     </section>
   );
@@ -77,7 +79,7 @@ export function Done({ storyId }: { storyId: string }) {
           ))}
         </div>
       </section>
-      {st.culture && <CultureCard />}
+      {st.culture && CULTURE[st.id] && <CultureCard storyId={st.id} />}
       <section>
         <p className="label">이 책에서 만난 낱말 · 눌러서 들어요</p>
         <div className="wbook">

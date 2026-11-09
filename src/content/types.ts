@@ -27,3 +27,13 @@ export interface Story {
 }
 export interface Word extends Text { bg: string }
 export interface CultureCard { place: string; head: string; items: [string, string][] }
+/** One culture story's comparison card in every language. */
+export interface CultureSet {
+  /** picture file prefix under images/culture/ ('' → images/culture/ru.webp) */
+  img: string;
+  /** Korean lead after the place name, e.g. '의 새해는 어떨까요?' */
+  lead: string;
+  askKo: string;
+  ask: Record<LangId, string>;
+  cards: Record<LangId, CultureCard>;
+}

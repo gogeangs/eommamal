@@ -1,6 +1,6 @@
 // Story, vocabulary and culture content. Text in every supported language lives here.
 /* eslint-disable */
-import {classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
+import {fullMoon,songpyeon,persimmon,persimmonTree,dad,classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
 
 export const LANGS=[
  {id:'ru',name:'Русский',ko:'러시아어',tts:'ru-RU'},
@@ -210,16 +210,58 @@ Object.assign(ICON,{
 });
 PW.firstday=[['teacher'],['teacher'],['friend'],['friend'],['toilet','teacher'],['rice'],['teacher'],['friend']];
 
+/* ---------- 둥근 달 아래서 — Chuseok, with an autumn culture card. Translations are drafts for native review. ---------- */
+STORIES.push({id:'chuseok',culture:true,
+ title:{ko:'둥근 달 아래서',ru:'Под круглой луной',mn:'Дугуй сарны дор',vi:'Dưới ánh trăng tròn',uz:'Yumaloq oy ostida',zh:'圆圆的月亮下',en:'Under the Round Moon'},
+ sub:'한국의 추석, 그리고 우리 나라의 가을',
+ pages:[
+ {art:()=>yard(persimmonTree(270,96))+grandma(210,118)+dad(150,100,.9)+mom(110,100,.9)+hanbokGirl(60,120),
+  ko:"추석이에요. 미니네 가족은 할머니 댁에 모였어요.",ru:"Наступил Чусок. Вся семья Мини собралась в доме бабушки.",mn:"Чусог боллоо. Минигийн гэр бүл эмээгийнхээ гэрт цугларав.",vi:"Tết Chuseok đến rồi. Cả gia đình Mini quây quần ở nhà bà.",uz:"Chusok bayrami keldi. Minining oilasi buvisining uyida yig'ildi.",zh:"秋夕到了。米妮一家人都来到了奶奶家。",en:"It is Chuseok. Mini's family gathered at Grandma's house."},
+ {art:()=>room('<rect x="40" y="150" width="240" height="18" rx="4" fill="#8C5F33"/>')+grandma(222,100)+hanbokGirl(110,94)+songpyeon(170,140,1.2),
+  ko:"모두 둘러앉아 송편을 빚었어요. 미니가 빚은 송편은 조금 울퉁불퉁해요.",ru:"Все сели в круг и лепили сонпхён — рисовые пирожки. У Мини они получились немного кривенькими.",mn:"Бүгд тойрон суугаад сонпён боов хийв. Минигийн хийсэн боов жаахан овгор товгор болжээ.",vi:"Cả nhà ngồi quây quần nặn bánh songpyeon. Bánh Mini nặn hơi méo một chút.",uz:"Hamma davra qurib o'tirib, songpyon pishiriqlarini yasadi. Mini yasagan songpyon biroz notekis chiqdi.",zh:"大家围坐在一起做松饼。米妮做的松饼有点儿歪歪扭扭。",en:"Everyone sat in a circle making songpyeon rice cakes. Mini's songpyeon came out a little lumpy."},
+ {art:()=>yard(persimmonTree(170,90))+hanbokGirl(90,124)+grandma(250,128)+persimmon(120,150,8),
+  ko:"마당의 감나무에 주황빛 감이 주렁주렁 열렸어요. 미니는 할머니와 함께 감을 땄어요.",ru:"На дереве во дворе висело много оранжевой хурмы. Мини собирала хурму вместе с бабушкой.",mn:"Хашааны модонд улбар шар хурма бөөн бөөнөөрөө ургажээ. Мини эмээтэйгээ хамт хурма түүв.",vi:"Cây hồng trong sân trĩu quả màu cam. Mini cùng bà hái hồng.",uz:"Hovlidagi xurmo daraxtida to'q sariq xurmolar shingil-shingil osilib turardi. Mini buvisi bilan birga xurmo terdi.",zh:"院子里的柿子树上结满了橙色的柿子。米妮和奶奶一起摘柿子。",en:"The persimmon tree in the yard was full of orange persimmons. Mini picked them with Grandma."},
+ {art:()=>night(fullMoon(230,60,30))+hill('#2F4A3E')+hanbokGirl(110,120),
+  ko:"밤이 되자 커다랗고 둥근 보름달이 떠올랐어요.",ru:"Когда наступила ночь, взошла большая круглая полная луна.",mn:"Шөнө болоход том дугуй тэргэл сар мандлаа.",vi:"Khi đêm xuống, ông trăng tròn thật to mọc lên.",uz:"Kech kirgach, katta va yumaloq to'lin oy chiqdi.",zh:"天黑了，又大又圆的月亮升起来了。",en:"When night came, a big round full moon rose in the sky."},
+ {art:()=>night(fullMoon(240,54,26))+hill('#2F4A3E')+grandma(200,128)+hanbokGirl(120,120),
+  ko:"미니는 달님에게 소원을 빌었어요. \"우리 가족 모두 건강하게 해 주세요.\"",ru:"Мини загадала желание луне: «Пусть вся наша семья будет здорова».",mn:"Мини саранд хүсэл шивнэв: «Манай гэр бүлийнхэн бүгд эрүүл байгаасай».",vi:"Mini ước một điều với ông trăng: \"Mong cả nhà con luôn khỏe mạnh.\"",uz:"Mini oyga tilak bildirdi: \"Butun oilamiz sog'-salomat bo'lsin.\"",zh:"米妮对着月亮许愿：\"希望我们全家人都健健康康。\"",en:"Mini made a wish to the moon. \"Please keep my whole family healthy.\""},
+ {art:()=>`<rect width="320" height="220" fill="#1E2A4A"/>${twinkles(30,7)}`+fullMoon(250,50,22)+globe(190,124)+hanbokGirl(80,120),
+  ko:"\"다른 나라 친구들도 이 달을 보고 있을까?\" 둥근 달이 온 세상을 환하게 비춰요.",ru:"«Интересно, друзья в других странах тоже смотрят на эту луну?» Круглая луна ярко освещает весь мир.",mn:"«Бусад орны найзууд ч энэ сарыг харж байгаа болов уу?» Дугуй сар бүх дэлхийг гэрэлтүүлнэ.",vi:"\"Các bạn ở nước khác có đang ngắm ông trăng này không nhỉ?\" Ông trăng tròn soi sáng khắp thế gian.",uz:"\"Boshqa mamlakatlardagi do'stlar ham shu oyga qarab turishganmikan?\" Yumaloq oy butun dunyoni yoritib turibdi.",zh:"\"别的国家的小朋友也在看这个月亮吗？\"圆圆的月亮照亮了整个世界。",en:"\"Are friends in other countries looking at this moon too?\" The round moon lights up the whole world."},
+ ]});
+Object.assign(V,{
+ moon:{ko:'달',ru:'луна',mn:'сар',vi:'mặt trăng',uz:'oy',zh:'月亮',en:'moon',bg:'#1E2A4A'},
+ songpyeon:{ko:'송편',ru:'сонпхён',mn:'сонпён боов',vi:'bánh songpyeon',uz:'songpyon',zh:'松饼',en:'songpyeon',bg:'#F6EBD9'},
+ persimmon:{ko:'감',ru:'хурма',mn:'хурма',vi:'quả hồng',uz:'xurmo',zh:'柿子',en:'persimmon',bg:'#FFF1C7'},
+ family:{ko:'가족',ru:'семья',mn:'гэр бүл',vi:'gia đình',uz:'oila',zh:'家人',en:'family',bg:'#FCE8D4'},
+});
+Object.assign(ICON,{
+ moon:[()=>fullMoon(0,0,20),'-38 -38 76 76'],
+ songpyeon:[()=>songpyeon(0,0,1.3),'-34 -18 68 34'],
+ persimmon:[()=>persimmon(0,0,18),'-22 -26 44 46'],
+ family:[()=>dad(-22,0,.8)+mom(22,0,.8)+hanbokGirl(0,14),'-42 -26 84 100'],
+});
+PW.chuseok=[['family'],['songpyeon'],['persimmon'],['moon'],['moon','family'],['moon']];
 
+/** Culture comparison card shown after a culture story, keyed by story id. img = picture prefix under images/culture/. */
 export const CULTURE={
+seollal:{img:'',lead:'의 새해는 어떨까요?',askKo:'우리 집은 새해를 어떻게 보내요? 엄마 아빠에게 물어봐요!',ask:{ru:'Как встречают Новый год в нашей семье? Спроси у мамы и папы!',mn:'Манай гэр бүл шинэ жилийг яаж угтдаг вэ? Ээж ааваасаа асуугаарай!',vi:'Nhà mình đón năm mới thế nào? Hãy hỏi bố mẹ nhé!',uz:"Bizning oilamiz Yangi yilni qanday kutib oladi? Ota-onangdan so'ra!",zh:'我们家怎么过新年？去问问爸爸妈妈吧！',en:'How does your family celebrate New Year? Ask your mom and dad!'},cards:{
  ru:{place:'러시아',head:'Новый год в России',items:[['В России Новый год встречают 1 января.','러시아에서는 1월 1일에 새해를 맞아요.'],['В каждом доме наряжают ёлку.','집집마다 새해 나무 ‘욜카’를 꾸며요.'],['Дед Мороз приносит детям подарки.','‘마로스 할아버지’가 아이들에게 선물을 가져다줘요.']]},
  mn:{place:'몽골',head:'Монголын Цагаан сар',items:[['Монголын шинэ жилийг Цагаан сар гэдэг.','몽골의 설날은 ‘차강사르(하얀 달)’라고 해요.'],['Ахмад хүмүүстэйгээ золгож мэндэлдэг.','어른께 두 팔을 내밀어 ‘졸고흐’ 인사를 해요.'],['Бүгдээрээ бууз хийж иднэ.','온 가족이 만두 ‘보즈’를 빚어 먹어요.']]},
  vi:{place:'베트남',head:'Tết ở Việt Nam',items:[['Năm mới âm lịch ở Việt Nam gọi là Tết.','베트남의 설날은 ‘뗏(Tết)’이에요.'],['Mọi người gói và ăn bánh chưng.','네모난 떡 ‘반쯩’을 만들어 먹어요.'],['Trẻ em được nhận lì xì trong phong bao đỏ.','아이들은 빨간 봉투에 든 세뱃돈 ‘리시’를 받아요.']]},
  uz:{place:'우즈베키스탄',head:"O'zbekistonda Navro'z",items:[["O'zbekistonda bahor kelishini 21-mart kuni Navro'z bilan nishonlashadi.",'우즈베키스탄에서는 봄이 오는 3월 21일에 ‘나브루즈’를 맞아요.'],["Kechasi bilan birga aralashtirib, shirin sumalak pishirishadi.",'밤새 함께 저으며 달콤한 죽 ‘수말락’을 만들어요.'],["Qo'shnilar bilan taom ulashib, bayramni nishonlashadi.",'이웃과 음식을 나누며 함께 축하해요.']]},
  zh:{place:'중국',head:'中国的春节',items:[['中国的新年叫春节。','중국의 설날은 ‘춘절’이에요.'],['家家户户在门上贴红红的春联。','집집마다 문에 빨간 ‘춘련’을 붙여요.'],['孩子们会收到装着压岁钱的红包。','아이들은 세뱃돈이 든 빨간 봉투 ‘훙바오’를 받아요.']]},
  en:{place:'여러 나라',head:'New Year around the world',items:[['In many countries, New Year begins at midnight on January 1.','많은 나라에서 1월 1일 밤 12시에 새해가 시작돼요.'],['People count down together: ten, nine, eight…','다 같이 “십, 구, 팔…” 거꾸로 숫자를 세요.'],['Fireworks light up the night sky.','밤하늘에 불꽃놀이가 펼쳐져요.']]},
+}},
+chuseok:{img:'chuseok-',lead:'의 가을은 어떨까요?',askKo:'우리 집은 가을에 무엇을 해요? 엄마 아빠에게 물어봐요!',ask:{"ru": "Что делает наша семья осенью? Спроси у мамы и папы!", "mn": "Манай гэр бүл намар юу хийдэг вэ? Ээж ааваасаа асуугаарай!", "vi": "Nhà mình làm gì vào mùa thu? Hãy hỏi bố mẹ nhé!", "uz": "Bizning oilamiz kuzda nima qiladi? Ota-onangdan so'ra!", "zh": "我们家秋天做什么？去问问爸爸妈妈吧！", "en": "What does your family do in autumn? Ask your mom and dad!"},cards:{
+ ru:{place:"러시아",head:"Осень в России",items:[["Осенью в России собирают урожай на дачах.", "러시아에서는 가을에 텃밭이 있는 별장 ‘다차’에서 채소와 과일을 거둬요."], ["Всей семьёй ходят в лес за грибами.", "온 가족이 숲에 버섯을 따러 가요."], ["Бабушки варят варенье на зиму.", "할머니들은 겨울에 먹을 잼 ‘바레니예’를 만들어요."]]},
+ mn:{place:"몽골",head:"Монголын намар",items:[["Намар бол өвөлдөө бэлтгэх улирал.", "몽골의 가을은 겨울을 준비하는 계절이에요."], ["Гэр бүлүүд хамтдаа өвлийн идэш бэлтгэдэг.", "가족이 함께 겨울에 먹을 고기 ‘이데쉬’를 준비해요."], ["Махыг хатааж борц хийдэг.", "고기를 바람에 말려 ‘보르츠’를 만들어요."]]},
+ vi:{place:"베트남",head:"Tết Trung Thu ở Việt Nam",items:[["Tết Trung Thu là ngày rằm tháng Tám âm lịch.", "‘쭝투’는 음력 8월 15일, 추석과 같은 날이에요."], ["Trẻ em rước đèn ông sao và xem múa lân.", "아이들은 별 모양 등불을 들고 행진하고, 사자춤을 구경해요."], ["Cả nhà cùng ăn bánh trung thu và ngắm trăng.", "가족이 함께 월병을 먹으며 달을 봐요."]]},
+ uz:{place:"우즈베키스탄",head:"O'zbekistonda kuz",items:[["Kuzda O'zbekistonda hosil bayrami nishonlanadi.", "가을에 우즈베키스탄에서는 수확 축제를 열어요."], ["Bozorlar shirin qovun, tarvuz va uzumga to'ladi.", "시장은 달콤한 멜론, 수박, 포도로 가득해요."], ["Oila bilan birga osh damlab, dasturxon yozishadi.", "가족이 함께 볶음밥 ‘오쉬’를 만들어 상을 차려요."]]},
+ zh:{place:"중국",head:"中国的中秋节",items:[["中秋节在农历八月十五，和韩国的秋夕是同一天。", "중추절은 음력 8월 15일, 추석과 같은 날이에요."], ["家人一起吃圆圆的月饼。", "가족이 함께 동그란 ‘월병’을 먹어요."], ["晚上大家一起赏月，孩子们提着灯笼玩。", "밤에는 다 함께 달을 보고, 아이들은 등불을 들고 놀아요."]]},
+ en:{place:"여러 나라",head:"Harvest time around the world",items:[["In autumn, many countries celebrate the harvest.", "가을이 되면 많은 나라에서 수확을 축하해요."], ["In the USA and Canada, families share a big dinner on Thanksgiving.", "미국과 캐나다에서는 ‘추수감사절’에 온 가족이 큰 저녁을 함께 먹어요."], ["The bright full moon in autumn is called the Harvest Moon.", "가을의 밝은 보름달을 ‘하베스트 문(수확의 달)’이라고 불러요."]]},
+}},
 };
-export const ASK={ru:'Как встречают Новый год в нашей семье? Спроси у мамы и папы!',mn:'Манай гэр бүл шинэ жилийг яаж угтдаг вэ? Ээж аавaасаа асуугаарай!',vi:'Nhà mình đón năm mới thế nào? Hãy hỏi bố mẹ nhé!',uz:"Bizning oilamiz Yangi yilni qanday kutib oladi? Ota-onangdan so'ra!",zh:'我们家怎么过新年？去问问爸爸妈妈吧！',en:'How does your family celebrate New Year? Ask your mom and dad!'};
+
 
 // Finished illustrations (public/images/stories). Pages without one fall back to the drawn SVG.
 /* Short phrases for sentence dictation (stage 2). w = the picture shown as a hint. */
@@ -228,6 +270,7 @@ const PHRASES={
  umbrella:[['비가 와요','rain'],['노란 우산','umbrella'],['같이 쓰자','umbrella'],['강아지를 만났어요','puppy'],['모두 함께','frog'],['무지개가 떴어요','rainbow']],
  seollal:[['설날 아침','seollal'],['고운 한복','hanbok'],['새해 복 많이 받으세요','grandma'],['복주머니를 주셨어요','pouch'],['떡국을 먹었어요','tteokguk'],['윷놀이를 했어요','yut']],
  firstday:[['안녕하세요','teacher'],['제 이름은 아리예요','friend'],['같이 놀자','friend'],['화장실 가고 싶어요','toilet'],['잘 먹겠습니다','rice'],['도와주세요','teacher']],
+ chuseok:[['추석이에요','family'],['송편을 빚었어요','songpyeon'],['감을 땄어요','persimmon'],['둥근 보름달','moon'],['소원을 빌었어요','moon'],['우리 가족','family']],
  axe:[['착한 나무꾼','woodcutter'],['도끼가 빠졌어요','axe'],['금도끼 은도끼','gold'],['제 도끼예요','axe'],['욕심쟁이 이웃','axe'],['정직한 마음','woodcutter']],
 };
 STORIES.forEach(s=>{if(PHRASES[s.id])s.phrases=PHRASES[s.id].map(([ko,w])=>({ko,w}));});

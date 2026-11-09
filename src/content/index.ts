@@ -1,7 +1,7 @@
-import { STORIES, V, ICON, UI, LANGS, CULTURE, ASK } from './data.js';
+import { STORIES, V, ICON, UI, LANGS, CULTURE } from './data.js';
 import type { LangId, Story } from './types';
 
-export { STORIES, V, ICON, UI, LANGS, CULTURE, ASK };
+export { STORIES, V, ICON, UI, LANGS, CULTURE };
 export type { LangId, Story };
 
 /** Every vocabulary id, in the order the word book shows them. */
@@ -85,7 +85,7 @@ export const WORD_ART: Record<string, string> = {
 };
 
 /** Word pairs whose pictures look alike; the word game never offers one as a wrong choice for the other. */
-const LOOKALIKE: [string, string][] = [['sky', 'rainbow'], ['night', 'star'], ['rice', 'tteokguk']];
+const LOOKALIKE: [string, string][] = [['sky', 'rainbow'], ['night', 'star'], ['rice', 'tteokguk'], ['moon', 'night']];
 export const looksAlike = (a: string, b: string) =>
   LOOKALIKE.some(([x, y]) => (x === a && y === b) || (x === b && y === a));
 
