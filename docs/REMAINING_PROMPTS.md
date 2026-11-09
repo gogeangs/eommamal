@@ -1,352 +1,11 @@
 # 엄마말 그림책 — 남은 이미지 프롬프트
 
-완료: 캐릭터 시트 7장, 앱 아이콘, 동화 장면 18장. **남은 이미지 30장**과 다시 만들기 권장 5장입니다.
+완료: 캐릭터 시트 7장, 앱 아이콘, 동화 장면 18장, 낱말 아이콘 18개. **남은 이미지 12장**과 다시 만들기 7장(권장 5장 + 선택 2장)입니다.
 
 - 각 프롬프트를 그대로 복사해서 ChatGPT에 붙여 넣으세요. 공통 규칙(그림체·색·글자 금지·투명 배경·크기·파일 이름)이 모두 들어 있어요.
 - **첨부**가 적힌 항목은 저장소 `art/characters/` 의 정리된 캐릭터 시트를 함께 올려 주세요.
-- 낱말 아이콘 18개는 **한 대화에서 이어서** 만들어야 그림체가 맞아요.
+- 화면용 일러스트 6장, 문화 비교 카드 6장은 각각 **한 대화에서 이어서** 만들면 그림체가 맞아요.
 - 나비는 동화 장면에 맞춰 **스카프 없이** 그리도록 했어요.
-
-
----
-
-## 낱말 아이콘
-
-### 낱말 "별"
-
-저장 이름: `word-star.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a glowing five-pointed sunflower-yellow star. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-star.png
-```
-
-### 낱말 "밤"
-
-저장 이름: `word-night.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a crescent moon with two tiny stars on a small navy night-sky circle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-night.png
-```
-
-### 낱말 "고양이"
-
-저장 이름: `word-cat.png`  ·  첨부: char-nabi.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Nabi the orange tabby cat (no scarf), sitting, full body. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-cat.png
-```
-
-### 낱말 "나무"
-
-저장 이름: `word-tree.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a round leafy green tree with a brown trunk. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-tree.png
-```
-
-### 낱말 "하늘"
-
-저장 이름: `word-sky.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a patch of blue sky with one fluffy white cloud and a small sun. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-sky.png
-```
-
-### 낱말 "부엉이"
-
-저장 이름: `word-owl.png`  ·  첨부: char-owl.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the kind brown owl, sitting, front view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-owl.png
-```
-
-### 낱말 "우산"
-
-저장 이름: `word-umbrella.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: an open sunflower-yellow umbrella with a curved handle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-umbrella.png
-```
-
-### 낱말 "비"
-
-저장 이름: `word-rain.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: three falling blue raindrops above a small puddle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-rain.png
-```
-
-### 낱말 "강아지"
-
-저장 이름: `word-puppy.png`  ·  첨부: char-puppy.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the floppy-eared beige puppy, sitting. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-puppy.png
-```
-
-### 낱말 "개구리"
-
-저장 이름: `word-frog.png`  ·  첨부: char-frog-sparrow.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the little green frog, sitting, front view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-frog.png
-```
-
-### 낱말 "참새"
-
-저장 이름: `word-sparrow.png`  ·  첨부: char-frog-sparrow.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the round brown sparrow, side view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-sparrow.png
-```
-
-### 낱말 "무지개"
-
-저장 이름: `word-rainbow.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a rainbow arc with small clouds at both ends. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, rain, umbrella, cat, dog, owl, sparrow, frog, tree.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-rainbow.png
-```
-
-### 낱말 "설날"
-
-저장 이름: `word-seollal.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a red lucky pouch in front of a sunrise over a hanok roof (Korean New Year morning). One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-seollal.png
-```
-
-### 낱말 "한복"
-
-저장 이름: `word-hanbok.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a child's hanbok laid flat: yellow jeogori with a red ribbon and a pink chima. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-hanbok.png
-```
-
-### 낱말 "할머니"
-
-저장 이름: `word-grandma.png`  ·  첨부: char-grandma.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Grandma, upper body, smiling. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-grandma.png
-```
-
-### 낱말 "복주머니"
-
-저장 이름: `word-pouch.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a red silk bokjumeoni lucky pouch with a golden drawstring. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-pouch.png
-```
-
-### 낱말 "떡국"
-
-저장 이름: `word-tteokguk.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a white bowl of tteokguk: clear broth with sliced white oval rice cakes, egg garnish, gentle steam. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-tteokguk.png
-```
-
-### 낱말 "윷놀이"
-
-저장 이름: `word-yut.png`
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: four wooden yut sticks (flat side and round side visible) crossed loosely on a small straw mat. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
-
-Format: Square 1024x1024, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: word-yut.png
-```
 
 
 ---
@@ -684,11 +343,53 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "마당에서 윷놀이를 했어요. 윷가락이 높이 날아올랐어요." On a patch of hanok courtyard ground on a clear winter day, Mini plays yunnori: four wooden yut sticks tossed high in the air above a straw mat, Grandma laughing nearby. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; Grandma, a gentle Korean grandmother with silver hair in a low bun and smiling eyes, wearing a lavender hanbok. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area. The yut sticks must be accurate: four half-round wooden sticks, each with one flat pale face and one rounded darker back, about the length of a child's forearm; no X marks. Keep Mini's hanbok exactly as in the previous Seollal scenes: yellow jeogori with flower embroidery, pink bow, pink chima with flowers, pink flower hair pin.
+Scene for the picture book page whose text reads (Korean; do not write it in the image): "마당에서 윷놀이를 했어요. 윷가락이 높이 날아올랐어요." On a patch of hanok courtyard ground on a clear winter day, Mini plays yunnori: four wooden yut sticks tossed high in the air above a straw mat, Grandma laughing nearby. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; Grandma, a gentle Korean grandmother with silver hair in a low bun and smiling eyes, wearing a lavender hanbok. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area. The yut sticks must be accurate: four half-round wooden sticks, each with one flat pale face and one rounded darker back (like a thick wooden dowel cut in half lengthwise), about the length of a child's forearm; small X marks only on the rounded backs. Keep Mini's hanbok exactly as in the previous Seollal scenes: yellow jeogori with flower embroidery, pink bow, pink chima with flowers, pink flower hair pin.
 
 Format: Landscape 1536x1024 story illustration, transparent background.
 
 Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
 
 File name: seollal-05.png
+```
+
+### 낱말 "설날"
+
+이유: (선택) 설날 아이콘에 복주머니가 커서 '복주머니' 아이콘과 비슷해요. 앱에서 둘이 같이 나오지 않게 막아 두었으니 급하지 않아요.
+
+저장 이름: `word-seollal.png`
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a red lucky pouch in front of a sunrise over a hanok roof (Korean New Year morning). One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow. Replace the object: a bright sunrise over a single curved hanok roof, with one small traditional Korean shield kite (bangpae-yeon, rectangular with a round hole in the middle) flying beside it. No lucky pouch, no bowl, no people.
+
+Format: Square 1024x1024, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: word-seollal.png
+```
+
+### 낱말 "할머니"
+
+이유: (선택) 할머니가 안경·앞치마·서양식 옷이라 『설날 아침』의 할머니와 달라요.
+
+저장 이름: `word-grandma.png`  ·  첨부: char-grandma.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
+
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Grandma, upper body, smiling. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow. Draw Grandma exactly as in the attached grandma sheet: no glasses, silver hair in a low bun, lavender hanbok with flower embroidery on the sleeves; upper body, smiling. No apron.
+
+Format: Square 1024x1024, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: word-grandma.png
 ```
