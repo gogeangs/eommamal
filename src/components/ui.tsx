@@ -1,5 +1,4 @@
 import { ICON, V, WORD_ART, langById } from '../content';
-import { t } from '../lib/childUi';
 import { svg } from '../content/art.js';
 import { useProgress } from '../lib/progress';
 import { hasVoice, speak } from '../lib/speech';
