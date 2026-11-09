@@ -5,16 +5,6 @@ import { Illus, Scene, Tile, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { useNav, type HomeTab } from '../nav';
 
-/** Short reading tip for parents, in their own language. */
-const PARENT_TIP: Record<LangId, string> = {
-  ru: 'Сначала прочитайте вместе на родном языке, потом — по-корейски.',
-  mn: 'Эхлээд эх хэлээрээ хамт уншаад, дараа нь солонгосоор уншаарай.',
-  vi: 'Hãy cùng con đọc bằng tiếng mẹ đẻ trước, rồi đọc lại bằng tiếng Hàn.',
-  uz: "Avval ona tilida birga o'qing, keyin koreyschada qayta o'qing.",
-  zh: '先和孩子用母语一起读，再用韩语读一遍。',
-  en: 'Read together in your home language first, then again in Korean.',
-};
-
 /* ---------- language ---------- */
 
 function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => void }) {
@@ -180,7 +170,7 @@ function WordsTab() {
       {p.learned.length === 0 && (
         <section className="empty-words">
           <Illus name="empty-words" className="illus empty-art" />
-          <p>아직 모은 낱말이 없어요. 공부 탭의 낱말 놀이로 첫 낱말을 모아 보세요.</p>
+          <p>낱말 친구를 만나러 가 볼까요? 놀기에서 시작해요!</p>
         </section>
       )}
       <section>
@@ -222,7 +212,7 @@ export function Home({ tab }: { tab: HomeTab }) {
   const nav = useNav();
   const [sheet, setSheet] = useState(false);
   const lang = LANGS.find((l) => l.id === p.lang)!;
-  const [title, lead] = TITLES[tab];
+  const [title] = TITLES[tab];
 
   return (
     <>
@@ -241,10 +231,10 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 
-      <footer className="home-foot">
+      <details className="parent-footer"><summary>🔒 보호자 안내 · 문의</summary><p lang={p.lang}>{['ru','mn','vi','uz','zh','en'].includes(p.lang) ? '아이와 모국어로 먼저 읽고 한국어로 다시 읽어 보세요.' : ''}</p><footer className="home-foot">
         <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
         <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
-      </footer>
+      </footer></details>
 
       <div className="tabbar-space" aria-hidden="true" />
       <nav className="tabbar" aria-label="메뉴">
