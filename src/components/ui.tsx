@@ -5,13 +5,14 @@ import { hasVoice, speak } from '../lib/speech';
 import { useNav, type HomeTab } from '../nav';
 import type { ReactNode } from 'react';
 import type { Page } from '../content/types';
+import { WORD_BG, WORD_IMG, assetUrl } from '../content/pack';
 
 /** A story picture: the finished illustration when there is one, else the drawn SVG placeholder. */
 export function Scene({ page, className = 'panel', alt = '' }: { page: Page; className?: string; alt?: string }) {
   if (page.img) {
     return (
       <div className={className}>
-        <img src={import.meta.env.BASE_URL + page.img} alt={alt} decoding="async" />
+        <img src={assetUrl(page.img)} alt={alt} decoding="async" />
       </div>
     );
   }
@@ -25,12 +26,17 @@ export function Illus({ name, className = 'illus' }: { name: string; className?:
 
 /** Square picture for a vocabulary word. */
 export function Tile({ id, dim = false }: { id: string; dim?: boolean }) {
-  if (WORD_ART[id]) {
+  const img = WORD_IMG[id] ?? (WORD_ART[id] ? `images/words/${id}.webp` : null);
+  if (img) {
     return (
-      <span className={`tile art${dim ? ' dim' : ''}`} style={{ background: WORD_ART[id] }}>
-        <img src={`${import.meta.env.BASE_URL}images/words/${id}.webp`} alt="" decoding="async" />
+      <span className={`tile art${dim ? ' dim' : ''}`} style={{ background: WORD_BG[id] ?? WORD_ART[id] ?? V[id]?.bg }}>
+        <img src={assetUrl(img)} alt="" decoding="async" />
       </span>
     );
+  }
+  if (!ICON[id]) {
+    // A word added without a picture yet: show its first syllable.
+    return <span className={`tile text${dim ? ' dim' : ''}`} style={{ background: V[id]?.bg ?? '#EAF2F7' }}><b>{V[id]?.ko.slice(0, 2)}</b></span>;
   }
   const [draw, viewBox] = ICON[id];
   return (

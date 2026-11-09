@@ -116,12 +116,12 @@ function BooksTab() {
       <section>
         <p className="label">{t(p.lang, 'newStories')} · 새 이야기</p>
         <div className="shelf">
-          {STORIES.filter((s) => !s.culture).map((s) => <BookCard key={s.id} s={s} wide />)}
+          {STORIES.filter((s) => !s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} wide />)}
         </div>
       </section>
       <section>
         <p className="label">우리의 문화 이야기</p>
-        {STORIES.filter((s) => s.culture).map((s) => <BookCard key={s.id} s={s} wide />)}
+        {STORIES.filter((s) => s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} wide />)}
       </section>
     </>
   );
@@ -254,6 +254,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       <details className="parent-footer"><summary>보호자 안내 · 문의</summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
         <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
         <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
+        <button className="foot-link quiet" onClick={() => nav({ view: 'admin' })}>콘텐츠 관리 (운영자용) ›</button>
       </footer></details>
 
       <div className="tabbar-space" aria-hidden="true" />

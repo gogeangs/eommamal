@@ -20,6 +20,8 @@ export interface Story {
   folk?: boolean;
   /** short phrases for sentence dictation; w = hint picture */
   phrases?: { ko: string; w: string }[];
+  /** kept but not shown on the shelf */
+  hidden?: boolean;
 }
 export interface Word extends Text { bg: string }
 export interface CultureCard { place: string; head: string; items: [string, string][] }

@@ -10,21 +10,25 @@ import { Dictation } from './screens/Dictation';
 import { Trace } from './screens/Trace';
 import { Contact } from './screens/Contact';
 import { Sentence } from './screens/Sentence';
+import { Admin } from './screens/Admin';
+import { contentStore, previewActive } from './lib/contentStore';
 
 // Routes live in the URL hash (#read-star, #quiz-all …) so the back button and shared links work.
-const STORY_IDS = new Set(['all', ...STORIES.map((s) => s.id)]);
+// Story ids are checked when the hash is read, so stories added by a content pack work too.
+const hasStory = (id: string) => id === 'all' || STORIES.some((s) => s.id === id);
 
 function parse(hash: string): Route {
   const h = hash.replace(/^#/, '');
   if (h === 'study' || h === 'words') return { view: 'home', tab: h };
   if (h === 'contact') return { view: 'contact' };
+  if (h === 'admin') return { view: 'admin' };
   const m = hash.replace(/^#/, '').match(/^(read|done|quiz|dict|trace|sent)-([a-z]+)$/);
-  if (!m || !STORY_IDS.has(m[2])) return { view: 'home' };
+  if (!m || !hasStory(m[2])) return { view: 'home' };
   if ((m[1] === 'read' || m[1] === 'done') && m[2] === 'all') return { view: 'home' };
   return { view: m[1] as Exclude<Route['view'], 'home'>, story: m[2] };
 }
 const toHash = (r: Route) =>
-  r.view === 'home' ? (r.tab && r.tab !== 'books' ? `#${r.tab}` : '') : r.view === 'contact' ? '#contact' : `#${r.view}-${r.story}`;
+  r.view === 'home' ? (r.tab && r.tab !== 'books' ? `#${r.tab}` : '') : r.view === 'contact' ? '#contact' : r.view === 'admin' ? '#admin' : `#${r.view}-${r.story}`;
 
 export function App() {
   const [route, setRoute] = useState<Route>(() => parse(location.hash));
@@ -64,13 +68,21 @@ export function App() {
     case 'dict': screen = <Dictation storyId={route.story} />; break;
     case 'trace': screen = <Trace storyId={route.story} />; break;
     case 'contact': screen = <Contact />; break;
+    case 'admin': screen = <Admin />; break;
     case 'sent': screen = <Sentence storyId={route.story} />; break;
     default: screen = <Home tab={route.tab ?? 'books'} />;
   }
 
   return (
     <NavContext.Provider value={nav}>
-      <main className="wrap" key={`${toHash(route)}:${nonce}`}>
+      {previewActive() && route.view !== 'admin' && (
+        <div className="preview-bar" role="status">
+          <span>미리 보기 중 · 이 기기에서만 보여요</span>
+          <button onClick={() => { location.hash = '#admin'; }}>관리 화면</button>
+          <button onClick={() => { contentStore.stopPreview(); location.hash = ''; location.reload(); }}>끝내기</button>
+        </div>
+      )}
+      <main className={`wrap${route.view === 'admin' ? ' wide' : ''}`} key={`${toHash(route)}:${nonce}`}>
         {screen}
       </main>
     </NavContext.Provider>

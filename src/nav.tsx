@@ -4,6 +4,7 @@ export type HomeTab = 'books' | 'study' | 'words';
 export type Route =
   | { view: 'home'; tab?: HomeTab }
   | { view: 'contact' }
+  | { view: 'admin' }
   | { view: 'read' | 'done' | 'quiz' | 'dict' | 'trace' | 'sent'; story: string };
 
 /** replace: swap the current history entry, so the back button skips the screen being left. */

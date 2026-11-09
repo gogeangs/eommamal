@@ -23,11 +23,19 @@ export function findStory(id: string): Story {
   return s;
 }
 
-const KO_TO_ID = Object.fromEntries(ALL_WORDS.map((id) => [V[id].ko, id]));
-const KO_RE = new RegExp(
-  '(' + ALL_WORDS.map((id) => V[id].ko).sort((a, b) => b.length - a.length).join('|') + ')',
-  'g',
-);
+let KO_TO_ID: Record<string, string> = {};
+let KO_RE = /$^/g;
+const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/** Rebuilds word lists and lookups after content is added (content packs). */
+export function refreshIndex() {
+  ALL_WORDS.length = 0;
+  ALL_WORDS.push(...Object.keys(V));
+  KO_TO_ID = Object.fromEntries(ALL_WORDS.map((id) => [V[id].ko, id]));
+  const kos = ALL_WORDS.map((id) => V[id].ko).filter(Boolean).sort((a, b) => b.length - a.length);
+  KO_RE = kos.length ? new RegExp('(' + kos.map(esc).join('|') + ')', 'g') : /$^/g;
+}
+refreshIndex();
 
 /** Splits a Korean sentence into plain text and vocabulary words, so words can be tapped. */
 export function splitKorean(text: string): Array<{ text: string; word?: string }> {
