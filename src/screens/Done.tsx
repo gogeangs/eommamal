@@ -20,6 +20,7 @@ function CultureCard() {
   };
   return (
     <section className="culture" aria-labelledby="ch">
+      <img className="culture-art" src={`${import.meta.env.BASE_URL}images/culture/${p.lang}.webp`} alt="" decoding="async" />
       <span className="ctag">문화 비교</span>
       <div>
         <h2 id="ch" lang={p.lang}>{c.head}</h2>

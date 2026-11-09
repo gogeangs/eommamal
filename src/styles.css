@@ -204,3 +204,6 @@ img{max-width:100%}
 .empty-words p{margin:0;font-family:var(--ko);color:var(--muted);max-width:30ch}
 .result-head{align-items:center;text-align:center}
 .celebrate-art{width:min(200px,60%)}
+
+.culture-art{display:block;width:calc(100% + 32px);max-width:none;margin:-18px -16px 0;aspect-ratio:3/2;object-fit:cover;border-radius:18px 18px 0 0}
+.culture{overflow:hidden}
