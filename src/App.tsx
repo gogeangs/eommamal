@@ -8,6 +8,7 @@ import { Done } from './screens/Done';
 import { Quiz } from './screens/Quiz';
 import { Dictation } from './screens/Dictation';
 import { Trace } from './screens/Trace';
+import { Contact } from './screens/Contact';
 
 // Routes live in the URL hash (#read-star, #quiz-all …) so the back button and shared links work.
 const STORY_IDS = new Set(['all', ...STORIES.map((s) => s.id)]);
@@ -15,13 +16,14 @@ const STORY_IDS = new Set(['all', ...STORIES.map((s) => s.id)]);
 function parse(hash: string): Route {
   const h = hash.replace(/^#/, '');
   if (h === 'study' || h === 'words') return { view: 'home', tab: h };
+  if (h === 'contact') return { view: 'contact' };
   const m = hash.replace(/^#/, '').match(/^(read|done|quiz|dict|trace)-([a-z]+)$/);
   if (!m || !STORY_IDS.has(m[2])) return { view: 'home' };
   if ((m[1] === 'read' || m[1] === 'done') && m[2] === 'all') return { view: 'home' };
   return { view: m[1] as Exclude<Route['view'], 'home'>, story: m[2] };
 }
 const toHash = (r: Route) =>
-  r.view === 'home' ? (r.tab && r.tab !== 'books' ? `#${r.tab}` : '') : `#${r.view}-${r.story}`;
+  r.view === 'home' ? (r.tab && r.tab !== 'books' ? `#${r.tab}` : '') : r.view === 'contact' ? '#contact' : `#${r.view}-${r.story}`;
 
 export function App() {
   const [route, setRoute] = useState<Route>(() => parse(location.hash));
@@ -57,6 +59,7 @@ export function App() {
     case 'quiz': screen = <Quiz storyId={route.story} />; break;
     case 'dict': screen = <Dictation storyId={route.story} />; break;
     case 'trace': screen = <Trace storyId={route.story} />; break;
+    case 'contact': screen = <Contact />; break;
     default: screen = <Home tab={route.tab ?? 'books'} />;
   }
 

@@ -246,6 +246,11 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 
+      <footer className="home-foot">
+        <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
+        <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
+      </footer>
+
       <div className="tabbar-space" aria-hidden="true" />
       <nav className="tabbar" aria-label="메뉴">
         {TABS.map((t) => (
