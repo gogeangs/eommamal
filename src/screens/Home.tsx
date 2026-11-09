@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ALL_WORDS, LANGS, STORIES, type LangId, type Story } from '../content';
-import { Scene, Tile, WordCard } from '../components/ui';
+import { Illus, Scene, Tile, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { useNav, type HomeTab } from '../nav';
 
@@ -28,6 +28,7 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
       <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="lang-title" onClick={(e) => e.stopPropagation()}>
         {welcome ? (
           <>
+            <Illus name="welcome" className="illus welcome-art" />
             <p className="sheet-kicker">엄마말 그림책에 오신 걸 환영해요</p>
             <h2 id="lang-title">우리 집에서는 어떤 말을 쓰나요?</h2>
             <p className="lead">고른 말과 한국어로 동화를 함께 읽어요. 나중에 언제든 바꿀 수 있어요.</p>
@@ -152,7 +153,7 @@ function StudyTab() {
           {ACTIVITIES.map((a, i) => (
             <li key={a.view}>
               <button className="act-row" onClick={() => nav({ view: a.view, story: p.scope })}>
-                <span className="act-icon" aria-hidden="true">{a.icon}</span>
+                <span className="act-icon" aria-hidden="true"><Illus name={`act-${a.view}`} className="" /></span>
                 <span className="act-text">
                   <small>{i + 1}단계 · {a.step}</small>
                   <b>{a.name}</b>
@@ -181,6 +182,12 @@ function WordsTab() {
         <div><b>{p.traced.length}</b><span>따라 쓴 낱말</span></div>
       </section>
       <div className="mini-bar" aria-label={`전체 낱말 중 ${pct}% 모음`}><i style={{ width: `${pct}%` }} /></div>
+      {p.learned.length === 0 && (
+        <section className="empty-words">
+          <Illus name="empty-words" className="illus empty-art" />
+          <p>아직 모은 낱말이 없어요. 공부 탭의 낱말 놀이로 첫 낱말을 모아 보세요.</p>
+        </section>
+      )}
       <section>
         <p className="label">낱말장 · 눌러서 들어요</p>
         <div className="wbook">

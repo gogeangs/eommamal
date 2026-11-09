@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { UI, V, findStory, syllables } from '../content';
-import { Progress, Tile, TopBar, WordCard } from '../components/ui';
+import { Illus, Progress, Tile, TopBar, WordCard } from '../components/ui';
 import { matches, partial, strokesFor, type Pt } from '../lib/hangul';
 import { useProgress } from '../lib/progress';
 import { speak } from '../lib/speech';
@@ -153,7 +153,8 @@ export function Trace({ storyId }: { storyId: string }) {
     return (
       <>
         <TopBar />
-        <header className="stack">
+        <header className="stack result-head">
+          <Illus name="celebrate" className="illus celebrate-art" />
           <h1>따라 쓰기를 마쳤어요!</h1>
           <p className="lead" lang={p.lang}>{UI[p.lang].ok}</p>
         </header>

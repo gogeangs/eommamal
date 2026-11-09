@@ -18,6 +18,11 @@ export function Scene({ page, className = 'panel', alt = '' }: { page: Page; cla
   return <div className={className} dangerouslySetInnerHTML={{ __html: svg(page.art()) }} />;
 }
 
+/** A finished screen illustration from public/images/ui (decorative). */
+export function Illus({ name, className = 'illus' }: { name: string; className?: string }) {
+  return <img className={className} src={`${import.meta.env.BASE_URL}images/ui/${name}.webp`} alt="" decoding="async" />;
+}
+
 /** Square picture for a vocabulary word. */
 export function Tile({ id, dim = false }: { id: string; dim?: boolean }) {
   if (WORD_ART[id]) {

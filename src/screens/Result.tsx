@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { UI, type Story } from '../content';
-import { TopBar, WordCard } from '../components/ui';
+import { Illus, TopBar, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { useNav } from '../nav';
 
@@ -24,7 +24,8 @@ export function Result({ story, kind, stars, words, onRetry }: {
   return (
     <>
       <TopBar />
-      <header className="stack">
+      <header className="stack result-head">
+        <Illus name="celebrate" className="illus celebrate-art" />
         <p className="stars" aria-label={`별 ${stars}개`}>
           {'★'.repeat(stars)}
           <span className="off">{'★'.repeat(n - stars)}</span>
