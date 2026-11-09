@@ -1,4 +1,5 @@
 import { ASK, CULTURE, UI, findStory, langById } from '../content';
+import { t } from '../lib/childUi';
 import { Illus, TopBar, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { hasVoice, speak, type SpeechItem } from '../lib/speech';
@@ -60,10 +61,11 @@ export function Done({ storyId }: { storyId: string }) {
     <>
       <TopBar />
       <header>
-        <h1>다 읽었어요!</h1>
+        <h1>{t(p.lang,'wellDone')} · 다 읽었어요!</h1>
         <p className="lead" lang={p.lang}>{st.title[p.lang]} · {UI[p.lang].ok}</p>
       </header>
       <section className="next-acts" aria-label="이제 무엇을 할까요?">
+        <button className="play" onClick={() => nav({view:'quiz',story:st.id})}>▶ {t(p.lang,'play')} · 낱말 놀이 시작</button>
         <p className="label" style={{ margin: 0 }}>이제 낱말을 익혀 볼까요?</p>
         <div className="next-grid">
           {NEXT.map((x, i) => (
