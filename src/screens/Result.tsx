@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { t } from '../lib/childUi';
-import { SESSION, UI, type Story } from '../content';
+import { UI, type Story } from '../content';
 import { Illus, TopBar, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { useNav } from '../nav';
@@ -37,7 +37,7 @@ export function Result({ story, kind, stars, words, onRetry }: {
         <div className="wbook">{words.map((id) => <WordCard key={id} id={id} />)}</div>
       </section>
       <div className="stack">
-        <button className="play" onClick={() => nav({view: isDict ? 'home' : 'trace', ...(!isDict ? {story:story.id} : {tab:'words' as const})})}>{isDict ? `${t(p.lang,'words')} · 내 낱말 보기` : '다음 · 따라 쓰기 ▶'}</button>
+        <button className="play" onClick={() => nav(isDict ? {view:'home',tab:'words'} : {view:'trace',story:story.id})}>{isDict ? `${t(p.lang,'words')} · 내 낱말 보기` : '다음 · 따라 쓰기 ▶'}</button>
         <button className="btn2" onClick={onRetry}>{t(p.lang,'retry')} · 다시 해 보기</button>
         <button className="btn2" onClick={() => nav({ view: 'home' })}>책장으로</button>
       </div>
