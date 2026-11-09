@@ -174,6 +174,14 @@ export const CULTURE={
 export const ASK={ru:'Как встречают Новый год в нашей семье? Спроси у мамы и папы!',mn:'Манай гэр бүл шинэ жилийг яаж угтдаг вэ? Ээж аавaасаа асуугаарай!',vi:'Nhà mình đón năm mới thế nào? Hãy hỏi bố mẹ nhé!',uz:"Bizning oilamiz Yangi yilni qanday kutib oladi? Ota-onangdan so'ra!",zh:'我们家怎么过新年？去问问爸爸妈妈吧！',en:'How does your family celebrate New Year? Ask your mom and dad!'};
 
 // Finished illustrations (public/images/stories). Pages without one fall back to the drawn SVG.
+/* Short phrases for sentence dictation (stage 2). w = the picture shown as a hint. */
+const PHRASES={
+ star:[['작은 별','star'],['별이 떨어졌어요','star'],['고양이 나비','cat'],['높은 나무','tree'],['부엉이가 날아왔어요','owl'],['하늘로 돌아갔어요','sky']],
+ umbrella:[['비가 와요','rain'],['노란 우산','umbrella'],['같이 쓰자','umbrella'],['강아지를 만났어요','puppy'],['모두 함께','frog'],['무지개가 떴어요','rainbow']],
+ seollal:[['설날 아침','seollal'],['고운 한복','hanbok'],['새해 복 많이 받으세요','grandma'],['복주머니를 주셨어요','pouch'],['떡국을 먹었어요','tteokguk'],['윷놀이를 했어요','yut']],
+ axe:[['착한 나무꾼','woodcutter'],['도끼가 빠졌어요','axe'],['맑은 연못','pond'],['하얀 수염','spirit'],['금도끼 은도끼','gold'],['정직한 마음','woodcutter']],
+};
+STORIES.forEach(s=>{if(PHRASES[s.id])s.phrases=PHRASES[s.id].map(([ko,w])=>({ko,w}));});
 const IMAGES={star:6,umbrella:6,seollal:6,axe:6};
 STORIES.forEach(s=>{if(IMAGES[s.id])s.pages.forEach((p,i)=>{p.img=`images/stories/${s.id}-${String(i+1).padStart(2,'0')}.webp`});});
 

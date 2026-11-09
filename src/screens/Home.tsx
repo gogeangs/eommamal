@@ -133,6 +133,7 @@ const ACTIVITIES = [
   { view: 'quiz', name: '낱말 놀이', step: '알아보기' },
   { view: 'trace', name: '따라 쓰기', step: '따라 쓰기' },
   { view: 'dict', name: '받아쓰기', step: '혼자 쓰기' },
+  { view: 'sent', name: '문장 받아쓰기', step: '문장 쓰기' },
 ] as const;
 
 function StudyTab() {
@@ -156,10 +157,10 @@ function StudyTab() {
           {ACTIVITIES.map((a, i) => (
             <li key={a.view}>
               <button className="act-row" onClick={() => nav({ view: a.view, story: p.scope })}>
-                <span className="act-icon" aria-hidden="true"><Illus name={`act-${a.view}`} className="" /></span>
+                <span className="act-icon" aria-hidden="true"><Illus name={`act-${a.view === 'sent' ? 'dict' : a.view}`} className="" /></span>
                 <span className="act-text">
                   <small>{i + 1}단계 · {a.step}</small>
-                  <b>{a.view === 'quiz' ? t(p.lang,'play') : a.view === 'trace' ? t(p.lang,'trace') : t(p.lang,'dictation')}</b>
+                  <b>{t(p.lang, a.view === 'quiz' ? 'play' : a.view === 'trace' ? 'trace' : a.view === 'dict' ? 'dictation' : 'sentence')}</b>
                   <span>{a.name}</span>
                 </span>
                 <span className="go-arrow" aria-hidden="true">›</span>

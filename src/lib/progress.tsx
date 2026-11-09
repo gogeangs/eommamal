@@ -34,6 +34,7 @@ export interface Progress {
   learned: string[]; // got right in the word game or dictation
   written: string[]; // spelled correctly in dictation
   traced: string[]; // finished stroke-order tracing
+  sentences: string[]; // phrases spelled correctly in sentence dictation
   quizStars: Record<string, number>; // best first-try score per story
   dictStars: Record<string, number>;
   pages: Record<string, number>; // last page read per story
@@ -50,6 +51,7 @@ const DEFAULTS: Progress = {
   learned: [],
   written: [],
   traced: [],
+  sentences: [],
   quizStars: {},
   dictStars: {},
   pages: {},
@@ -67,7 +69,7 @@ function load(): Progress {
 interface Ctx {
   p: Progress;
   set: <K extends keyof Progress>(key: K, value: Progress[K]) => void;
-  addWord: (list: 'learned' | 'written' | 'traced', id: string) => void;
+  addWord: (list: 'learned' | 'written' | 'traced' | 'sentences', id: string) => void;
   bestScore: (kind: 'quizStars' | 'dictStars', storyId: string, score: number) => void;
 }
 
@@ -81,7 +83,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     setP((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const addWord = useCallback((list: 'learned' | 'written' | 'traced', id: string) => {
+  const addWord = useCallback((list: 'learned' | 'written' | 'traced' | 'sentences', id: string) => {
     setP((prev) => {
       if (prev[list].includes(id)) return prev;
       const next = [...prev[list], id];

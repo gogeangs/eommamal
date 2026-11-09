@@ -18,6 +18,8 @@ export interface Story {
   culture?: boolean;
   /** a Korean folktale */
   folk?: boolean;
+  /** short phrases for sentence dictation; w = hint picture */
+  phrases?: { ko: string; w: string }[];
 }
 export interface Word extends Text { bg: string }
 export interface CultureCard { place: string; head: string; items: [string, string][] }
