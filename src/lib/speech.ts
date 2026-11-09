@@ -7,6 +7,28 @@ export interface SpeechItem {
   rate?: number;
   /** id of an element to highlight while this item is spoken */
   highlightId?: string;
+  /**
+   * Called with the character offset of each word as it is spoken.
+   * Uses the engine's word-boundary events; when a voice does not send them,
+   * offsets are estimated from text length so highlighting still moves along.
+   */
+  onWord?: (charIndex: number) => void;
+  /** called when this item finishes */
+  onDone?: () => void;
+}
+
+/** Character offsets where each word starts. */
+export function wordStarts(text: string): number[] {
+  const out: number[] = [];
+  const Seg = (Intl as unknown as { Segmenter?: new (l?: string, o?: object) => { segment(t: string): Iterable<{ index: number; isWordLike?: boolean }> } }).Segmenter;
+  if (Seg && /[\u3040-\u30ff\u3400-\u9fff]/.test(text)) {
+    for (const s of new Seg(undefined, { granularity: 'word' }).segment(text)) if (s.isWordLike) out.push(s.index);
+    return out;
+  }
+  const re = /\S+/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) out.push(m.index);
+  return out;
 }
 
 const synth: SpeechSynthesis | undefined =
@@ -35,8 +57,11 @@ function clearHighlight() {
 }
 
 /** Speaks items one after another. Returns false when speech is unavailable. */
+let current: (() => void) | null = null;
+
 export function speak(items: SpeechItem[], onEnd?: () => void): boolean {
   if (!synth) return false;
+  current?.();
   synth.cancel();
   let i = 0;
   const next = () => {
@@ -51,9 +76,35 @@ export function speak(items: SpeechItem[], onEnd?: () => void): boolean {
     const v = pickVoice(it.lang);
     if (v) u.voice = v;
     u.rate = it.rate ?? 0.85;
-    if (it.highlightId) document.getElementById(it.highlightId)?.classList.add('speaking');
-    u.onend = next;
-    u.onerror = next;
+    if (it.highlightId && !it.onWord) document.getElementById(it.highlightId)?.classList.add('speaking');
+
+    // Word timing: real boundary events win; otherwise an estimate based on text length.
+    let gotBoundary = false;
+    let timers: number[] = [];
+    const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
+    if (it.onWord) {
+      const starts = wordStarts(it.text);
+      u.onboundary = (e) => {
+        if (e.name && e.name !== 'word') return;
+        if (!gotBoundary) { gotBoundary = true; clearTimers(); }
+        it.onWord!(e.charIndex);
+      };
+      u.onstart = () => {
+        if (gotBoundary) return;
+        const cjk = /[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/.test(it.text);
+        const msPerChar = (cjk ? 260 : 75) / (u.rate || 1);
+        let t = 0;
+        starts.forEach((s, k) => {
+          timers.push(window.setTimeout(() => !gotBoundary && it.onWord!(s), t));
+          const end = k + 1 < starts.length ? starts[k + 1] : it.text.length;
+          t += Math.max(1, end - s) * msPerChar + 60;
+        });
+      };
+    }
+    const finish = () => { clearTimers(); it.onDone?.(); next(); };
+    u.onend = finish;
+    u.onerror = finish;
+    current = clearTimers;
     synth.speak(u);
   };
   next();
@@ -61,6 +112,8 @@ export function speak(items: SpeechItem[], onEnd?: () => void): boolean {
 }
 
 export function stopSpeaking() {
+  current?.();
+  current = null;
   synth?.cancel();
   clearHighlight();
 }

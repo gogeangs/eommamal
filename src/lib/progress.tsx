@@ -30,6 +30,7 @@ export interface Progress {
   mode: ReadMode;
   scope: string;
   dictMode: WriteMode;
+  textSize: 'm' | 'l';
   learned: string[]; // got right in the word game or dictation
   written: string[]; // spelled correctly in dictation
   traced: string[]; // finished stroke-order tracing
@@ -44,6 +45,7 @@ const DEFAULTS: Progress = {
   mode: 'both',
   scope: 'all',
   dictMode: 'blocks',
+  textSize: 'm',
   learned: [],
   written: [],
   traced: [],

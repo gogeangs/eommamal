@@ -228,3 +228,26 @@ img{max-width:100%}
 .contact-card{background:var(--card);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
 .contact-card .mail{font-size:1.05rem;overflow-wrap:anywhere}
 .contact-card .k{margin:0;font-family:var(--ko);font-size:.8rem;color:var(--muted)}
+
+/* ---------- reader: docked controls, tap-to-hear picture, word highlight, text size ---------- */
+.reader{display:flex;flex-direction:column;gap:22px}
+.reader-tools{display:flex;align-items:center;gap:8px}
+.size-btn{font:inherit;font-family:var(--ko);font-weight:800;font-size:1rem;min-width:48px;height:40px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:1px;padding:0 10px}
+.size-btn span{font-size:.8rem;color:var(--leaf)}
+.size-btn[aria-pressed="true"]{border-color:var(--leaf)}
+.scene-btn{all:unset;display:block;position:relative;cursor:pointer;border-radius:18px;-webkit-tap-highlight-color:transparent}
+.scene-btn:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
+.scene-btn .tap-hint{position:absolute;right:10px;bottom:10px;width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,var(--card) 88%,transparent);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.scene-btn .tap-hint svg{width:24px;height:24px;fill:var(--leaf);stroke:var(--leaf);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.scene-btn.on .tap-hint{background:var(--sun)}
+.scene-btn.on .tap-hint svg{fill:var(--sun-ink);stroke:var(--sun-ink)}
+.text .hl{background:color-mix(in srgb,var(--sun) 55%,transparent);border-radius:6px;box-shadow:0 0 0 3px color-mix(in srgb,var(--sun) 55%,transparent)}
+@media (prefers-reduced-motion:no-preference){.text .hl{transition:background .12s}}
+.text.big .mother{font-size:1.9rem;line-height:1.45}
+.text.big .korean{font-size:1.55rem}
+.text.big .korean.solo{font-size:1.9rem}
+.dock-space{height:116px}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1.5px solid var(--line);
+  padding-top:10px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.dock-inner{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.reader .voice:empty{display:none}
