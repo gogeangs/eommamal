@@ -256,10 +256,11 @@ export function Home({ tab }: { tab: HomeTab }) {
 
       <div className="tabbar-space" aria-hidden="true" />
       <nav className="tabbar" aria-label="메뉴">
-        {TABS.map((t) => (
-          <button key={t.id} aria-current={tab === t.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: t.id })}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.icon} /></svg>
-            <span>{t.id === 'books' ? '이야기' : t.id === 'study' ? '놀기' : '내 낱말'}</span><small>{t.id === 'books' ? ['Истории','Үлгэр','Truyện','Ertaklar','故事','Stories'][LANGS.findIndex(l=>l.id===p.lang)] : t.id === 'study' ? ['Играть','Тоглох','Chơi',"O'ynash",'游戏','Play'][LANGS.findIndex(l=>l.id===p.lang)] : ['Мои слова','Миний үгс','Từ của em',"So'zlarim",'我的词语','My words'][LANGS.findIndex(l=>l.id===p.lang)]}</small>
+        {TABS.map((item) => (
+          <button key={item.id} aria-current={tab === item.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: item.id })}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={item.icon} /></svg>
+            <span>{item.id === 'books' ? '이야기' : item.id === 'study' ? '놀기' : '내 낱말'}</span>
+            <small>{t(p.lang,item.id === 'books' ? 'books' : item.id === 'study' ? 'play' : 'words')}</small>
           </button>
         ))}
       </nav>
