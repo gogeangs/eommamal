@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ALL_WORDS, UI, V, findStory, langById, shuffle, syllables } from '../content';
+import { ALL_WORDS, UI, V, findStory, langById, pickSession, shuffle, syllables } from '../content';
 import { Progress, Tile, TopBar } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { speak } from '../lib/speech';
@@ -25,7 +25,8 @@ export function Dictation({ storyId }: { storyId: string }) {
   const { p, set, addWord } = useProgress();
   const st = findStory(storyId);
   const [seed, setSeed] = useState(0);
-  const rounds = useMemo(() => makeRounds(st.words), [st, seed]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const rounds = useMemo(() => makeRounds(pickSession(st.words, p.written)), [st, seed]);
   const [i, setI] = useState(0);
   const [stars, setStars] = useState(0);
   const [filled, setFilled] = useState<number[]>([]);
@@ -101,7 +102,7 @@ export function Dictation({ storyId }: { storyId: string }) {
 
   return (
     <>
-      <TopBar label="✕ 그만하기" tab="study" />
+      <TopBar label="✕ 그만하기" tab="study" replace />
       <Progress label="받아쓰기" i={i} n={rounds.length} />
       <div className="seg dmode" role="group" aria-label="쓰는 방법">
         <button aria-pressed={blocks} onClick={() => { set('dictMode', 'blocks'); setFilled([]); }}>글자 블록</button>

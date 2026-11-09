@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { UI, V, findStory, langById, splitKorean } from '../content';
+import { NO_VOICE, UI, V, findStory, langById, splitKorean } from '../content';
 import { Scene, Tile, TopBar, useSayWord } from '../components/ui';
 import { useProgress, type ReadMode } from '../lib/progress';
-import { hasVoice, speak, speechSupported, stopSpeaking, wordStarts, type SpeechItem } from '../lib/speech';
+import { hasVoice, onVoicesChanged, speak, speechSupported, stopSpeaking, wordStarts, type SpeechItem } from '../lib/speech';
 import { useNav } from '../nav';
 
 /** Splits text into word tokens (with their start offsets) and the spaces between them. */
@@ -48,6 +48,9 @@ export function Reader({ storyId }: { storyId: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   useEffect(() => () => stopSpeaking(), []);
+  const [, bump] = useState(0);
+  useEffect(() => onVoicesChanged(() => bump((n) => n + 1)), []);
+  const motherVoice = hasVoice(lang.tts);
 
   const stop = () => {
     stopSpeaking();
@@ -74,10 +77,10 @@ export function Reader({ storyId }: { storyId: string }) {
     }
     const q: SpeechItem[] = [];
     if (showMother) {
-      if (hasVoice(lang.tts)) {
+      if (motherVoice) {
         q.push({ text: pg[p.lang], lang: lang.tts, onWord: (c) => setHi({ line: 'mo', word: tokenAt(moToks, c) }) });
       } else {
-        setVoiceNote(`이 휴대폰에는 ${lang.ko} 음성이 없어서 한국어만 읽어요.`);
+        setVoiceNote(`${lang.ko}는 엄마 아빠가 읽어 주세요. 한국어만 소리로 읽어요.`);
       }
     }
     if (showKorean) q.push({ text: pg.ko, lang: 'ko-KR', onWord: (c) => setHi({ line: 'ko', word: tokenAt(koToks, c) }) });
@@ -143,6 +146,12 @@ export function Reader({ storyId }: { storyId: string }) {
       </button>
 
       <div className={`text${big ? ' big' : ''}`}>
+        {showMother && !motherVoice && speechSupported() && (
+          <p className="novoice" lang={p.lang}>
+            <b>{NO_VOICE[p.lang]}</b>
+            <span lang="ko">이 휴대폰에는 {lang.ko} 읽기 목소리가 없어요. 엄마 아빠가 소리 내어 읽어 주세요.</span>
+          </p>
+        )}
         {showMother && (
           <p className="mother" lang={p.lang}>
             {moToks.map((t, i) => (

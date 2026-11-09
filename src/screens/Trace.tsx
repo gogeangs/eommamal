@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { UI, V, findStory, syllables } from '../content';
+import { UI, V, findStory, syllables, SESSION, pickSession } from '../content';
 import { Illus, Progress, Tile, TopBar, WordCard } from '../components/ui';
 import { matches, partial, strokesFor, type Pt } from '../lib/hangul';
 import { useProgress } from '../lib/progress';
@@ -13,7 +13,9 @@ export function Trace({ storyId }: { storyId: string }) {
   const { p, addWord } = useProgress();
   const nav = useNav();
   const st = findStory(storyId);
-  const words = useMemo(() => st.words.filter((w) => syllables(V[w].ko).every((c) => strokesFor(c))), [st]);
+  const [seed, setSeed] = useState(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const words = useMemo(() => pickSession(st.words.filter((w) => syllables(V[w].ko).every((c) => strokesFor(c))), p.traced), [st, seed]);
   const [wi, setWi] = useState(0);
   const [si, setSi] = useState(0);
   const [round, setRound] = useState(0); // bumps to restart the current syllable
@@ -164,7 +166,7 @@ export function Trace({ storyId }: { storyId: string }) {
         </section>
         <div className="stack">
           <button className="play" onClick={() => nav({ view: 'dict', story: st.id })}>✎ 이제 받아쓰기 해 봐요</button>
-          <button className="btn2" onClick={() => { setWi(0); setSi(0); }}>다시 따라 쓰기</button>
+          <button className="btn2" onClick={() => { setSeed((s) => s + 1); setWi(0); setSi(0); }}>{st.words.length > SESSION ? '다른 낱말 6개 더 쓰기' : '다시 따라 쓰기'}</button>
           <button className="btn2" onClick={() => nav({ view: 'home' })}>책장으로</button>
         </div>
       </>
@@ -174,7 +176,7 @@ export function Trace({ storyId }: { storyId: string }) {
   const sy = syllables(V[w].ko);
   return (
     <>
-      <TopBar label="✕ 그만하기" tab="study" />
+      <TopBar label="✕ 그만하기" tab="study" replace />
       <Progress label="따라 쓰기 · 획순" i={wi} n={words.length} />
       <div className="tword">
         <div className="tw-tile"><Tile id={w} /></div>

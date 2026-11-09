@@ -73,11 +73,11 @@ export function WordCard({ id }: { id: string }) {
   );
 }
 
-export function TopBar({ label = '‹ 책장', tab = 'books', children }: { label?: string; tab?: HomeTab; children?: ReactNode }) {
+export function TopBar({ label = '‹ 책장', tab = 'books', replace = false, children }: { label?: string; tab?: HomeTab; replace?: boolean; children?: ReactNode }) {
   const nav = useNav();
   return (
     <div className="top">
-      <button className="ghost" onClick={() => nav({ view: 'home', tab })}>
+      <button className="ghost back" onClick={() => nav({ view: 'home', tab }, { replace })}>
         {label}
       </button>
       {children}

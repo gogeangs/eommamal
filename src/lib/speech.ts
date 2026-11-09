@@ -34,8 +34,13 @@ export function wordStarts(text: string): number[] {
 const synth: SpeechSynthesis | undefined =
   typeof window !== 'undefined' ? window.speechSynthesis : undefined;
 
-// Some browsers load voices asynchronously.
-synth?.addEventListener?.('voiceschanged', () => {});
+// Some browsers load voices asynchronously; screens can re-check through useVoices().
+const voiceListeners = new Set<() => void>();
+synth?.addEventListener?.('voiceschanged', () => voiceListeners.forEach((f) => f()));
+export function onVoicesChanged(f: () => void) {
+  voiceListeners.add(f);
+  return () => { voiceListeners.delete(f); };
+}
 
 export const speechSupported = () => !!synth;
 

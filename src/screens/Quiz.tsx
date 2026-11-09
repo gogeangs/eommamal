@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ALL_WORDS, UI, V, findStory, looksAlike, shuffle } from '../content';
+import { ALL_WORDS, UI, V, findStory, looksAlike, pickSession, shuffle } from '../content';
 import { Progress, Tile, TopBar } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { speak } from '../lib/speech';
@@ -21,7 +21,8 @@ export function Quiz({ storyId }: { storyId: string }) {
   const { p, addWord } = useProgress();
   const st = findStory(storyId);
   const [seed, setSeed] = useState(0);
-  const rounds = useMemo(() => makeRounds(st.words), [st, seed]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const rounds = useMemo(() => makeRounds(pickSession(st.words, p.learned)), [st, seed]);
   const [i, setI] = useState(0);
   const [stars, setStars] = useState(0);
   const [tried, setTried] = useState(false);
@@ -65,12 +66,14 @@ export function Quiz({ storyId }: { storyId: string }) {
     } else {
       setWrong((w) => [...w, id]);
       setTried(true);
+      // Children who can't read yet need to hear the word again, not just see a shake.
+      setTimeout(() => sayKo(r.w), 350);
     }
   };
 
   return (
     <>
-      <TopBar label="✕ 그만하기" tab="study" />
+      <TopBar label="✕ 그만하기" tab="study" replace />
       <Progress label="낱말 놀이" i={i} n={rounds.length} />
       <section className="stack">
         {r.type === 'listen' ? (
@@ -104,7 +107,7 @@ export function Quiz({ storyId }: { storyId: string }) {
         ))}
       </div>
       <p className="fb">
-        {right ? `${V[r.w].ko} · ${V[r.w][p.lang]} — ${ui.ok}` : wrong.length ? '다시 골라 볼까요?' : ''}
+        {right ? `${V[r.w].ko} · ${V[r.w][p.lang]} — ${ui.ok}` : wrong.length ? '다시 들어 보고 골라 볼까요?' : ''}
       </p>
     </>
   );

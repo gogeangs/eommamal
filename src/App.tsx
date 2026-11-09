@@ -40,10 +40,13 @@ export function App() {
     window.scrollTo(0, 0);
   }, [route, nonce]);
 
-  const nav = useCallback((r: Route) => {
+  const nav = useCallback((r: Route, opts?: { replace?: boolean }) => {
     const h = toHash(r);
     if (h === location.hash) {
       setNonce((n) => n + 1);
+    } else if (opts?.replace) {
+      history.replaceState(null, '', location.pathname + location.search + h);
+      setRoute(r);
     } else if (h === '') {
       history.pushState(null, '', location.pathname + location.search);
       setRoute(r);

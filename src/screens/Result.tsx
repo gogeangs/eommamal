@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { UI, type Story } from '../content';
+import { SESSION, UI, type Story } from '../content';
 import { Illus, TopBar, WordCard } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { useNav } from '../nav';
@@ -38,7 +38,7 @@ export function Result({ story, kind, stars, words, onRetry }: {
         <div className="wbook">{words.map((id) => <WordCard key={id} id={id} />)}</div>
       </section>
       <div className="stack">
-        <button className="play" onClick={onRetry}>{isDict ? '받아쓰기 한 번 더' : '한 번 더 놀이'}</button>
+        <button className="play" onClick={onRetry}>{story.words.length > SESSION ? (isDict ? '다른 낱말 6개 더 받아쓰기' : '다른 낱말 6개 더 놀이') : (isDict ? '받아쓰기 한 번 더' : '한 번 더 놀이')}</button>
         <button className="btn2" onClick={() => nav({ view: isDict ? 'quiz' : 'dict', story: story.id })}>
           {isDict ? '낱말 놀이 하기' : '✎ 받아쓰기 하기'}
         </button>

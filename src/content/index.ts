@@ -54,6 +54,16 @@ export function shuffle<T>(a: T[]): T[] {
   return b;
 }
 
+/** Shown when the phone cannot read the home language aloud: asks the parent to read that line. (Draft translations; native review pending.) */
+export const NO_VOICE: Record<LangId, string> = {
+  ru: 'На этом телефоне нет голоса для русского языка. Прочитайте эту строку ребёнку сами!',
+  mn: 'Энэ утсанд монгол хэлээр унших дуу хоолой алга. Энэ мөрийг хүүхэддээ өөрөө уншиж өгөөрэй!',
+  vi: 'Điện thoại này chưa có giọng đọc tiếng Việt. Bố mẹ hãy đọc câu này cho con nhé!',
+  uz: "Bu telefonda o'zbekcha o'qiydigan ovoz yo'q. Bu qatorni farzandingizga o'zingiz o'qib bering!",
+  zh: '这部手机没有中文朗读语音。请爸爸妈妈读给孩子听吧！',
+  en: 'This phone has no English reading voice. Please read this line to your child!',
+};
+
 export const langById = (id: LangId) => LANGS.find((l) => l.id === id)!;
 
 /** Finished word icons under public/images/words, with the light tile color each sits on. */
@@ -68,3 +78,14 @@ export const WORD_ART: Record<string, string> = {
 const LOOKALIKE: [string, string][] = [['sky', 'rainbow'], ['night', 'star']];
 export const looksAlike = (a: string, b: string) =>
   LOOKALIKE.some(([x, y]) => (x === a && y === b) || (x === b && y === a));
+
+/** Questions in one sitting. Short enough for a 4–6-year-old. */
+export const SESSION = 6;
+
+/** Picks up to SESSION words, words not yet done first, in random order. */
+export function pickSession(words: string[], done: string[]): string[] {
+  if (words.length <= SESSION) return shuffle(words);
+  const fresh = shuffle(words.filter((w) => !done.includes(w)));
+  const old = shuffle(words.filter((w) => done.includes(w)));
+  return shuffle([...fresh, ...old].slice(0, SESSION));
+}
