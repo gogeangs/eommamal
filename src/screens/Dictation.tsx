@@ -106,7 +106,7 @@ export function Dictation({ storyId }: { storyId: string }) {
     <>
       <TopBar label="✕ 그만하기" tab="study" replace />
       <Progress label="받아쓰기" i={i} n={rounds.length} />
-      <details className="dict-options"><summary>🔒 쓰기 방법 선택</summary><div className="seg dmode" role="group" aria-label="쓰는 방법">
+      <details className="dict-options"><summary>쓰기 방법 선택</summary><div className="seg dmode" role="group" aria-label="쓰는 방법">
         <button aria-pressed={blocks} onClick={() => { set('dictMode', 'blocks'); setFilled([]); }}>글자 블록</button>
         <button aria-pressed={!blocks} onClick={() => { set('dictMode', 'keys'); setFilled([]); }}>자판으로 쓰기</button>
       </div></details>

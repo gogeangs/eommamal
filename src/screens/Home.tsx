@@ -240,7 +240,7 @@ export function Home({ tab }: { tab: HomeTab }) {
           <p className="lead">{tab === 'books' ? t(p.lang,'storyPrompt') : tab === 'study' ? `${t(p.lang,'play')} · 그림을 보고 소리를 들어요` : `${t(p.lang,'words')} · 내가 모은 낱말`}</p>
         </div>
         <button className="lang-btn" onClick={() => setSheet(true)} aria-label={`우리 집 말: ${lang.ko}. 바꾸기`}>
-          <small>🔒 {t(p.lang, 'parent')}</small>
+          <small>{t(p.lang, 'parent')}</small>
           <b>{lang.name} ▾</b>
         </button>
       </header>
@@ -249,7 +249,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 
-      <details className="parent-footer"><summary>🔒 보호자 안내 · 문의</summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
+      <details className="parent-footer"><summary>보호자 안내 · 문의</summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
         <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
         <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
       </footer></details>
