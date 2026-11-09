@@ -27,7 +27,7 @@ export function Result({ story, kind, stars, words, onRetry }: {
       <TopBar />
       <header className="stack result-head">
         <Illus name="celebrate" className="illus celebrate-art" />
-        <p className="stars" aria-label={`혼자 찾은 낱말 ${stars}개`}>{'★'.repeat(Math.max(1, stars))}</p>
+        <p className="stars" aria-label="오늘도 잘했어요">★</p>
         <h1>{t(p.lang,'wellDone')} · 오늘 낱말 {n}개를 만났어요!</h1>
         <p className="lead">혼자 찾은 낱말 {stars}개</p>
         <p className="lead" lang={p.lang}>{UI[p.lang].ok}</p>
