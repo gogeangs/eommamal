@@ -336,3 +336,7 @@ body{font-size:18px}
 .dict-options .seg button{min-width:0}
 .fb{font-size:1rem;min-height:1.5em}
 @media (prefers-reduced-motion:reduce){.opt,.book,.play,.round{animation:none!important;transition:none!important}}
+
+/* fixes after the child-friendly UI merge */
+.book.wide{box-sizing:border-box;max-width:100%}
+.opts .opt:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}

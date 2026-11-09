@@ -60,13 +60,7 @@ export function Quiz({ storyId }: { storyId: string }) {
       addWord('learned', id);
       sayKo(id);
       setReadyNext(true);
-      /* Child controls the pace: no abrupt automatic advance. */
-      /* setTimeout(() => {
-        setI((x) => x + 1);
-        setTried(false);
-        setWrong([]);
-        setRight(null);
-      }, 1300); */
+      // The child moves on with the 'next' button, at their own pace.
     } else {
       setWrong((w) => [...w, id]);
       setTried(true);

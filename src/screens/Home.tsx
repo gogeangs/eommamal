@@ -141,7 +141,7 @@ function StudyTab() {
   return (
     <>
       <details className="parent-scope">
-        <summary>이야기 선택 · 모든 낱말</summary>
+        <summary>이야기 선택 · {scopes.find(([id]) => id === p.scope)?.[1] ?? '모든 낱말'}</summary>
         <p className="label" style={{ margin: 0 }}>무엇으로 공부할까요?</p>
         <div className="chips" role="group" aria-label="공부할 낱말">
           {scopes.map(([id, name]) => (
