@@ -129,9 +129,9 @@ function BooksTab() {
 /* ---------- study tab ---------- */
 
 const ACTIVITIES = [
-  { view: 'quiz', icon: '◎', name: '낱말 놀이', hint: '소리를 듣고 그림을 골라요. 글을 몰라도 할 수 있어요.', step: '알아보기' },
-  { view: 'trace', icon: '✍', name: '따라 쓰기', hint: '번호와 화살표를 따라 획순대로 써요.', step: '따라 쓰기' },
-  { view: 'dict', icon: '✎', name: '받아쓰기', hint: '듣고 글자 블록이나 자판으로 써요.', step: '혼자 쓰기' },
+  { view: 'quiz', name: '낱말 놀이', step: '알아보기' },
+  { view: 'trace', name: '따라 쓰기', step: '따라 쓰기' },
+  { view: 'dict', name: '받아쓰기', step: '혼자 쓰기' },
 ] as const;
 
 function StudyTab() {
@@ -158,8 +158,8 @@ function StudyTab() {
                 <span className="act-icon" aria-hidden="true"><Illus name={`act-${a.view}`} className="" /></span>
                 <span className="act-text">
                   <small>{i + 1}단계 · {a.step}</small>
-                  <b>{a.name}</b>
-                  <span>{a.hint}</span>
+                  <b>{a.view === 'quiz' ? t(p.lang,'play') : a.view === 'trace' ? t(p.lang,'trace') : t(p.lang,'dictation')}</b>
+                  <span>{a.name}</span>
                 </span>
                 <span className="go-arrow" aria-hidden="true">›</span>
               </button>
@@ -237,7 +237,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       <header className="home-head">
         <div>
           <h1>{title}</h1>
-          <p className="lead">{tab === 'books' ? '오늘은 어떤 이야기를 볼까요?' : tab === 'study' ? '그림을 보고, 소리를 듣고 놀아요!' : '내가 모은 낱말 친구들'}</p>
+          <p className="lead">{tab === 'books' ? t(p.lang,'storyPrompt') : tab === 'study' ? `${t(p.lang,'play')} · 그림을 보고 소리를 들어요` : `${t(p.lang,'words')} · 내가 모은 낱말`}</p>
         </div>
         <button className="lang-btn" onClick={() => setSheet(true)} aria-label={`우리 집 말: ${lang.ko}. 바꾸기`}>
           <small>🔒 {t(p.lang, 'parent')}</small>
