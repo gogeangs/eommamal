@@ -4,6 +4,7 @@ import { Scene, TopBar, WordCard } from '../components/ui';
 import { AVATARS, childName, useProgress, type Profile } from '../lib/progress';
 import { KO, pt } from '../lib/parentUi';
 import { WORD_ART } from '../content';
+import { GatedSubscribe, PlanStatus } from './Subscribe';
 
 const avatarSrc = (id: string) => `${import.meta.env.BASE_URL}images/words/${WORD_ART[id] ? id : 'cat'}.webp`;
 
@@ -141,6 +142,9 @@ export function Parent() {
           </button>
         ))}
       </div>
+
+      <PlanStatus />
+      <GatedSubscribe />
 
       <section className="pcard">
         <H lang={lang} k="week" n={`${active} / 7`} />

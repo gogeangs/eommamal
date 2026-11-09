@@ -470,3 +470,26 @@ details.pcard summary{cursor:pointer;font-weight:800;min-height:28px}
 .home-actions{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
 .parent-link{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;font:inherit;font-family:var(--ko);font-weight:800;text-align:left;background:var(--leaf-soft);color:var(--leaf);border:0;border-radius:14px;padding:12px 14px;cursor:pointer;min-height:48px}
 .child-opt{flex-direction:row;align-items:center;gap:12px;justify-content:flex-start}
+/* ---------- plan / subscription ---------- */
+.plan-status{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-weight:800;font-size:.9rem;border-radius:12px;padding:8px 12px;background:var(--leaf-soft);color:var(--leaf)}
+.plan-status small{font-family:var(--ko);font-weight:700;font-size:.78rem;opacity:.85}
+.plan-status.free{background:color-mix(in srgb,var(--sun) 22%,var(--card));color:var(--sun-ink)}
+.ctag.later{background:var(--paper);color:var(--muted)}
+.read-limit{text-align:center;align-items:center;padding-bottom:24px}
+.read-limit h1{margin:0;font-size:1.5rem;text-wrap:balance}
+.read-limit .lead{margin:0}
+.limit-art{width:min(260px,70%)}
+.limit-mo{margin:0;font-weight:700;line-height:1.5}
+.read-limit .prow{width:100%}
+.limit-parent{width:100%;border-top:1.5px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:6px;align-items:center}
+.limit-parent p{margin:0}
+.read-limit .sub-card{width:100%;text-align:left}
+.sub-card{border:2px solid var(--sun)}
+.sub-card.on{border-color:var(--leaf)}
+.sub-price{margin:0;font-size:1rem}.sub-price b{font-family:var(--display);font-weight:400;font-size:1.8rem}
+.sub-list{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.sub-list li span{font-weight:700;display:block}.sub-list li small{font-family:var(--ko);color:var(--muted)}
+.sub-app{margin:0;font-family:var(--ko);font-weight:700;background:var(--paper);border-radius:12px;padding:10px 12px}
+.gate{align-items:stretch;width:100%}
+.gate-q{margin:0;font-family:var(--display);font-size:2rem;text-align:center;font-variant-numeric:tabular-nums}
+.gate-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}

@@ -5,6 +5,8 @@ import { Scene, Tile, TopBar, useSayWord } from '../components/ui';
 import { useProgress, type ReadMode } from '../lib/progress';
 import { hasVoice, onVoicesChanged, speak, speechSupported, stopSpeaking, wordStarts, type SpeechItem } from '../lib/speech';
 import { useNav } from '../nav';
+import { usePlan } from '../lib/plan';
+import { ReadLimit } from './Subscribe';
 
 /** Splits text into word tokens (with their start offsets) and the spaces between them. */
 function tokenize(text: string) {
@@ -24,7 +26,15 @@ const tokenAt = (toks: { start: number }[], ch: number) => {
 
 type Hi = { line: 'mo' | 'ko'; word: number } | null;
 
+/** Checks today's reading allowance before opening the story. */
 export function Reader({ storyId }: { storyId: string }) {
+  const plan = usePlan();
+  const [ok] = useState(() => plan.canRead(storyId));
+  useEffect(() => { if (ok) plan.markRead(storyId); }, [ok, storyId]); // eslint-disable-line react-hooks/exhaustive-deps
+  return ok ? <StoryReader storyId={storyId} /> : <><TopBar /><ReadLimit /></>;
+}
+
+function StoryReader({ storyId }: { storyId: string }) {
   const { p, set, addWord } = useProgress();
   const nav = useNav();
   const say = useSayWord();

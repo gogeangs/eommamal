@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { registerSW } from 'virtual:pwa-register';
 import { App } from './App';
 import { ProgressProvider } from './lib/progress';
+import { PlanProvider } from './lib/plan';
 import { applyPack } from './content/pack';
 import { contentStore, setPublishedPack } from './lib/contentStore';
 import './styles.css';
@@ -19,7 +20,9 @@ async function boot() {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <ProgressProvider>
-        <App />
+        <PlanProvider>
+          <App />
+        </PlanProvider>
       </ProgressProvider>
     </StrictMode>,
   );
