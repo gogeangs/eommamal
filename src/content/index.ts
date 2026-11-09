@@ -72,6 +72,7 @@ export const WORD_ART: Record<string, string> = {
   owl: '#F2E6D8', umbrella: '#EAF2F7', rain: '#FFF6DA', puppy: '#F3E9DC',
   frog: '#FFF1C7', sparrow: '#E6F0DF', rainbow: '#EAF2F7', seollal: '#EAF2F7', hanbok: '#E6F0DF',
   grandma: '#FFF1C7', pouch: '#FFF6DA', tteokguk: '#E6F0DF', yut: '#EAF2F7',
+  woodcutter: '#F3E9DC', mountain: '#EAF2F7', axe: '#FFF6DA', pond: '#FFF1C7', spirit: '#E6F0DF', gold: '#EAF2F7',
 };
 
 /** Word pairs whose pictures look alike; the word game never offers one as a wrong choice for the other. */
