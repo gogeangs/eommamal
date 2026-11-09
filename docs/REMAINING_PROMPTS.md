@@ -21,7 +21,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a glowing five-pointed sunflower-yellow star. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a glowing five-pointed sunflower-yellow star. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -39,7 +39,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a crescent moon with two tiny stars on a small navy night-sky circle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a crescent moon with two tiny stars on a small navy night-sky circle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -59,7 +59,7 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Nabi the orange tabby cat (no scarf), sitting, full body. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Nabi the orange tabby cat (no scarf), sitting, full body. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -77,7 +77,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a round leafy green tree with a brown trunk. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a round leafy green tree with a brown trunk. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -95,7 +95,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a patch of blue sky with one fluffy white cloud and a small sun. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a patch of blue sky with one fluffy white cloud and a small sun. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -115,7 +115,7 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the kind brown owl, sitting, front view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the kind brown owl, sitting, front view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -133,7 +133,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: an open sunflower-yellow umbrella with a curved handle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: an open sunflower-yellow umbrella with a curved handle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -151,7 +151,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: three falling blue raindrops above a small puddle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: three falling blue raindrops above a small puddle. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -171,7 +171,7 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the floppy-eared beige puppy, sitting. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the floppy-eared beige puppy, sitting. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -191,7 +191,7 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the little green frog, sitting, front view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the little green frog, sitting, front view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -211,7 +211,7 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the round brown sparrow, side view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: the round brown sparrow, side view. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -229,7 +229,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a rainbow arc with small clouds at both ends. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a rainbow arc with small clouds at both ends. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, rain, umbrella, cat, dog, owl, sparrow, frog, tree.
 
 Format: Square 1024x1024, transparent background.
 
@@ -247,7 +247,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a red lucky pouch in front of a sunrise over a hanok roof (Korean New Year morning). One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a red lucky pouch in front of a sunrise over a hanok roof (Korean New Year morning). One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -265,7 +265,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a child's hanbok laid flat: yellow jeogori with a red ribbon and a pink chima. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a child's hanbok laid flat: yellow jeogori with a red ribbon and a pink chima. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -285,7 +285,7 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Grandma, upper body, smiling. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Grandma, upper body, smiling. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -303,7 +303,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a red silk bokjumeoni lucky pouch with a golden drawstring. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a red silk bokjumeoni lucky pouch with a golden drawstring. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -321,7 +321,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a white bowl of tteokguk: clear broth with sliced white oval rice cakes, egg garnish, gentle steam. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: a white bowl of tteokguk: clear broth with sliced white oval rice cakes, egg garnish, gentle steam. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -339,7 +339,7 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 
 Absolutely no text, letters, numbers or writing anywhere in the image.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: four wooden yut sticks (flat side and round side visible) crossed loosely on a small straw mat. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: four wooden yut sticks (flat side and round side visible) crossed loosely on a small straw mat. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with the other word pictures: star, moon, sky, cloud, rain, umbrella, cat, dog, owl, sparrow, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
