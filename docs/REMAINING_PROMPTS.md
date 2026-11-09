@@ -1,255 +1,11 @@
 # 엄마말 그림책 — 남은 이미지 프롬프트
 
-완료: 캐릭터 시트 7장, 앱 아이콘, 『작은 별』 6장. **남은 이미지 42장**과, 다시 만들 것을 권하는 『작은 별』 1쪽 프롬프트입니다.
+완료: 캐릭터 시트 7장, 앱 아이콘, 동화 장면 18장. **남은 이미지 30장**과 다시 만들기 권장 5장입니다.
 
 - 각 프롬프트를 그대로 복사해서 ChatGPT에 붙여 넣으세요. 공통 규칙(그림체·색·글자 금지·투명 배경·크기·파일 이름)이 모두 들어 있어요.
 - **첨부**가 적힌 항목은 저장소 `art/characters/` 의 정리된 캐릭터 시트를 함께 올려 주세요.
-- 장면 프롬프트에는 "적힌 캐릭터 외에는 아무도 넣지 말 것"을 추가했어요. (『작은 별』 1쪽에 미니가 들어간 문제 방지)
-
-
----
-
-## 동화 장면
-
-### 『노란 우산』 1쪽 — 비가 와요. 미니는 노란 우산을 펼쳤어요.
-
-저장 이름: `umbrella-01.png`  ·  첨부: char-mini.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "비가 와요. 미니는 노란 우산을 펼쳤어요." Rainy day: a short stretch of quiet path with a puddle, light rain lines falling around; Mini in her coral-red dress opens a bright sunflower-yellow umbrella, smiling. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: umbrella-01.png
-```
-
-### 『노란 우산』 2쪽 — 길에서 비에 젖은 강아지를 만났어요.
-
-저장 이름: `umbrella-02.png`  ·  첨부: char-mini.png, char-puppy.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "길에서 비에 젖은 강아지를 만났어요." On the rainy path, Mini under her yellow umbrella notices the small wet puppy shivering beside a puddle. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; the small floppy-eared beige puppy. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: umbrella-02.png
-```
-
-### 『노란 우산』 3쪽 — "같이 쓰자!" 미니가 우산을 기울였어요.
-
-저장 이름: `umbrella-03.png`  ·  첨부: char-mini.png, char-puppy.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): ""같이 쓰자!" 미니가 우산을 기울였어요." Mini kindly tilts her yellow umbrella over the wet puppy so they share it; the puppy looks up gratefully. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; the small floppy-eared beige puppy. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: umbrella-03.png
-```
-
-### 『노란 우산』 4쪽 — 개구리도, 참새도 우산 아래로 들어왔어요.
-
-저장 이름: `umbrella-04.png`  ·  첨부: char-frog-sparrow.png, char-mini.png, char-puppy.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "개구리도, 참새도 우산 아래로 들어왔어요." The little frog hops in and the sparrow flutters down to join Mini and the puppy under the yellow umbrella in the rain. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; the small floppy-eared beige puppy; the little bright green frog; the round brown sparrow. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: umbrella-04.png
-```
-
-### 『노란 우산』 5쪽 — 우산은 작았지만, 모두 함께 들어갈 수 있었어요.
-
-저장 이름: `umbrella-05.png`  ·  첨부: char-frog-sparrow.png, char-mini.png, char-puppy.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "우산은 작았지만, 모두 함께 들어갈 수 있었어요." All four friends - Mini, the puppy, the frog and the sparrow - squeezed cozily together under the small yellow umbrella, rain all around, everyone smiling. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; the small floppy-eared beige puppy; the little bright green frog; the round brown sparrow. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: umbrella-05.png
-```
-
-### 『노란 우산』 6쪽 — 비가 그치자 하늘에 무지개가 떴어요.
-
-저장 이름: `umbrella-06.png`  ·  첨부: char-frog-sparrow.png, char-mini.png, char-puppy.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "비가 그치자 하늘에 무지개가 떴어요." The rain has stopped: a big soft rainbow arcs above; Mini (umbrella closed), the puppy, the frog and the sparrow celebrate on fresh green grass. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; the small floppy-eared beige puppy; the little bright green frog; the round brown sparrow. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: umbrella-06.png
-```
-
-### 『설날 아침』 1쪽 — 설날 아침이에요. 미니는 고운 한복을 입었어요.
-
-저장 이름: `seollal-01.png`  ·  첨부: char-mini.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "설날 아침이에요. 미니는 고운 한복을 입었어요." Korean Lunar New Year (Seollal) morning on a patch of warm wooden hanok floor with one paper lattice window panel standing behind her; Mini twirls happily in her hanbok (yellow jeogori, pink chima). Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: seollal-01.png
-```
-
-### 『설날 아침』 2쪽 — 미니는 할머니께 세배를 했어요. "새해 복 많이 받으세요!"
-
-저장 이름: `seollal-02.png`  ·  첨부: char-grandma.png, char-mini.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "미니는 할머니께 세배를 했어요. "새해 복 많이 받으세요!"" Mini performs sebae, the traditional Korean New Year's deep bow: kneeling on the floor with hands together at forehead level, in front of Grandma, who sits on a floor cushion smiling warmly. The bow must be accurate to Korean custom. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; Grandma, a gentle Korean grandmother with silver hair in a low bun and smiling eyes, wearing a lavender hanbok. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: seollal-02.png
-```
-
-### 『설날 아침』 3쪽 — 할머니가 웃으며 복주머니를 주셨어요.
-
-저장 이름: `seollal-03.png`  ·  첨부: char-grandma.png, char-mini.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "할머니가 웃으며 복주머니를 주셨어요." In the hanok room, smiling Grandma hands Mini a small red silk lucky pouch (bokjumeoni) with a golden drawstring; soft warm morning light. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; Grandma, a gentle Korean grandmother with silver hair in a low bun and smiling eyes, wearing a lavender hanbok. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: seollal-03.png
-```
-
-### 『설날 아침』 4쪽 — 모두 함께 떡국을 먹었어요. 떡국을 먹으면 한 살 더 먹는대요.
-
-저장 이름: `seollal-04.png`  ·  첨부: char-grandma.png, char-mini.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "모두 함께 떡국을 먹었어요. 떡국을 먹으면 한 살 더 먹는대요." The family sits at a low wooden table eating tteokguk - clear broth with sliced white oval rice cakes and egg garnish - from white bowls; Mini and Grandma face us, one parent seen from behind; gentle steam rising. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; Grandma, a gentle Korean grandmother with silver hair in a low bun and smiling eyes, wearing a lavender hanbok. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: seollal-04.png
-```
-
-### 『설날 아침』 5쪽 — 마당에서 윷놀이를 했어요. 윷가락이 높이 날아올랐어요.
-
-저장 이름: `seollal-05.png`  ·  첨부: char-grandma.png, char-mini.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "마당에서 윷놀이를 했어요. 윷가락이 높이 날아올랐어요." On a patch of hanok courtyard ground on a clear winter day, Mini plays yunnori: four wooden yut sticks tossed high in the air above a straw mat, Grandma laughing nearby. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; Grandma, a gentle Korean grandmother with silver hair in a low bun and smiling eyes, wearing a lavender hanbok. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: seollal-05.png
-```
-
-### 『설날 아침』 6쪽 — 미니가 물었어요. "친구네 나라에서는 새해를 어떻게 보낼까?"
-
-저장 이름: `seollal-06.png`  ·  첨부: char-mini.png
-
-```
-Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
-
-Absolutely no text, letters, numbers or writing anywhere in the image.
-
-Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
-
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "미니가 물었어요. "친구네 나라에서는 새해를 어떻게 보낼까?"" Evening in the hanok: Mini in her hanbok looks curiously at a softly glowing globe beside her, small sparkles around it, wondering how friends around the world celebrate New Year. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area.
-
-Format: Landscape 1536x1024 story illustration, transparent background.
-
-Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
-
-File name: seollal-06.png
-```
+- 낱말 아이콘 18개는 **한 대화에서 이어서** 만들어야 그림체가 맞아요.
+- 나비는 동화 장면에 맞춰 **스카프 없이** 그리도록 했어요.
 
 
 ---
@@ -303,7 +59,7 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Nabi the orange cat, sitting, full body. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
+Single vocabulary icon for a children's word game where a 4-year-old hears the word and must pick this picture. Object: Nabi the orange tabby cat (no scarf), sitting, full body. One object only, centered, large, instantly recognizable, simple silhouette, 10% empty margin on all sides. It must not be confusable with: star, moon, sky, cloud, rain, umbrella, cat, dog, bird, frog, tree, rainbow.
 
 Format: Square 1024x1024, transparent background.
 
@@ -827,10 +583,9 @@ File name: culture-world.png
 
 ## 다시 만들기 권장
 
-『작은 별』 1쪽에 미니가 들어가 있어 이야기와 맞지 않아요. 아래로 다시 만들어 주세요.
-
-
 ### 『작은 별』 1쪽 — 밤하늘에서 작은 별 하나가 떨어졌어요.
+
+이유: 『작은 별』 1쪽에 미니가 들어가 있어요. 이 장면은 언덕·달·떨어지는 별만 나와야 해요.
 
 저장 이름: `star-01.png`  ·  첨부: char-star.png
 
@@ -841,11 +596,99 @@ Absolutely no text, letters, numbers or writing anywhere in the image.
 
 Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
 
-Scene for the picture book page whose text reads (Korean; do not write it in the image): "밤하늘에서 작은 별 하나가 떨어졌어요." Night scene drawn for a deep navy backdrop: the top of a soft green hill, a pale moon top right and a few tiny stars as separate shapes; the little star falling diagonally with a soft golden trail toward the hill. Calm and wondrous. Characters: the little fallen star, a tiny soft sunflower-yellow glowing star with simple dot eyes and a small mouth. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area. No people at all in this scene; Nabi the cat is not in this scene yet either, only the hill, moon, stars and the falling little star.
+Scene for the picture book page whose text reads (Korean; do not write it in the image): "밤하늘에서 작은 별 하나가 떨어졌어요." Night scene drawn for a deep navy backdrop: the top of a soft green hill, a pale moon top right and a few tiny stars as separate shapes; the little star falling diagonally with a soft golden trail toward the hill. Calm and wondrous. Characters: the little fallen star, a tiny soft sunflower-yellow glowing star with simple dot eyes and a small mouth. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area. No people at all in this scene; Nabi the cat is not in this scene yet either: only the hill, the moon, a few tiny stars and the falling little star.
 
 Format: Landscape 1536x1024 story illustration, transparent background.
 
 Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
 
 File name: star-01.png
+```
+
+### 『노란 우산』 4쪽 — 개구리도, 참새도 우산 아래로 들어왔어요.
+
+이유: 강아지가 캐릭터 시트와 다른 품종처럼 보여요.
+
+저장 이름: `umbrella-04.png`  ·  첨부: char-frog-sparrow.png, char-mini.png, char-puppy.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
+
+Scene for the picture book page whose text reads (Korean; do not write it in the image): "개구리도, 참새도 우산 아래로 들어왔어요." The little frog hops in and the sparrow flutters down to join Mini and the puppy under the yellow umbrella in the rain. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; the small floppy-eared beige puppy; the little bright green frog; the round brown sparrow. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area. The puppy must match the attached puppy sheet exactly: shaggy fluffy beige fur, long floppy brown ears, small brown patch on the back; not a white-and-brown short-haired dog. Mini wears her brown Mary Jane shoes and white socks.
+
+Format: Landscape 1536x1024 story illustration, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: umbrella-04.png
+```
+
+### 『노란 우산』 5쪽 — 우산은 작았지만, 모두 함께 들어갈 수 있었어요.
+
+이유: 강아지가 캐릭터 시트와 다른 품종처럼 보여요.
+
+저장 이름: `umbrella-05.png`  ·  첨부: char-frog-sparrow.png, char-mini.png, char-puppy.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
+
+Scene for the picture book page whose text reads (Korean; do not write it in the image): "우산은 작았지만, 모두 함께 들어갈 수 있었어요." All four friends - Mini, the puppy, the frog and the sparrow - squeezed cozily together under the small yellow umbrella, rain all around, everyone smiling. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; the small floppy-eared beige puppy; the little bright green frog; the round brown sparrow. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area. The puppy must match the attached puppy sheet exactly: shaggy fluffy beige fur, long floppy brown ears, small brown patch on the back; not a white-and-brown short-haired dog. Mini wears her brown Mary Jane shoes and white socks.
+
+Format: Landscape 1536x1024 story illustration, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: umbrella-05.png
+```
+
+### 『노란 우산』 6쪽 — 비가 그치자 하늘에 무지개가 떴어요.
+
+이유: 강아지가 캐릭터 시트와 다른 품종처럼 보여요.
+
+저장 이름: `umbrella-06.png`  ·  첨부: char-frog-sparrow.png, char-mini.png, char-puppy.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
+
+Scene for the picture book page whose text reads (Korean; do not write it in the image): "비가 그치자 하늘에 무지개가 떴어요." The rain has stopped: a big soft rainbow arcs above; Mini (umbrella closed), the puppy, the frog and the sparrow celebrate on fresh green grass. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; the small floppy-eared beige puppy; the little bright green frog; the round brown sparrow. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area. The puppy must match the attached puppy sheet exactly: shaggy fluffy beige fur, long floppy brown ears, small brown patch on the back; not a white-and-brown short-haired dog. Mini wears her brown Mary Jane shoes and white socks.
+
+Format: Landscape 1536x1024 story illustration, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: umbrella-06.png
+```
+
+### 『설날 아침』 5쪽 — 마당에서 윷놀이를 했어요. 윷가락이 높이 날아올랐어요.
+
+이유: 윷가락이 둥근 막대로 그려졌어요. 실제 윷은 반원 모양이에요.
+
+저장 이름: `seollal-05.png`  ·  첨부: char-grandma.png, char-mini.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Palette anchored on leaf green #2F7A5B, sunflower yellow #F2B533, deep ink #1F2B3A, soft paper #F4F6F1. Friendly, calm, for children aged 4-8.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Keep every character exactly as in the attached character sheet(s): same face, hair, outfit and colors.
+
+Scene for the picture book page whose text reads (Korean; do not write it in the image): "마당에서 윷놀이를 했어요. 윷가락이 높이 날아올랐어요." On a patch of hanok courtyard ground on a clear winter day, Mini plays yunnori: four wooden yut sticks tossed high in the air above a straw mat, Grandma laughing nearby. Characters: Mini, a cheerful 6-year-old girl with shoulder-length dark brown hair in a small side bun, warm light-tan skin, round friendly face, ethnicity intentionally ambiguous; Grandma, a gentle Korean grandmother with silver hair in a low bun and smiling eyes, wearing a lavender hanbok. Only these characters appear: no other people or animals. Keep important elements out of the bottom 15% of the frame. Composition: a vignette, not a full-bleed picture. Draw only the characters, props and a small patch of ground or floor under them; sky, walls and distant scenery are left transparent because the app paints a backdrop color behind the image. Small floating elements (moon, stars, raindrops, clouds, rainbow) may be drawn as separate shapes on the transparent area. The yut sticks must be accurate: four half-round wooden sticks, each with one flat pale face and one rounded darker back, about the length of a child's forearm; no X marks. Keep Mini's hanbok exactly as in the previous Seollal scenes: yellow jeogori with flower embroidery, pink bow, pink chima with flowers, pink flower hair pin.
+
+Format: Landscape 1536x1024 story illustration, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: seollal-05.png
 ```
