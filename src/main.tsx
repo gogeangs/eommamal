@@ -4,6 +4,7 @@ import { registerSW } from 'virtual:pwa-register';
 import { App } from './App';
 import { ProgressProvider } from './lib/progress';
 import { PlanProvider } from './lib/plan';
+import { AccountProvider } from './lib/account';
 import { applyPack } from './content/pack';
 import { contentStore, setPublishedPack } from './lib/contentStore';
 import './styles.css';
@@ -21,7 +22,9 @@ async function boot() {
     <StrictMode>
       <ProgressProvider>
         <PlanProvider>
-          <App />
+          <AccountProvider>
+            <App />
+          </AccountProvider>
         </PlanProvider>
       </ProgressProvider>
     </StrictMode>,

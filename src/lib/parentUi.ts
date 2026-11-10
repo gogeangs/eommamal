@@ -4,7 +4,7 @@ import type { LangId } from '../content';
 type Key =
   | 'title' | 'week' | 'books' | 'words' | 'written' | 'sentences'
   | 'hard' | 'hardTip' | 'noHard' | 'learnedList' | 'done' | 'reading' | 'notYet'
-  | 'children' | 'privacy';
+  | 'children' | 'privacy' | 'account' | 'accountWhy' | 'privacySync';
 
 export const KO: Record<Key, string> = {
   title: '우리 아이 기록',
@@ -22,6 +22,9 @@ export const KO: Record<Key, string> = {
   notYet: '아직',
   children: '아이 관리',
   privacy: '기록은 이 기기에만 저장되고, 어디에도 보내지 않아요.',
+  account: '보호자 계정',
+  accountWhy: '휴대폰을 바꾸거나 여러 기기에서 써도 아이들 기록과 구독이 이어져요.',
+  privacySync: '로그인하면 기록이 보호자 계정에 저장돼요. 아이의 실명이나 연락처는 받지 않아요.',
 };
 
 const MO: Record<LangId, Record<Key, string>> = {
@@ -31,6 +34,7 @@ const MO: Record<LangId, Record<Key, string>> = {
     hardTip: 'Объясните значение на родном языке, а потом скажите слово по-корейски вместе.',
     noHard: 'Пока ошибок нет.', learnedList: 'Все выученные слова', done: 'Прочитано', reading: 'Читает', notYet: 'Ещё нет',
     children: 'Дети', privacy: 'Записи хранятся только на этом устройстве и никуда не отправляются.',
+    account: 'Аккаунт родителя', accountWhy: 'Записи детей и подписка сохранятся при смене телефона и на других устройствах.', privacySync: 'После входа записи хранятся в аккаунте родителя. Настоящие имена и контакты детей не собираются.',
   },
   mn: {
     title: 'Хүүхдийн ахиц', week: 'Сүүлийн 7 хоногт хичээллэсэн өдөр', books: 'Уншсан ном', words: 'Сурсан үг',
@@ -38,6 +42,7 @@ const MO: Record<LangId, Record<Key, string>> = {
     hardTip: 'Утгыг нь эх хэлээрээ тайлбарлаад, солонгосоор хамт хэлээрэй.',
     noHard: 'Одоогоор алдсан үг алга.', learnedList: 'Сурсан бүх үг', done: 'Уншсан', reading: 'Уншиж байна', notYet: 'Хараахан',
     children: 'Хүүхдүүд', privacy: 'Тэмдэглэл зөвхөн энэ төхөөрөмжид хадгалагдана, хаашаа ч илгээгдэхгүй.',
+    account: 'Эцэг эхийн бүртгэл', accountWhy: 'Утсаа солиход ч, өөр төхөөрөмж дээр ч хүүхдийн тэмдэглэл, захиалга хадгалагдана.', privacySync: 'Нэвтэрсний дараа тэмдэглэл эцэг эхийн бүртгэлд хадгалагдана. Хүүхдийн жинхэнэ нэр, холбоо барих мэдээлэл авахгүй.',
   },
   vi: {
     title: 'Kết quả học của con', week: 'Số ngày học trong 7 ngày qua', books: 'Truyện đã đọc', words: 'Từ đã học',
@@ -45,6 +50,7 @@ const MO: Record<LangId, Record<Key, string>> = {
     hardTip: 'Hãy giải thích nghĩa bằng tiếng mẹ đẻ, rồi cùng con nói bằng tiếng Hàn.',
     noHard: 'Chưa có từ nào sai.', learnedList: 'Xem tất cả từ đã học', done: 'Đã đọc xong', reading: 'Đang đọc', notYet: 'Chưa đọc',
     children: 'Các con', privacy: 'Dữ liệu chỉ lưu trên máy này và không gửi đi đâu.',
+    account: 'Tài khoản phụ huynh', accountWhy: 'Đổi điện thoại hay dùng nhiều máy, kết quả học của con và gói đăng ký vẫn được giữ.', privacySync: 'Khi đăng nhập, dữ liệu được lưu trong tài khoản phụ huynh. Chúng tôi không thu thập tên thật hay liên lạc của trẻ.',
   },
   uz: {
     title: 'Farzandim natijalari', week: "So'nggi 7 kunda o'qigan kunlar", books: "O'qilgan ertaklar", words: "O'rganilgan so'zlar",
@@ -52,6 +58,7 @@ const MO: Record<LangId, Record<Key, string>> = {
     hardTip: "Ma'nosini ona tilida tushuntiring, keyin koreyschada birga ayting.",
     noHard: "Hozircha xato so'z yo'q.", learnedList: "Barcha o'rganilgan so'zlar", done: "O'qildi", reading: "O'qiyapti", notYet: 'Hali emas',
     children: 'Farzandlar', privacy: "Ma'lumotlar faqat shu qurilmada saqlanadi va hech qayerga yuborilmaydi.",
+    account: 'Ota-ona hisobi', accountWhy: 'Telefon almashtirsangiz yoki bir nechta qurilmada ishlatsangiz ham, farzand natijalari va obuna saqlanadi.', privacySync: "Kirganingizdan so'ng ma'lumotlar ota-ona hisobida saqlanadi. Bolaning haqiqiy ismi va aloqa ma'lumotlari olinmaydi.",
   },
   zh: {
     title: '孩子的学习记录', week: '最近7天的学习天数', books: '读过的故事', words: '学会的词语',
@@ -59,6 +66,7 @@ const MO: Record<LangId, Record<Key, string>> = {
     hardTip: '先用母语讲讲意思，再和孩子一起用韩语说一说。',
     noHard: '还没有答错的词语。', learnedList: '查看全部学会的词语', done: '读完了', reading: '在读', notYet: '还没读',
     children: '孩子', privacy: '记录只保存在这台设备上，不会发送到任何地方。',
+    account: '家长账号', accountWhy: '换手机或在多台设备上使用，孩子的记录和订阅都会保留。', privacySync: '登录后，记录会保存在家长账号中。我们不收集孩子的真实姓名和联系方式。',
   },
   en: {
     title: "Your child's progress", week: 'Days practiced in the last 7 days', books: 'Stories read', words: 'Words learned',
@@ -66,6 +74,7 @@ const MO: Record<LangId, Record<Key, string>> = {
     hardTip: 'Explain the meaning in your language, then say the word together in Korean.',
     noHard: 'No tricky words yet.', learnedList: 'See all learned words', done: 'Finished', reading: 'Reading', notYet: 'Not yet',
     children: 'Children', privacy: 'Records stay on this device and are never sent anywhere.',
+    account: 'Parent account', accountWhy: "Keep your children's progress and subscription when you change phones or use several devices.", privacySync: "When you sign in, progress is saved to your parent account. We never collect children's real names or contact details.",
   },
 };
 

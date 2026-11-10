@@ -5,6 +5,8 @@ import { AVATARS, childName, useProgress, type Profile } from '../lib/progress';
 import { KO, pt } from '../lib/parentUi';
 import { WORD_ART } from '../content';
 import { GatedSubscribe, PlanStatus } from './Subscribe';
+import { AccountPanel } from './AccountPanel';
+import { useAccount } from '../lib/account';
 
 const avatarSrc = (id: string) => `${import.meta.env.BASE_URL}images/words/${WORD_ART[id] ? id : 'cat'}.webp`;
 
@@ -117,6 +119,7 @@ function ChildManager() {
 
 export function Parent() {
   const { p, profiles, profile, switchProfile } = useProgress();
+  const signedIn = !!useAccount().email;
   const lang = p.lang;
   const shelf = STORIES.filter((s) => !s.hidden);
   const finished = shelf.filter((s) => p.finished.includes(s.id)).length;
@@ -221,10 +224,12 @@ export function Parent() {
         </details>
       )}
 
+      <AccountPanel />
+
       <H lang={lang} k="children" />
       <ChildManager />
 
-      <p className="pnote privacy"><span lang={lang}>{pt(lang, 'privacy')}</span><br />{KO.privacy}</p>
+      <p className="pnote privacy"><span lang={lang}>{pt(lang, signedIn ? 'privacySync' : 'privacy')}</span><br />{KO[signedIn ? 'privacySync' : 'privacy']}</p>
     </>
   );
 }

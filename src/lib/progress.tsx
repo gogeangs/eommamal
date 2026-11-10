@@ -1,7 +1,7 @@
 // Learner settings and progress, kept in this browser (localStorage).
 // Several children can share one device: each child (profile) has its own set of keys.
 // A server-backed store (Supabase) can replace this module without touching the screens.
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { LangId } from '../content/types';
 
 const ROOT = 'emb-';
@@ -14,12 +14,19 @@ function readKey<T>(key: string, fallback: T): T {
     return fallback;
   }
 }
+/** Fired after the app changes stored progress, so account sync can upload it. */
+export const CHANGE_EVENT = 'emb-change';
+/** Fired by account sync after it rewrote stored progress, so the screens reload it. */
+export const RELOAD_EVENT = 'emb-reload';
+const changed = () => { try { window.dispatchEvent(new Event(CHANGE_EVENT)); } catch { /* ignore */ } };
+
 function writeKey(key: string, value: unknown) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {
     /* storage unavailable: keep working in memory */
   }
+  changed();
 }
 function removeKey(key: string) {
   try { localStorage.removeItem(key); } catch { /* ignore */ }
@@ -67,7 +74,8 @@ const DEFAULTS: Progress = {
   misses: {},
   days: [],
 };
-const KEYS = Object.keys(DEFAULTS) as (keyof Progress)[];
+export const PROGRESS_DEFAULTS = DEFAULTS;
+export const KEYS = Object.keys(DEFAULTS) as (keyof Progress)[];
 /** Settings a new child copies from the child currently using the device. */
 const SHARED: (keyof Progress)[] = ['lang', 'langChosen', 'mode', 'textSize', 'dictMode'];
 
@@ -78,14 +86,14 @@ export const AVATARS = ['cat', 'puppy', 'frog', 'owl', 'sparrow', 'star'];
 const FIRST: Profile = { id: 'p1', name: '', avatar: 'cat' };
 
 // The first child keeps the original keys (emb-learned …) so existing records carry over.
-const prefix = (pid: string) => (pid === 'p1' ? ROOT : `${ROOT}${pid}-`);
+export const prefix = (pid: string) => (pid === 'p1' ? ROOT : `${ROOT}${pid}-`);
 
-function loadProfiles(): Profile[] {
+export function loadProfiles(): Profile[] {
   const list = readKey<Profile[]>(`${ROOT}profiles`, []);
   return list.length ? list : [FIRST];
 }
 
-function load(pid: string): Progress {
+export function load(pid: string): Progress {
   const p = { ...DEFAULTS };
   KEYS.forEach((k) => { (p as Record<string, unknown>)[k] = readKey(prefix(pid) + k, DEFAULTS[k]); });
   return p;
@@ -127,6 +135,20 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   const [p, setP] = useState<Progress>(() => load(pid));
 
   const saveProfiles = (list: Profile[]) => { writeKey(`${ROOT}profiles`, list); setProfiles(list); };
+
+  // Account sync rewrote storage: read everything again.
+  useEffect(() => {
+    const onReload = () => {
+      const list = loadProfiles();
+      const id = readKey<string>(`${ROOT}profile`, 'p1');
+      const cur = list.some((x) => x.id === id) ? id : list[0].id;
+      setProfiles(list);
+      setPid(cur);
+      setP(load(cur));
+    };
+    window.addEventListener(RELOAD_EVENT, onReload);
+    return () => window.removeEventListener(RELOAD_EVENT, onReload);
+  }, []);
 
   const set = useCallback(<K extends keyof Progress>(key: K, value: Progress[K]) => {
     writeKey(prefix(pid) + key, value);
@@ -190,6 +212,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   const removeProfile = useCallback((id: string) => {
     if (profiles.length < 2) return;
     clearData(id, false);
+    writeKey(`${ROOT}deleted`, [...readKey<string[]>(`${ROOT}deleted`, []), id]); // removed on other devices too
     const list = profiles.filter((x) => x.id !== id);
     saveProfiles(list);
     if (id === pid) switchProfile(list[0].id);

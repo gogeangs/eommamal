@@ -64,3 +64,10 @@ export const store = (): Store => {
   const P = plugin();
   return P ? nativeStore(P) : webStore;
 };
+
+/** Ties store purchases to the signed-in family, so the server (and the web version) knows about the subscription. */
+export async function identifyBuyer(userId: string) {
+  const P = plugin();
+  if (!P?.logIn) return;
+  try { await P.logIn({ appUserID: userId }); } catch { /* offline: retried on next sign-in */ }
+}

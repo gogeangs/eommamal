@@ -493,3 +493,9 @@ details.pcard summary{cursor:pointer;font-weight:800;min-height:28px}
 .gate{align-items:stretch;width:100%}
 .gate-q{margin:0;font-family:var(--display);font-size:2rem;text-align:center;font-variant-numeric:tabular-nums}
 .gate-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+/* ---------- account ---------- */
+.acc-who{margin:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;overflow-wrap:anywhere}
+.acc-sync{margin:0;font-family:var(--ko);font-size:.85rem;font-weight:700;color:var(--leaf)}
+.acc-sync.syncing{color:var(--muted)}.acc-sync.error{color:#B23B2B}
+.field input[type="email"],.field input[inputmode="numeric"]{letter-spacing:.02em}
+.field input[inputmode="numeric"]{font-size:1.4rem;letter-spacing:.3em;text-align:center}

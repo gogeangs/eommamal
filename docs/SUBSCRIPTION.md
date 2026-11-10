@@ -20,7 +20,7 @@
 ## 남은 일: 앱으로 출시
 인앱 결제는 웹(GitHub Pages)에서는 할 수 없어요. 같은 코드를 **Capacitor**로 감싸 App Store·Google Play 앱으로 내요.
 
-1. **앱 껍데기 만들기** (Mac + Xcode 필요, Android는 Android Studio)
+1. **앱 껍데기 만들기** (iOS 빌드에는 macOS가 필요해요. Mac이 없으면 GitHub Actions의 macOS 빌드 환경이나 Codemagic 같은 클라우드 빌드로 만들고 TestFlight로 iPhone에 설치해요. Android는 Linux에서도 빌드돼요)
    - `npm i @capacitor/core @capacitor/cli @capacitor/ios @capacitor/android`
    - `npx cap init "엄마말 그림책" kr.co.project30s.eommamal --web-dir dist`
    - `npm run build && npx cap add ios && npx cap add android`
@@ -36,5 +36,5 @@
    - Google Play 가족 정책 확인
 
 ## 알려진 한계
-- 체험 시작일과 하루 기록이 기기에 저장돼서, 앱 데이터를 지우면 체험이 다시 시작돼요. 보호자 계정·서버 저장소를 붙이면 막을 수 있어요.
+- 로그인하지 않은 기기는 체험 시작일이 기기에만 저장돼서, 앱 데이터를 지우면 체험이 다시 시작돼요. 로그인한 가족은 서버의 시작일을 따라요(docs/SUPABASE.md).
 - 구독 상태는 스토어 계정 기준이라, 같은 스토어 계정의 다른 기기에서는 "구독 복원하기"로 되살려요.

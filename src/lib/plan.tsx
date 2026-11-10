@@ -6,6 +6,7 @@
 // Kept for the whole family on this device, not per child, so adding a child does not add stories.
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { store, type SubStatus } from './billing';
+import { CHANGE_EVENT, RELOAD_EVENT } from './progress';
 
 export const TRIAL_DAYS = 30;
 export const DAILY_STORIES = 2;
@@ -15,7 +16,11 @@ const K = { first: 'emb-firstUse', reads: 'emb-reads', sub: 'emb-sub' };
 function read<T>(key: string, fallback: T): T {
   try { const v = localStorage.getItem(key); return v == null ? fallback : (JSON.parse(v) as T); } catch { return fallback; }
 }
-function write(key: string, v: unknown) { try { localStorage.setItem(key, JSON.stringify(v)); } catch { /* memory only */ } }
+function write(key: string, v: unknown) {
+  try { localStorage.setItem(key, JSON.stringify(v)); } catch { /* memory only */ }
+  try { window.dispatchEvent(new Event(CHANGE_EVENT)); } catch { /* ignore */ }
+}
+export const PLAN_KEYS = K;
 
 export const dayKey = (d = new Date()) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -49,7 +54,7 @@ const PlanContext = createContext<Ctx | null>(null);
 
 export function PlanProvider({ children }: { children: ReactNode }) {
   const today = dayKey();
-  const [first] = useState<string>(() => {
+  const [first, setFirst] = useState<string>(() => {
     const f = read<string>(K.first, '');
     if (f) return f;
     write(K.first, today);
@@ -67,6 +72,20 @@ export function PlanProvider({ children }: { children: ReactNode }) {
   const st = useMemo(store, []);
 
   const saveSub = (s: SubStatus) => { write(K.sub, s); setSub(s); };
+
+  // Account sync rewrote storage (trial start, today's reads, subscription from the server).
+  useEffect(() => {
+    const onReload = () => {
+      const d = dayKey();
+      setFirst(read<string>(K.first, d) || d);
+      const r = read(K.reads, { day: d, ids: [] as string[] });
+      setReads(r.day === d ? r : { day: d, ids: [] });
+      const s = read<SubStatus>(K.sub, { active: false });
+      setSub(s.active && s.until && new Date(s.until) < new Date() ? { active: false } : s);
+    };
+    window.addEventListener(RELOAD_EVENT, onReload);
+    return () => window.removeEventListener(RELOAD_EVENT, onReload);
+  }, []);
 
   // The store is the source of truth inside the app; check it once at start.
   useEffect(() => {

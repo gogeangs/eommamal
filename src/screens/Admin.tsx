@@ -3,7 +3,9 @@ import { strToU8, strFromU8, unzipSync, zipSync } from 'fflate';
 import { LANGS, STORIES, V } from '../content';
 import { LANG_IDS, assetUrl, emptyPack, type Pack, type PackPage, type PackStory, type PackWord } from '../content/pack';
 import type { LangId } from '../content/types';
-import { StorageFullError, contentStore, previewActive, publishedPack } from '../lib/contentStore';
+import { StorageFullError, contentStore, previewActive, publishToServer, publishedPack } from '../lib/contentStore';
+import { useAccount } from '../lib/account';
+import { AccountPanel } from './AccountPanel';
 import { bytesDataUrl, dataUrlBytes, scenePicture, wordPicture } from '../lib/imageTools';
 import { useNav } from '../nav';
 
@@ -188,6 +190,7 @@ export function Admin() {
       {view.v === 'publish' && (
         <section className="stack admin-publish">
           <h2>내려받기·게시</h2>
+          <ServerPublish pack={pack} onDone={(p) => { setPack(p); setNotice('서버에 게시했어요. 앱을 다시 열면 모든 기기에 반영돼요.'); }} />
           <ol className="admin-steps">
             <li><b>미리 보기로 확인해요.</b> 위쪽 "이 기기에서 미리 보기"를 누르면 이 휴대폰·컴퓨터에서만 바뀐 내용으로 앱이 열려요.</li>
             <li><b>콘텐츠 파일을 내려받아요.</b> 그림까지 모두 담긴 압축 파일(content.zip)이에요.</li>
@@ -452,5 +455,27 @@ function WordsEditor({ pack, update }: { pack: Pack; update: (f: (p: Pack) => vo
         </div>
       )}
     </section>
+  );
+}
+
+/** Publish straight to the server, for signed-in content admins. Hidden when the app has no server. */
+function ServerPublish({ pack, onDone }: { pack: Pack; onDone: (p: Pack) => void }) {
+  const acc = useAccount();
+  const [step, setStep] = useState('');
+  const [err, setErr] = useState('');
+  if (!acc.enabled) return null;
+  if (!acc.email) return (<div className="admin-card stack"><p className="k">서버에 바로 게시하려면 관리자 계정으로 로그인해 주세요.</p><AccountPanel compact /></div>);
+  if (!acc.isAdmin) return <p className="admin-note">{acc.email} 계정은 콘텐츠 관리자가 아니에요. 아래 파일 방식으로 게시하거나, 관리자 권한을 요청해 주세요.</p>;
+  return (
+    <div className="admin-card stack">
+      <p className="k"><b>서버에 바로 게시</b> · {acc.email}</p>
+      <button className="play" disabled={!!step} onClick={async () => {
+        setErr('');
+        try { onDone(await publishToServer(pack, acc.userId!, setStep)); } catch (e) { setErr(e instanceof Error ? e.message : String(e)); }
+        setStep('');
+      }}>{step || '서버에 게시하기'}</button>
+      {err && <p className="form-error">{err}</p>}
+      <p className="k">아래 파일 방식은 서버가 없을 때 쓰는 예비 방법이에요.</p>
+    </div>
   );
 }
