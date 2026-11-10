@@ -275,7 +275,7 @@ const PHRASES={
 };
 STORIES.forEach(s=>{if(PHRASES[s.id])s.phrases=PHRASES[s.id].map(([ko,w])=>({ko,w}));});
 // Finished picture per page: a number = that many pages in order (id-01, id-02, …); a list maps each page to a file (null = still the drawn placeholder).
-const IMAGES={star:6,umbrella:6,seollal:6,firstday:8,axe:['axe-01','axe-02','axe-new-03','axe-03','axe-04','axe-new-06','axe-new-07','axe-05','axe-new-09','axe-new-10','axe-new-11','axe-06']};
+const IMAGES={star:6,umbrella:6,seollal:6,firstday:8,chuseok:6,axe:['axe-01','axe-02','axe-new-03','axe-03','axe-04','axe-new-06','axe-new-07','axe-05','axe-new-09','axe-new-10','axe-new-11','axe-06']};
 STORIES.forEach(s=>{const m=IMAGES[s.id];if(!m)return;s.pages.forEach((p,i)=>{const n=Array.isArray(m)?m[i]:`${s.id}-${String(i+1).padStart(2,'0')}`;if(n)p.img=`images/stories/${n}.webp`;});});
 
 STORIES.forEach(s=>{s.pages.forEach((p,i)=>p.w=PW[s.id][i]);s.words=[...new Set(PW[s.id].flat())]});
