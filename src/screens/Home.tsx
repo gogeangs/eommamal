@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { t } from '../lib/childUi';
 import { ALL_WORDS, LANGS, STORIES, UI, type LangId, type Story } from '../content';
 import { Bi, Chevron, Illus, Scene, Tile, WordCard } from '../components/ui';
@@ -79,7 +79,24 @@ const reducedMotion = () => {
 };
 
 /** A story on the shelf. Tapping flips the card to show the story's picture, then opens the book. */
+/** Cards rise and fade in as they scroll into view (once). */
+function useRevealOnScroll<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (reducedMotion() || typeof IntersectionObserver === 'undefined') { el.classList.add('in'); return; }
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { el.classList.add('in'); io.disconnect(); }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return ref;
+}
+
 function BookCard({ s }: { s: Story }) {
+  const reveal = useRevealOnScroll<HTMLDivElement>();
   const { p } = useProgress();
   const plan = usePlan();
   const later = !plan.canRead(s.id);
@@ -93,7 +110,7 @@ function BookCard({ s }: { s: Story }) {
     window.setTimeout(() => nav({ view: 'read', story: s.id }), 780);
   };
   return (
-    <div className={`book-flip${flipped ? ' flipped' : ''}`}>
+    <div ref={reveal} className={`book-flip reveal${flipped ? ' flipped' : ''}`}>
       <div className="flip-inner">
         <button className="book wide flip-front" onClick={open}>
           <Scene page={s.pages[0]} className="cover" />
@@ -141,16 +158,16 @@ function Hero() {
         <p className="lead"><Bi mo={t(p.lang, 'storyPrompt')} ko="오늘은 어떤 이야기를 읽을까요?" /></p>
         <div className="hero-stats">
           <div className="stat">
-            <b>{member ? '—' : plan.state === 'trial' ? `D-${plan.trialLeft}` : <span lang={p.lang}>{t(p.lang, 'ended')}</span>}</b>
-            <span><Bi mo={t(p.lang, 'trial')} ko="무료 체험" /></span>
+            <b className="stat-num">{member ? <span lang={p.lang}>{t(p.lang, 'active')}</span> : plan.state === 'trial' ? `D-${plan.trialLeft}` : <span lang={p.lang}>{t(p.lang, 'ended')}</span>}</b>
+            <span lang={p.lang}>{t(p.lang, member ? 'member' : 'trial')}</span>
+            {!member && <button className="sub-btn" lang={p.lang} onClick={goSubscribe}>{t(p.lang, 'subscribe')}</button>}
           </div>
-          <div className={`stat${member ? ' on' : ''}`}>
-            <b lang={p.lang}>{t(p.lang, member ? 'active' : 'notYet')}</b>
-            <span><Bi mo={t(p.lang, 'member')} ko="유료 회원" /></span>
-            {!member && (
-              <button className="sub-btn" onClick={goSubscribe}><Bi mo={t(p.lang, 'subscribe')} ko="구독하기" /></button>
-            )}
-          </div>
+          <button className="stat stat-link" lang={p.lang} onClick={() => nav({ view: 'parent' })}>
+            <b>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3.5-4 3 2.5L19 8" /></svg>
+            </b>
+            <span>{pt(p.lang, 'title')}<Chevron /></span>
+          </button>
         </div>
       </div>
       <Illus name="hero-star" className="hero-art" />
@@ -335,7 +352,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 
-      <details className="parent-footer"><summary>보호자 안내 및 문의<Chevron /></summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
+      <details className="parent-footer"><summary><span>보호자 안내 및 문의</span><Chevron /></summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
         <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span><span lang={p.lang}>{pt(p.lang, 'title')}</span> · 우리 아이 기록</span><span aria-hidden="true">›</span></button>
         <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
         <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>

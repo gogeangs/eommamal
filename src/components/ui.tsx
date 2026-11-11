@@ -104,7 +104,7 @@ export function TopBar({ label, quit = false, tab = 'books', replace = false, ch
   const { p } = useProgress();
   const text = label ?? (quit
     ? <><span className="ico" aria-hidden="true">✕</span><Bi row mo={t(p.lang, 'quit')} ko="그만하기" /></>
-    : <><span className="ico" aria-hidden="true">‹</span><Bi row mo={t(p.lang, 'home')} ko="책장" /></>);
+    : <><svg className="back-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4.5 7.5 12l7.5 7.5" /></svg><Bi row mo={t(p.lang, 'home')} ko="책장" /></>);
   return (
     <div className="top">
       <button className="ghost back" onClick={() => nav({ view: 'home', tab }, { replace })}>
