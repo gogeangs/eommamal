@@ -588,20 +588,120 @@ h1 .bi>small{font-family:var(--display);font-weight:400;font-size:.62em;opacity:
 :lang(zh){--display:'ZCOOL KuaiLe',var(--display-base);--display-ls:0}
 
 /* Where the display font is used: titles, the story text in the reader, and the bookshelf cards. */
-:is(h1,h2,.book b,.qtitle,.continue b,.summary b,.sub-price b,.gate-q,h1 .bi>small),
-.reader .mother,.reader .korean,
-.book.wide span:not(.ctag),.continue>div>span:not(.label){font-family:var(--display);letter-spacing:var(--display-ls)}
+:is(h1,h2,.book b,.qtitle,.continue b,.summary b,.sub-price b,.gate-q,h1 .bi>small,.stat>b),
+.reader .mother{font-family:var(--display);letter-spacing:var(--display-ls)}
 /* A child element in another language than its parent picks up that language's font and spacing. */
 :is(h1,h2,.qtitle) [lang]:not(small){font-family:var(--display);letter-spacing:var(--display-ls)}
 /* Hand-drawn fonts look best at their drawn weight (no synthetic bold), so the story text grows a little instead. */
 .reader .mother{font-weight:400;font-size:1.6rem;line-height:1.4}
 .reader .korean{font-size:1.35rem}
-.reader .korean .tag{font-family:var(--ko);letter-spacing:0}
 .text.big .mother{font-size:2rem}
 .text.big .korean{font-size:1.7rem}
 .reader .korean.solo{font-size:1.6rem}
 .text.big .korean.solo{font-size:2rem}
-.book.wide .book-sub{letter-spacing:0;font-family:var(--ko)}
 
 /* reader: "그림 낱말" heading over the page's word chips */
 .label .label-main{font-family:var(--ko);font-size:1.15rem;font-weight:800;color:var(--ink);margin-right:6px}
+
+/* Korean text in the story and on the shelf is always SUITE, whatever the reading language. */
+.reader .korean{font-family:var(--ko);font-weight:600;letter-spacing:0}
+
+/* ==========================================================================
+   Bookshelf (home): yellow page, hero with the app illustration, story cards with progress
+   ========================================================================== */
+:root{--home-bg:#FCE7A8;--home-deep:#F7D777;--accent:#E2558F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--home-bg:#2B2716;--home-deep:#3A331A}}
+:root[data-theme="dark"]{--home-bg:#2B2716;--home-deep:#3A331A}
+body:has(.wrap.v-home){background:var(--home-bg)}
+.wrap.v-home{overflow-x:clip}
+
+.home-head.on-hero{justify-content:flex-end;margin-bottom:-14px;position:relative;z-index:2}
+.lang-btn{flex-direction:row;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border-color:transparent;box-shadow:0 2px 0 color-mix(in srgb,var(--ink) 10%,transparent)}
+.lang-btn small{font-size:.75rem;padding-right:8px;border-right:1.5px solid var(--line)}
+
+.hero{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:4px 8px;padding:8px 0 4px}
+.hero::before,.hero::after{content:"";position:absolute;z-index:-1;border-radius:50%;pointer-events:none}
+.hero::before{width:560px;height:560px;right:-260px;top:-380px;background:var(--home-deep);opacity:.55}
+.hero::after{width:380px;height:380px;left:-230px;top:-150px;background:#fff;opacity:.22}
+.hero h1{font-size:2.5rem;line-height:1.1}
+.hero .lead{margin-top:8px;color:var(--ink);opacity:.8}
+.hero .lead .bi>small{opacity:.75}
+.hero-art{width:min(42vw,200px);height:auto;margin:0 -6px -6px 0;filter:drop-shadow(0 10px 14px color-mix(in srgb,#9a6a00 25%,transparent))}
+.hero-stats{display:flex;gap:28px;margin-top:20px}
+.stat{display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat>b{font-size:2rem;line-height:1.05;font-weight:400;font-variant-numeric:tabular-nums}
+.stat>span{font-size:.82rem;color:var(--muted)}
+.stat.on>b{color:var(--leaf)}
+
+.shelf{grid-template-columns:minmax(0,1fr);gap:26px}
+.v-home .label{margin-bottom:22px}
+
+/* card */
+.book-flip{perspective:1400px}
+.flip-inner{position:relative;transform-style:preserve-3d;transition:transform .72s cubic-bezier(.35,.6,.25,1)}
+.book-flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.flip-back{position:absolute;inset:0;transform:rotateY(180deg);border-radius:28px;overflow:hidden;box-shadow:0 10px 24px color-mix(in srgb,#7a5200 22%,transparent)}
+.flip-back .cover{width:100%;height:100%;aspect-ratio:auto;border-radius:0}
+
+.book.wide.flip-front{position:relative;display:grid;grid-template-columns:38% minmax(0,1fr);gap:16px;align-items:start;
+  width:100%;min-height:0;padding:0 16px 16px 14px;background:var(--card);border:0;border-radius:28px;
+  box-shadow:0 6px 18px color-mix(in srgb,#9a6a00 14%,transparent);overflow:visible}
+.book.wide.flip-front .cover{width:auto;aspect-ratio:4/5;margin-top:-16px;border:5px solid var(--card);border-radius:22px;
+  box-shadow:0 8px 16px color-mix(in srgb,#5a3d00 18%,transparent)}
+.book.wide.flip-front>div{padding:14px 0 34px;gap:4px}
+.book.wide.flip-front b{font-size:1.45rem;line-height:1.15}
+.book-ko{font-family:var(--ko)!important;font-weight:700;color:var(--ink)!important;font-size:.95rem!important}
+.book.wide .book-sub{font-size:.8rem;line-height:1.4}
+.ctags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:2px}
+.book-progress{display:flex;align-items:center;gap:10px;margin-top:8px}
+.book-progress .mini-bar{flex:1;height:8px;margin:0;background:color-mix(in srgb,var(--line) 70%,var(--card));border-radius:999px}
+.book-progress .mini-bar i{background:var(--accent);border-radius:999px}
+.book-progress em{font-style:normal;font-size:.82rem;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;min-width:3ch;text-align:right}
+.read-tab{position:absolute;right:0;bottom:0;background:var(--sun);color:var(--sun-ink);border-radius:36px 0 28px 0;padding:8px 18px 9px 22px;font-weight:800;font-size:.95rem}
+.read-tab .bi{align-items:center}
+.book.wide.flip-front:active{transform:translateY(2px)}
+@media (prefers-reduced-motion:reduce){.flip-inner{transition:none}}
+
+/* ==========================================================================
+   Tablet (iPad): wider columns, two-up shelf, side-by-side reader in landscape
+   ========================================================================== */
+@media (min-width:768px){
+  body{font-size:19px}
+  .wrap{max-width:720px;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px));gap:22px}
+  .wrap.v-home{max-width:1040px}
+  .wrap.v-read{max-width:860px}
+  .shelf{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 26px}
+  .hero{padding-top:20px}
+  .hero h1{font-size:3.4rem}
+  .hero-art{width:300px}
+  .hero-stats{gap:44px}
+  .stat>b{font-size:2.6rem}
+  .hero::before{width:820px;height:820px;right:-320px;top:-560px}
+  .wbook{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .act-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dock-inner{max-width:720px}
+  .tabbar button{max-width:220px}
+  .sheet{max-width:640px}
+  .sheet-backdrop:not(.welcome){align-items:center}
+  .sheet-backdrop:not(.welcome) .sheet{border-radius:28px}
+  .next-grid{gap:16px}
+}
+@media (min-width:1024px) and (orientation:landscape){
+  .wrap.v-read{max-width:1200px}
+  .reader{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);column-gap:48px;row-gap:18px;align-items:start;
+    grid-template-areas:"top top" "set set" "head text" "pic text" "pic words" "voice voice" "space space"}
+  .reader>.top{grid-area:top}
+  .reader>.reader-settings{grid-area:set}
+  .reader>.reader-head{grid-area:head}
+  .reader>.scene-btn{grid-area:pic}
+  .reader>.text{grid-area:text;align-self:center}
+  .reader>.reader-words{grid-area:words}
+  .reader>.voice{grid-area:voice}
+  .reader>.dock-space{grid-area:space}
+  .dock-inner{max-width:760px}
+  .wrap.v-home{max-width:1120px}
+}
+.book.wide.flip-front .cover,.flip-back .cover{position:relative}
+.book.wide.flip-front .cover img,.flip-back .cover img,.book.wide.flip-front .cover svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stat>b{white-space:nowrap}

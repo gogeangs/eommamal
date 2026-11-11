@@ -140,7 +140,7 @@ function StoryReader({ storyId }: { storyId: string }) {
           </div>
         </div>
       </div>}
-      <div className={page > 0 ? 'reader-small-heading' : ''}>
+      <div className={`reader-head${page > 0 ? ' reader-small-heading' : ''}`}>
         <h2 lang={p.lang}>{st.title[p.lang]}</h2>
         <p className="lead" style={{ margin: '2px 0 0' }}>{st.title.ko}</p>
       </div>
@@ -201,7 +201,7 @@ function StoryReader({ storyId }: { storyId: string }) {
         )}
       </div>
 
-      <section>
+      <section className="reader-words">
         <p className="label"><b className="label-main">그림 낱말</b>눌러서 들어봐요</p>
         <div className="pw">
           {pg.w.map((id) => (

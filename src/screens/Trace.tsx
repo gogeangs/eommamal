@@ -34,7 +34,8 @@ export function Trace({ storyId }: { storyId: string }) {
     const ctx = cv.getContext('2d');
     if (!ctx) return;
 
-    const size = Math.min((cv.parentElement?.clientWidth ?? 340), 340);
+    // Phones: up to 340px. Tablets: grows with the screen, but leaves room for the buttons below.
+    const size = Math.round(Math.min(cv.parentElement?.clientWidth ?? 340, Math.max(340, Math.min(540, window.innerHeight * 0.5))));
     const dpr = window.devicePixelRatio || 1;
     cv.style.width = cv.style.height = `${size}px`;
     cv.width = cv.height = Math.round(size * dpr);

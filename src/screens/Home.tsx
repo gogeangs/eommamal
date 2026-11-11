@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { t } from '../lib/childUi';
-import { ALL_WORDS, LANGS, STORIES, type LangId, type Story } from '../content';
+import { ALL_WORDS, LANGS, STORIES, UI, type LangId, type Story } from '../content';
 import { Bi, Illus, Scene, Tile, WordCard } from '../components/ui';
 import { childName, useProgress } from '../lib/progress';
 import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
 import { usePlan } from '../lib/plan';
-import { PlanStatus } from './Subscribe';
 import { useNav, type HomeTab } from '../nav';
 
 /* ---------- language ---------- */
@@ -69,54 +68,85 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
 
 /* ---------- books tab ---------- */
 
-function BookCard({ s, wide = true }: { s: Story; wide?: boolean }) {
+function storyProgress(s: Story, pages: Record<string, number>, finished: string[]) {
+  const at = pages[s.id] ?? 0;
+  if (at > 0) return Math.round((at / s.pages.length) * 100);
+  return finished.includes(s.id) ? 100 : 0;
+}
+
+const reducedMotion = () => {
+  try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
+};
+
+/** A story on the shelf. Tapping flips the card to show the story's picture, then opens the book. */
+function BookCard({ s }: { s: Story }) {
   const { p } = useProgress();
   const plan = usePlan();
   const later = !plan.canRead(s.id);
   const nav = useNav();
-  const info = (
-    <>
-      <b lang={p.lang}>{s.title[p.lang]}</b>
-      <span>{s.title.ko}</span>
-      <span className="book-sub">{s.sub}</span>
-    </>
-  );
+  const [flipped, setFlipped] = useState(false);
+  const pct = storyProgress(s, p.pages, p.finished);
+  const open = () => {
+    if (flipped) return;
+    if (reducedMotion()) { nav({ view: 'read', story: s.id }); return; }
+    setFlipped(true);
+    window.setTimeout(() => nav({ view: 'read', story: s.id }), 780);
+  };
   return (
-    <button className={`book${wide ? ' wide' : ''}`} onClick={() => nav({ view: 'read', story: s.id })}>
-      <Scene page={s.pages[0]} className="cover" />
-      {wide ? (
-        <div>
-          {s.culture && <span className="ctag">문화 비교 카드</span>}
-          {s.folk && <span className="ctag folk">한국 전래 동화</span>}
-          {s.life && <span className="ctag life">유치원·학교 생활</span>}
-          {later && <span className="ctag later">내일 또 읽어요</span>}
-          {info}
+    <div className={`book-flip${flipped ? ' flipped' : ''}`}>
+      <div className="flip-inner">
+        <button className="book wide flip-front" onClick={open}>
+          <Scene page={s.pages[0]} className="cover" />
+          <div>
+            {(s.culture || s.folk || s.life || later) && (
+              <span className="ctags">
+                {s.culture && <span className="ctag">문화 비교 카드</span>}
+                {s.folk && <span className="ctag folk">한국 전래 동화</span>}
+                {s.life && <span className="ctag life">유치원·학교 생활</span>}
+                {later && <span className="ctag later">내일 또 읽어요</span>}
+              </span>
+            )}
+            <b lang={p.lang}>{s.title[p.lang]}</b>
+            <span className="book-ko" lang="ko">{s.title.ko}</span>
+            <span className="book-sub">{s.sub}</span>
+            <span className="book-progress" aria-label={`${pct}% 읽었어요`}>
+              <span className="mini-bar"><i style={{ width: `${pct}%` }} /></span>
+              <em>{pct}%</em>
+            </span>
+          </div>
+          <span className="read-tab" aria-hidden="true"><Bi mo={UI[p.lang].read} ko="읽기" /></span>
+        </button>
+        <div className="flip-back" aria-hidden="true">
+          <Scene page={s.pages[0]} className="cover" />
         </div>
-      ) : (
-        info
-      )}
-    </button>
+      </div>
+    </div>
   );
 }
 
-function ContinueCard() {
+/** Bookshelf header: the app's illustration, and the family's plan in the two stat slots. */
+function Hero() {
   const { p } = useProgress();
-  const nav = useNav();
-  const s = STORIES.find((x) => x.id === p.lastOpenedStoryId && (p.pages[x.id] ?? 0) > 0)
-    ?? STORIES.find((x) => (p.pages[x.id] ?? 0) > 0);
-  if (!s) return null;
-  const page = p.pages[s.id];
+  const plan = usePlan();
+  const member = plan.state === 'sub';
   return (
-    <button className="continue" onClick={() => nav({ view: 'read', story: s.id })}>
-      <Scene page={s.pages[page]} className="cover" />
-      <div>
-        <span className="label" style={{ margin: 0 }}><Bi row mo={t(p.lang, 'continue')} ko="이어 읽기" /></span>
-        <b lang={p.lang}>{s.title[p.lang]}</b>
-        <span>{s.title.ko} · {page + 1} / {s.pages.length}쪽</span>
-        <div className="mini-bar"><i style={{ width: `${((page + 1) / s.pages.length) * 100}%` }} /></div>
+    <section className="hero" aria-label="엄마말 그림책">
+      <div className="hero-text">
+        <h1>엄마말 그림책</h1>
+        <p className="lead"><Bi mo={t(p.lang, 'storyPrompt')} ko="오늘은 어떤 이야기를 읽을까요?" /></p>
+        <div className="hero-stats">
+          <div className="stat">
+            <b>{member ? '—' : plan.state === 'trial' ? `D-${plan.trialLeft}` : <span lang={p.lang}>{t(p.lang, 'ended')}</span>}</b>
+            <span><Bi mo={t(p.lang, 'trial')} ko="무료 체험" /></span>
+          </div>
+          <div className={`stat${member ? ' on' : ''}`}>
+            <b lang={p.lang}>{t(p.lang, member ? 'active' : 'notYet')}</b>
+            <span><Bi mo={t(p.lang, 'member')} ko="유료 회원" /></span>
+          </div>
+        </div>
       </div>
-      <span className="go-arrow" aria-hidden="true">›</span>
-    </button>
+      <Illus name="hero-star" className="hero-art" />
+    </section>
   );
 }
 
@@ -124,17 +154,17 @@ function BooksTab() {
   const { p } = useProgress();
   return (
     <>
-      <PlanStatus />
-      <ContinueCard />
       <section>
         <p className="label"><Bi row mo={t(p.lang, 'newStories')} ko="새 이야기" /></p>
         <div className="shelf">
-          {STORIES.filter((s) => !s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} wide />)}
+          {STORIES.filter((s) => !s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} />)}
         </div>
       </section>
       <section>
         <p className="label">우리의 문화 이야기</p>
-        {STORIES.filter((s) => s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} wide />)}
+        <div className="shelf">
+          {STORIES.filter((s) => s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} />)}
+        </div>
       </section>
     </>
   );
@@ -274,11 +304,11 @@ export function Home({ tab }: { tab: HomeTab }) {
 
   return (
     <>
-      <header className="home-head">
-        <div>
+      <header className={`home-head${tab === 'books' ? ' on-hero' : ''}`}>
+        {tab !== 'books' && <div>
           <h1>{title}</h1>
-          <p className="lead">{tab === 'books' ? <span lang={p.lang}>{t(p.lang,'storyPrompt')}</span> : tab === 'study' ? <Bi mo={t(p.lang,'play')} ko="그림을 보고 소리를 들어요" /> : <Bi mo={t(p.lang,'words')} ko="내가 모은 낱말" />}</p>
-        </div>
+          <p className="lead">{tab === 'study' ? <Bi mo={t(p.lang,'play')} ko="그림을 보고 소리를 들어요" /> : <Bi mo={t(p.lang,'words')} ko="내가 모은 낱말" />}</p>
+        </div>}
         <div className="home-actions">
         {profiles.length > 1 && (
           <button className="child-chip" onClick={() => setKids(true)} aria-label={`지금 읽는 아이: ${childName(profile, profiles.indexOf(profile))}. 바꾸기`}>
@@ -293,7 +323,7 @@ export function Home({ tab }: { tab: HomeTab }) {
         </div>
       </header>
 
-      {tab === 'books' && <BooksTab />}
+      {tab === 'books' && <><Hero /><BooksTab /></>}
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 

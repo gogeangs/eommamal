@@ -85,7 +85,7 @@ export function App() {
           <button onClick={() => { contentStore.stopPreview(); location.hash = ''; location.reload(); }}>끝내기</button>
         </div>
       )}
-      <main className={`wrap${route.view === 'admin' ? ' wide' : ''}`} key={`${toHash(route)}:${nonce}`}>
+      <main className={`wrap v-${route.view}${route.view === 'admin' ? ' wide' : ''}`} key={`${toHash(route)}:${nonce}`}>
         {screen}
       </main>
     </NavContext.Provider>
