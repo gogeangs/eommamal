@@ -1118,3 +1118,4 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .tabbar::after{display:none}
 .tabbar-space{height:calc(96px + env(safe-area-inset-bottom,0px))}
 @media (min-width:768px){.tabbar{justify-content:center}.tabbar button{max-width:160px}}
+.tabbar button[aria-current="page"] .tab-ico{box-shadow:0 0 0 7px var(--card)}
