@@ -1037,3 +1037,18 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .book-progress{margin-right:78px}
 .book-progress .mini-bar{height:12px}
 .book-progress em{font-size:.9rem}
+
+/* ---------- round 16 ---------- */
+/* grown-ups' footer: summary in the same colour as the text under it; lighter white box */
+.parent-footer{background:color-mix(in srgb,var(--card) 36%,transparent)}
+.parent-footer>summary{color:var(--muted)}
+
+/* tab labels in capitals */
+.tabbar button>.tab-label{text-transform:uppercase;letter-spacing:.02em}
+
+/* hero: the question is the title now (display font per language); Korean line kept small, label colour */
+.hero h1{font-size:2.3rem;line-height:1.12}
+.hero .lead.hero-ko{margin-top:6px;font-size:.72rem;font-weight:700;color:var(--muted);opacity:1}
+@media (min-width:768px){.hero h1{font-size:3rem}.hero .lead.hero-ko{font-size:.85rem}}
+.v-home .hero + section{margin-top:10px}
+@media (max-width:767px){.hero h1{font-size:2rem}}

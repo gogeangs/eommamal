@@ -152,8 +152,8 @@ function Hero() {
   return (
     <section className="hero" aria-label="엄마말 그림책">
       <div className="hero-text">
-        <h1>엄마말 그림책</h1>
-        <p className="lead"><Bi mo={t(p.lang, 'storyPrompt')} ko="오늘은 어떤 이야기를 읽을까요?" /></p>
+        <h1 lang={p.lang}>{t(p.lang, 'storyPrompt')}</h1>
+        <p className="lead hero-ko" lang="ko">오늘은 어떤 이야기를 읽을까요?</p>
       </div>
       <Illus name="hero-star" className="hero-art" />
     </section>
@@ -165,7 +165,6 @@ function BooksTab() {
   return (
     <>
       <section>
-        <p className="label"><Bi row mo={t(p.lang, 'newStories')} ko="새 이야기" /></p>
         <div className="shelf">
           {STORIES.filter((s) => !s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} />)}
         </div>
