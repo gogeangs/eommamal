@@ -979,3 +979,41 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
   .v-home .book.wide.flip-front{border-radius:0 28px 28px 0;padding-left:max(16px, env(safe-area-inset-left, 0px));grid-template-columns:44% minmax(0,1fr)}
   .v-home .flip-back{border-radius:0 28px 28px 0}
 }
+
+/* ---------- round 14 ---------- */
+/* tab bar text: one weight lighter, 2px smaller */
+.tab-label{font-size:.49rem;font-weight:600}
+.tabbar button[aria-current="page"] .tab-label{font-weight:700}
+@media (min-width:768px){.tab-label{font-size:.63rem}}
+
+/* story card: shorter progress bar so "Read" sits on the same row */
+.book.wide.flip-front>div{padding-bottom:12px}
+.book-progress{margin-right:88px}
+
+/* ---- page curl: tapping a story peels the card from the bottom-right corner, showing its picture underneath ----
+   --s walks the fold line (x + y = s, in % of the card) from the corner (200%) to the top-left (≈0%).
+   The front keeps everything above/left of the line; .curl-flap is the turned-over paper, mirrored across the line.
+   The front's polygon reaches a little above/left of the box so the thumbnail that pokes out of the card isn't cut. */
+@property --s{syntax:'<percentage>';inherits:true;initial-value:200%}
+.flip-inner{transform-style:flat;transition:none}
+.book-flip.flipped .flip-inner{transform:none}
+.flip-front,.flip-back{-webkit-backface-visibility:visible;backface-visibility:visible}
+.flip-back{transform:none;z-index:0;box-shadow:none}
+.flip-front{position:relative;z-index:1}
+.book-flip.flipped .flip-inner{animation:curl .78s cubic-bezier(.45,.05,.55,.95) forwards;filter:drop-shadow(-3px -3px 6px color-mix(in srgb,#5a3d00 22%,transparent))}
+.book-flip.flipped .flip-front{
+  clip-path:polygon(-24px -32px, min(100%,var(--s)) -32px, min(100%,var(--s)) max(0%,var(--s) - 100%),
+    max(0%,var(--s) - 100%) min(100%,var(--s)), -24px min(100%,var(--s)))}
+.curl-flap{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;border-radius:28px;
+  background:linear-gradient(135deg,#fffdf7 0%,#f7efdc 45%,#e6d6ae 80%,#cdb88a 100%)}
+.book-flip.flipped .curl-flap{opacity:1;
+  clip-path:polygon(min(100%,var(--s)) max(0%,var(--s) - 100%), min(100%,var(--s)) calc(var(--s) - 100%),
+    calc(var(--s) - 100%) calc(var(--s) - 100%), calc(var(--s) - 100%) min(100%,var(--s)), max(0%,var(--s) - 100%) min(100%,var(--s)))}
+@keyframes curl{from{--s:200%}to{--s:-8%}}
+@media (max-width:767px){.v-home .curl-flap{border-radius:0 28px 28px 0}}
+@media (prefers-reduced-motion:reduce){.book-flip.flipped .flip-inner{animation:none}}
+/* tab labels: these beat the older `.tabbar button>span` rule (which kept them at .95rem) */
+.tabbar button>.tab-label{font-size:.7rem;font-weight:700}
+.tabbar button[aria-current="page"]>.tab-label{font-weight:700}
+.tabbar button>.tab-ico{margin-top:0}
+@media (min-width:768px){.tabbar button>.tab-label{font-size:.8rem}}

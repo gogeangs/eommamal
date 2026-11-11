@@ -84,21 +84,23 @@ const reducedMotion = () => {
 /** Cards rise and fade in as they scroll into view (once). */
 function useRevealOnScroll<T extends HTMLElement>() {
   const ref = useRef<T>(null);
+  // Kept in React state (not classList) so a later re-render — e.g. the page-curl on tap — doesn't drop it.
+  const [shown, setShown] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (reducedMotion() || typeof IntersectionObserver === 'undefined') { el.classList.add('in'); return; }
+    if (reducedMotion() || typeof IntersectionObserver === 'undefined') { setShown(true); return; }
     const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { el.classList.add('in'); io.disconnect(); }
+      if (e.isIntersecting) { setShown(true); io.disconnect(); }
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  return ref;
+  return [ref, shown] as const;
 }
 
 function BookCard({ s }: { s: Story }) {
-  const reveal = useRevealOnScroll<HTMLDivElement>();
+  const [reveal, shown] = useRevealOnScroll<HTMLDivElement>();
   const { p } = useProgress();
   const plan = usePlan();
   const later = !plan.canRead(s.id);
@@ -109,10 +111,10 @@ function BookCard({ s }: { s: Story }) {
     if (flipped) return;
     if (reducedMotion()) { nav({ view: 'read', story: s.id }); return; }
     setFlipped(true);
-    window.setTimeout(() => nav({ view: 'read', story: s.id }), 780);
+    window.setTimeout(() => nav({ view: 'read', story: s.id }), 820);
   };
   return (
-    <div ref={reveal} className={`book-flip reveal${flipped ? ' flipped' : ''}`}>
+    <div ref={reveal} className={`book-flip reveal${shown ? ' in' : ''}${flipped ? ' flipped' : ''}`}>
       <div className="flip-inner">
         <button className="book wide flip-front" onClick={open}>
           <Scene page={s.pages[0]} className="cover" />
@@ -135,6 +137,7 @@ function BookCard({ s }: { s: Story }) {
           </div>
           <span className="read-tab" aria-hidden="true" lang={p.lang}>{UI[p.lang].read}</span>
         </button>
+        <span className="curl-flap" aria-hidden="true" />
         <div className="flip-back" aria-hidden="true">
           <Scene page={s.pages[0]} className="cover" />
         </div>
@@ -168,7 +171,7 @@ function BooksTab() {
         </div>
       </section>
       <section>
-        <p className="label">우리의 문화 이야기</p>
+        <p className="label"><Bi row mo={t(p.lang, 'cultureStories')} ko="한국 문화 이야기" /></p>
         <div className="shelf">
           {STORIES.filter((s) => s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} />)}
         </div>
