@@ -385,10 +385,11 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'settings' && <SettingsTab onLanguage={() => setSheet(true)} />}
 
       <details className="parent-footer" lang={p.lang}><summary><span>{g(p.lang, 'guide')}</span><Chevron /></summary><p>{g(p.lang, 'readTip')}</p><footer className="home-foot">
-        <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><span aria-hidden="true">›</span></button>
         <span>{g(p.lang, 'footNote')}</span>
-        <button className="foot-link" onClick={() => nav({ view: 'contact' })}>{g(p.lang, 'contact')} ›</button>
-        <button className="foot-link quiet" onClick={() => nav({ view: 'admin' })}>콘텐츠 관리 (운영자용) ›</button>
+        <div className="foot-links">
+          <button className="foot-link" onClick={() => nav({ view: 'contact' })}>{g(p.lang, 'contact')}<Chevron /></button>
+          <button className="foot-link quiet" lang="ko" onClick={() => nav({ view: 'admin' })}>콘텐츠 관리 (운영자용)<Chevron /></button>
+        </div>
       </footer></details>
 
       <div className="tabbar-space" aria-hidden="true" />

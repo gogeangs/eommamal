@@ -1017,3 +1017,23 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .tabbar button[aria-current="page"]>.tab-label{font-weight:700}
 .tabbar button>.tab-ico{margin-top:0}
 @media (min-width:768px){.tabbar button>.tab-label{font-size:.8rem}}
+
+/* ---------- round 15 ---------- */
+/* footer links side by side, chevron icons instead of "›" */
+.foot-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}
+.foot-link{display:inline-flex;align-items:center;gap:2px}
+.foot-link .chev{transform:rotate(-90deg);width:14px;height:14px}
+.foot-link.quiet{font-weight:700}
+
+/* story card hover: no lift — the thumbnail tilts instead */
+.book.wide.flip-front .cover{transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+@media (hover:hover){
+  .book.wide.flip-front:not(:disabled):hover{transform:none}
+  .book.wide.flip-front:hover .cover{transform:rotate(-4deg) translate(-3px,-4px)}
+}
+.book.wide.flip-front:active .cover{transform:rotate(-2deg) scale(.98)}
+
+/* thicker, longer progress bar */
+.book-progress{margin-right:78px}
+.book-progress .mini-bar{height:12px}
+.book-progress em{font-size:.9rem}
