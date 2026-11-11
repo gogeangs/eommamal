@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { LangId } from '../content';
-import { Illus } from '../components/ui';
+import { Illus, ChevronRight } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { DAILY_STORIES, usePlan } from '../lib/plan';
 import { g, LOCALE } from '../lib/grownUi';
@@ -123,7 +123,7 @@ export function ReadLimit() {
       </div>
       <div className="limit-parent" lang={p.lang}>
         <p>{L('ask').mo}</p>
-        {step === 'kid' && <button className="ghost" onClick={() => setStep('gate')}>{g(p.lang, 'exploreSub')}</button>}
+        {step === 'kid' && <button className="ghost" onClick={() => setStep('gate')}>{g(p.lang, 'exploreSub')}<ChevronRight /></button>}
         {step === 'gate' && <ParentGate onPass={() => setStep('offer')} onCancel={() => setStep('kid')} />}
       </div>
       {step === 'offer' && <SubscribePanel />}
@@ -157,5 +157,5 @@ function GateThen({ onPass }: { onPass: () => void }) {
   const plan = usePlan();
   return gate
     ? <section className="pcard"><ParentGate onPass={onPass} onCancel={() => setGate(false)} /></section>
-    : <button className="parent-link" lang={p.lang} onClick={() => setGate(true)}><span>{g(p.lang, 'seeSub', { price: plan.price })}</span><span aria-hidden="true">›</span></button>;
+    : <button className="parent-link" lang={p.lang} onClick={() => setGate(true)}><span>{g(p.lang, 'seeSub', { price: plan.price })}</span><ChevronRight /></button>;
 }

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { t } from '../lib/childUi';
 import { ALL_WORDS, LANGS, STORIES, UI, type LangId, type Story } from '../content';
 import { storySub } from '../content/storySubs';
-import { Bi, Chevron, Illus, Scene, Tile, WordCard } from '../components/ui';
+import { Bi, Chevron, ChevronRight, Illus, Scene, Tile, WordCard } from '../components/ui';
 import { childName, useProgress } from '../lib/progress';
 import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
@@ -64,7 +64,7 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
           </div>
           <p className="parent-tip">{g(p.lang, 'readTip')}</p>
         </section>}
-        {!welcome && <button className="btn2" lang={p.lang} onClick={onClose}>{g(p.lang, 'close')}</button>}
+        {!welcome && <button className="play sheet-close" lang={p.lang} onClick={onClose}>{g(p.lang, 'close')}</button>}
       </div>
     </div>
   );
@@ -239,7 +239,7 @@ function StudyTab() {
                   <b>{t(p.lang, a.view === 'quiz' ? 'play' : a.view === 'trace' ? 'trace' : a.view === 'dict' ? 'dictation' : 'sentence')}</b>
                   <span>{a.name}</span>
                 </span>
-                <span className="go-arrow" aria-hidden="true">›</span>
+                <ChevronRight className="go-arrow" />
               </button>
             </li>
           ))}
@@ -257,7 +257,7 @@ function WordsTab() {
   return (
     <>
       <section className="parent-stats" lang={p.lang}>
-      <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><span aria-hidden="true">›</span></button><section className="summary">
+      <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><ChevronRight /></button><section className="summary">
         <div><b>{p.learned.length}</b><span>{pt(p.lang, 'words')}</span></div>
         <div><b>{p.written.length}</b><span>{pt(p.lang, 'written')}</span></div>
         <div><b>{p.traced.length}</b><span>{t(p.lang, 'trace')}</span></div>
@@ -295,7 +295,7 @@ const TABS: { id: HomeTab; label: string; icon: string }[] = [
   { id: 'books', label: '책장', icon: 'M3 5.6C3 4.7 3.7 4 4.6 4H10a2 2 0 0 1 2 2v14.2c-.6-.7-1.5-1.2-2.5-1.2H4.6c-.9 0-1.6-.7-1.6-1.6V5.6Zm18 0c0-.9-.7-1.6-1.6-1.6H14a2 2 0 0 0-2 2v14.2c.6-.7 1.5-1.2 2.5-1.2h4.9c.9 0 1.6-.7 1.6-1.6V5.6Z' },
   { id: 'study', label: '공부', icon: 'M15 3.4a2 2 0 0 1 2.8 0l2.8 2.8a2 2 0 0 1 0 2.8L9.6 20 4.4 21.2a.6.6 0 0 1-.7-.7L4.9 15.3 15 3.4Z' },
   { id: 'words', label: '낱말장', icon: 'M12 2.8l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.7l-5.4 2.9 1.1-6.1-4.5-4.3 6.1-.8L12 2.8Z' },
-  { id: 'progress', label: '기록', icon: 'M3.5 13.5A1.5 1.5 0 0 1 5 12h2a1.5 1.5 0 0 1 1.5 1.5v6A1.5 1.5 0 0 1 7 21H5a1.5 1.5 0 0 1-1.5-1.5v-6Zm6.75-9A1.5 1.5 0 0 1 11.75 3h.5a1.5 1.5 0 0 1 1.5 1.5v15a1.5 1.5 0 0 1-1.5 1.5h-.5a1.5 1.5 0 0 1-1.5-1.5v-15Zm5.25 4.5A1.5 1.5 0 0 1 17 7.5h2A1.5 1.5 0 0 1 20.5 9v10.5A1.5 1.5 0 0 1 19 21h-2a1.5 1.5 0 0 1-1.5-1.5V9Z' },
+  { id: 'progress', label: '기록', icon: 'M12.78 3.03A9 9 0 1 1 3.03 12.78L7.62 12.38A4.4 4.4 0 1 0 12.38 7.62ZM3.03 11.22A9 9 0 0 1 11.22 3.03L11.62 7.62A4.4 4.4 0 0 0 7.62 11.62Z' },
   { id: 'settings', label: '설정', icon: 'M12 12.2a4.6 4.6 0 1 0 0-9.2 4.6 4.6 0 0 0 0 9.2ZM3.8 20.2c0-4.3 3.7-6.8 8.2-6.8s8.2 2.5 8.2 6.8c0 .6-.5 1-1 1H4.8c-.5 0-1-.4-1-1Z' },
 ];
 

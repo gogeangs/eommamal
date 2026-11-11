@@ -108,6 +108,11 @@ export function WordCard({ id }: { id: string }) {
   );
 }
 
+/** Right-pointing chevron for links and rows that go somewhere. Never use the "›" character. */
+export function ChevronRight({ className = '' }: { className?: string }) {
+  return <svg className={`chev-r ${className}`} viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5 15.5 12 9 18.5" /></svg>;
+}
+
 /** Small down-chevron for things that open a list or a panel. */
 export function Chevron() {
   return <svg className="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>;

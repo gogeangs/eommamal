@@ -1144,3 +1144,25 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 /* progress: book titles in the display font chosen per language, Korean title in SUITE */
 .pbooks b{font-family:var(--display);letter-spacing:var(--display-ls);font-weight:400;font-size:1.15rem;line-height:1.15}
 .pbooks span[lang="ko"]{font-family:var(--ko)}
+
+/* ---------- round 23 ---------- */
+/* tab icons: light line icons when idle; filled white inside the yellow circle when active */
+.tabbar .tab-ico svg{fill:none;stroke:color-mix(in srgb,var(--muted) 62%,var(--card));stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round;filter:none}
+.tabbar button[aria-current="page"] .tab-ico svg{fill:#fff;stroke:none;filter:drop-shadow(0 1px 1px color-mix(in srgb,#7a5200 30%,transparent))}
+.tabbar button:not([aria-current="page"]) .tab-label{color:color-mix(in srgb,var(--muted) 80%,var(--card))}
+
+/* right chevron icon (replaces every "›") */
+.chev-r{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px}
+.go-arrow.chev-r{width:22px;height:22px;color:var(--muted)}
+.parent-link .chev-r{color:var(--muted)}
+
+/* Play: more room between thumbnail and text, tighter text lines */
+.act-row{gap:22px;padding-left:16px}
+.act-text{gap:0;line-height:1.2}
+.act-text b{margin:1px 0}
+
+/* parent settings in the language sheet: no outlines; Close is the primary button */
+.parent-settings{border-top:0;padding-top:6px}
+.parent-settings .seg{border:0;background:color-mix(in srgb,var(--line) 45%,var(--card))}
+.sheet-close{width:100%;margin-top:4px}
+.tabbar button[aria-current="page"] .tab-ico svg{width:31px;height:31px}

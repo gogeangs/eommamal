@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { ChevronRight } from '../components/ui';
 import { strToU8, strFromU8, unzipSync, zipSync } from 'fflate';
 import { LANGS, STORIES, V } from '../content';
 import { LANG_IDS, assetUrl, emptyPack, type Pack, type PackPage, type PackStory, type PackWord } from '../content/pack';
@@ -164,7 +165,7 @@ export function Admin() {
                     {s.ps && missing(s.ps) ? ` · 번역 빈칸 ${missing(s.ps)}` : ''}
                   </small>
                 </span>
-                <span className="go-arrow" aria-hidden="true">›</span>
+                <ChevronRight className="go-arrow" />
               </button>
             ))}
           </section>
