@@ -1,4 +1,6 @@
 /* 온글잎 박다현체 (VoyagerX) — shipped as the original TTF: the licence forbids modifying the file. */
+/* SUITE 스위트 (SUNN, SIL OFL 1.1) — variable, weights 300–900. Licence: assets/fonts/SUITE-OFL.txt */
+@font-face{font-family:'SUITE';src:url('./assets/fonts/SUITE-Variable.woff2') format('woff2');font-weight:300 900;font-style:normal;font-display:swap}
 @font-face{font-family:'Ownglyph PDH';src:url('./assets/fonts/OwnglyphPDH-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
 /* Layout: one phone-width column. Home = language chips, story shelf, study shortcuts, word book.
    Reader = picture panel, two-language text, bottom controls. Activities share the same column. */
@@ -9,9 +11,9 @@
      a matching hand-drawn font for the other languages (see bottom of file). */
   --display-base:'Nunito',system-ui,sans-serif;
   --display:'Ownglyph PDH',var(--display-base);
-  --display-ls:-.04em;
-  --body:'Nunito','Gowun Dodum',system-ui,'PingFang SC','Noto Sans CJK SC',sans-serif;
-  --ko:'Gowun Dodum','Nunito',system-ui,sans-serif;
+  --display-ls:-.02em;
+  --body:'Nunito','SUITE',system-ui,'PingFang SC','Noto Sans CJK SC',sans-serif;
+  --ko:'SUITE','Nunito',system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#141B22; --card:#1D2630; --ink:#EEF2EC; --muted:#A3AFBA; --line:#2E3A46;
@@ -578,11 +580,28 @@ h1 .bi>small{font-family:var(--display);font-weight:400;font-size:.62em;opacity:
 .label{text-transform:none}
 
 /* ---------- display font by language ----------
-   박다현체 has Hangul + Latin only, so other scripts get their own font instead of a per-letter mix.
-   Letter-spacing −4% is tuned for 박다현체 only. */
-:is(h1,h2,.book b,.qtitle,.continue b,.summary b,.sub-price b,.gate-q,h1 .bi>small){letter-spacing:var(--display-ls)}
+   박다현체 has Hangul + Latin only, so other scripts get their own hand-drawn font instead of a per-letter mix.
+   Letter-spacing: 박다현체 −2% for Korean, −1% for Latin-script languages; the other fonts keep their own. */
+:lang(en),:lang(uz){--display-ls:-.01em}
 :lang(vi){--display:'Playpen Sans',var(--display-base);--display-ls:0}
-:lang(mn){--display:'Shantell Sans',var(--display-base);--display-ls:0}
+:lang(ru),:lang(mn){--display:'Shantell Sans',var(--display-base);--display-ls:0}
 :lang(zh){--display:'ZCOOL KuaiLe',var(--display-base);--display-ls:0}
-:lang(ru){--display:var(--display-base);--display-ls:0}
-:is(h1,h2,.qtitle) :is(:lang(ru),:lang(mn),:lang(vi),:lang(zh)){font-family:var(--display);letter-spacing:var(--display-ls)}
+
+/* Where the display font is used: titles, the story text in the reader, and the bookshelf cards. */
+:is(h1,h2,.book b,.qtitle,.continue b,.summary b,.sub-price b,.gate-q,h1 .bi>small),
+.reader .mother,.reader .korean,
+.book.wide span:not(.ctag),.continue>div>span:not(.label){font-family:var(--display);letter-spacing:var(--display-ls)}
+/* A child element in another language than its parent picks up that language's font and spacing. */
+:is(h1,h2,.qtitle) [lang]:not(small){font-family:var(--display);letter-spacing:var(--display-ls)}
+/* Hand-drawn fonts look best at their drawn weight (no synthetic bold), so the story text grows a little instead. */
+.reader .mother{font-weight:400;font-size:1.6rem;line-height:1.4}
+.reader .korean{font-size:1.35rem}
+.reader .korean .tag{font-family:var(--ko);letter-spacing:0}
+.text.big .mother{font-size:2rem}
+.text.big .korean{font-size:1.7rem}
+.reader .korean.solo{font-size:1.6rem}
+.text.big .korean.solo{font-size:2rem}
+.book.wide .book-sub{letter-spacing:0;font-family:var(--ko)}
+
+/* reader: "그림 낱말" heading over the page's word chips */
+.label .label-main{font-family:var(--ko);font-size:1.15rem;font-weight:800;color:var(--ink);margin-right:6px}

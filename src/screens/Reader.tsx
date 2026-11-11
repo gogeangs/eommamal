@@ -202,7 +202,7 @@ function StoryReader({ storyId }: { storyId: string }) {
       </div>
 
       <section>
-        <p className="label">그림 낱말 · 눌러서 들어요</p>
+        <p className="label"><b className="label-main">그림 낱말</b>눌러서 들어봐요</p>
         <div className="pw">
           {pg.w.map((id) => (
             <button key={id} className="pchip" onClick={() => say(id)}>
