@@ -841,3 +841,33 @@ button:not(.no-press):not(:disabled):active{filter:none}
 button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)}
 :is(.play,.sub-btn,.round.go):not(:disabled):active{filter:brightness(.93)}
 @media (prefers-reduced-motion:reduce){button:not(.no-press):not(:disabled):hover,button:not(.no-press):not(:disabled):active{transform:none}}
+
+/* ---------- round 9 ---------- */
+/* hero lead: child's language one step bolder, Korean smaller */
+.hero .lead .bi>span{font-weight:700}
+.hero .lead .bi>small{font-size:.72em}
+
+/* story card: title and Korean title closer */
+.book.wide.flip-front>div{gap:2px}
+.book.wide.flip-front .book-ko{margin-top:-1px}
+.book.wide.flip-front .book-sub{margin-top:4px}
+
+/* tab bar: one label only */
+.tabbar button>span{margin-top:4px}
+
+/* "My words": record summary always open, no border; no line before the empty state */
+.parent-stats{border:0;background:transparent;padding:0;display:flex;flex-direction:column;gap:10px}
+.parent-stats .summary>div{background:var(--card);border-radius:16px}
+.empty-words p{max-width:34ch}
+.empty-words .bi{align-items:center}
+.empty-words .bi>span{font-family:var(--body);font-weight:800;color:var(--ink)}
+
+/* reader: settings panel sits close to the controls around it */
+.reader-settings{margin:-12px 0 -8px;padding:10px 12px}
+
+/* reader: Korean word buttons only as tall as the listening highlight; the highlight wins while reading */
+.reader .w{min-height:0;padding:0 1px;margin:0;border-radius:6px;line-height:inherit;vertical-align:baseline;
+  box-shadow:0 0 0 3px var(--leaf-soft)}
+.text .hl .w{background:transparent;box-shadow:none;color:inherit}
+.reader .w{margin:0 3px}.reader .w:first-child{margin-left:0}
+.reader .w{transition:none}

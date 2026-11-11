@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { t } from '../lib/childUi';
 import { ALL_WORDS, LANGS, STORIES, UI, type LangId, type Story } from '../content';
+import { storySub } from '../content/storySubs';
 import { Bi, Chevron, Illus, Scene, Tile, WordCard } from '../components/ui';
 import { childName, useProgress } from '../lib/progress';
 import { Avatar } from './Parent';
@@ -122,13 +123,13 @@ function BookCard({ s }: { s: Story }) {
             )}
             <b lang={p.lang}>{s.title[p.lang]}</b>
             <span className="book-ko" lang="ko">{s.title.ko}</span>
-            <span className="book-sub">{s.sub}</span>
+            {(() => { const d = storySub(s, p.lang); return <span className="book-sub" lang={d.lang}>{d.text}</span>; })()}
             <span className="book-progress" aria-label={`${pct}% 읽었어요`}>
               <span className="mini-bar"><i style={{ width: `${pct}%` }} /></span>
               <em>{pct}%</em>
             </span>
           </div>
-          <span className="read-tab" aria-hidden="true"><Bi mo={UI[p.lang].read} ko="읽기" /></span>
+          <span className="read-tab" aria-hidden="true" lang={p.lang}>{UI[p.lang].read}</span>
         </button>
         <div className="flip-back" aria-hidden="true">
           <Scene page={s.pages[0]} className="cover" />
@@ -243,21 +244,19 @@ function StudyTab() {
 function WordsTab() {
   const { p } = useProgress();
   const nav = useNav();
-  const pct = Math.round((p.learned.length / ALL_WORDS.length) * 100);
   return (
     <>
-      <details className="parent-stats" lang={p.lang}><summary>{pt(p.lang, 'title')}</summary>
+      <section className="parent-stats" lang={p.lang}>
       <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><span aria-hidden="true">›</span></button><section className="summary">
         <div><b>{p.learned.length}</b><span>{pt(p.lang, 'words')}</span></div>
         <div><b>{p.written.length}</b><span>{pt(p.lang, 'written')}</span></div>
         <div><b>{p.traced.length}</b><span>{t(p.lang, 'trace')}</span></div>
       </section>
-      </details>
-      <div className="mini-bar" aria-label={`전체 낱말 중 ${pct}% 모음`}><i style={{ width: `${pct}%` }} /></div>
+      </section>
       {p.learned.length === 0 && (
         <section className="empty-words">
           <Illus name="empty-words" className="illus empty-art" />
-          <p>낱말 친구를 만나러 가 볼까요? 놀기에서 시작해요!</p>
+          <p><Bi mo={t(p.lang, 'emptyWords')} ko="낱말 친구를 만나러 가 볼까요? 놀기에서 시작해요!" /></p>
         </section>
       )}
       <section>
@@ -362,7 +361,6 @@ export function Home({ tab }: { tab: HomeTab }) {
           <button key={item.id} aria-current={tab === item.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: item.id })}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d={item.icon} /></svg>
             <span lang={p.lang}>{t(p.lang, item.id === 'books' ? 'books' : item.id === 'study' ? 'play' : 'words')}</span>
-            <small lang="ko">{item.id === 'books' ? '이야기' : item.id === 'study' ? '놀기' : '내 낱말'}</small>
           </button>
         ))}
       </nav>
