@@ -117,7 +117,7 @@ function ChildManager() {
   );
 }
 
-export function Parent() {
+export function Parent({ embedded = false }: { embedded?: boolean } = {}) {
   const { p, profiles, profile, switchProfile } = useProgress();
   const signedIn = !!useAccount().email;
   const lang = p.lang;
@@ -131,7 +131,7 @@ export function Parent() {
 
   return (
     <>
-      <TopBar grown />
+      {!embedded && <TopBar grown />}
       <header className="phead">
         <h1 lang={lang}>{pt(lang, 'title')}</h1>
       </header>

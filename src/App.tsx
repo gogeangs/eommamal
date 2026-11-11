@@ -20,7 +20,7 @@ const hasStory = (id: string) => id === 'all' || STORIES.some((s) => s.id === id
 
 function parse(hash: string): Route {
   const h = hash.replace(/^#/, '');
-  if (h === 'study' || h === 'words') return { view: 'home', tab: h };
+  if (h === 'study' || h === 'words' || h === 'progress') return { view: 'home', tab: h };
   if (h === 'contact') return { view: 'contact' };
   if (h === 'admin') return { view: 'admin' };
   if (h === 'parent') return { view: 'parent' };

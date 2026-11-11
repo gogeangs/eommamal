@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-export type HomeTab = 'books' | 'study' | 'words';
+export type HomeTab = 'books' | 'study' | 'words' | 'progress';
 export type Route =
   | { view: 'home'; tab?: HomeTab }
   | { view: 'contact' }

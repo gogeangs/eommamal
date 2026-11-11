@@ -6,6 +6,7 @@ import { Bi, Chevron, Illus, Scene, Tile, WordCard } from '../components/ui';
 import { childName, useProgress } from '../lib/progress';
 import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
+import { Parent } from './Parent';
 import { g } from '../lib/grownUi';
 import { usePlan } from '../lib/plan';
 import { useNav, type HomeTab } from '../nav';
@@ -115,10 +116,10 @@ function BookCard({ s }: { s: Story }) {
           <div>
             {(s.culture || s.folk || s.life || later) && (
               <span className="ctags">
-                {s.culture && <span className="ctag">문화 비교 카드</span>}
-                {s.folk && <span className="ctag folk">한국 전래 동화</span>}
-                {s.life && <span className="ctag life">유치원·학교 생활</span>}
-                {later && <span className="ctag later">내일 또 읽어요</span>}
+                {s.culture && <span className="ctag" lang={p.lang}>{t(p.lang, 'tagCulture')}</span>}
+                {s.folk && <span className="ctag folk" lang={p.lang}>{t(p.lang, 'tagFolk')}</span>}
+                {s.life && <span className="ctag life" lang={p.lang}>{t(p.lang, 'tagLife')}</span>}
+                {later && <span className="ctag later" lang={p.lang}>{t(p.lang, 'tagLater')}</span>}
               </span>
             )}
             <b lang={p.lang}>{s.title[p.lang]}</b>
@@ -145,7 +146,7 @@ function Hero() {
   const plan = usePlan();
   const nav = useNav();
   const goSubscribe = () => {
-    nav({ view: 'parent' });
+    nav({ view: 'home', tab: 'progress' });
     window.setTimeout(() => document.getElementById('subscribe')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
   };
   const member = plan.state === 'sub';
@@ -160,14 +161,8 @@ function Hero() {
         <div className="stat">
           <b className="stat-num">{member ? <span lang={p.lang}>{t(p.lang, 'active')}</span> : plan.state === 'trial' ? `D-${plan.trialLeft}` : <span lang={p.lang}>{t(p.lang, 'ended')}</span>}</b>
           <span lang={p.lang}>{t(p.lang, member ? 'member' : 'trial')}</span>
-          {!member && <button className="sub-btn" lang={p.lang} onClick={goSubscribe}>{t(p.lang, 'subscribe')}</button>}
+          {!member && <button className="sub-btn" lang={p.lang} onClick={goSubscribe}>{t(p.lang, 'subscribe')}<Chevron /></button>}
         </div>
-        <button className="stat stat-link" lang={p.lang} onClick={() => nav({ view: 'parent' })}>
-          <b>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3.5-4 3 2.5L19 8" /></svg>
-          </b>
-          <span>{t(p.lang, 'progressShort')}<Chevron /></span>
-        </button>
       </div>
 
     </section>
@@ -286,12 +281,14 @@ const TABS: { id: HomeTab; label: string; icon: string }[] = [
   { id: 'books', label: '책장', icon: 'M4 5a2 2 0 0 1 2-2h4v16H6a2 2 0 0 0-2 2V5Zm16 0a2 2 0 0 0-2-2h-4v16h4a2 2 0 0 1 2 2V5Z' },
   { id: 'study', label: '공부', icon: 'M4 20l4-1 11-11-3-3L5 16l-1 4Zm11-14 3 3' },
   { id: 'words', label: '낱말장', icon: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7L12 3Z' },
+  { id: 'progress', label: '기록', icon: 'M4 19V5m0 14h16M8 15l3.5-4 3 2.5L19 8' },
 ];
 
 const TITLES: Record<HomeTab, [string, string]> = {
   books: ['엄마말 그림책', '엄마 아빠의 말로 읽고, 한국어 낱말을 모아요'],
   study: ['공부하기', '책을 읽지 않아도 바로 시작할 수 있어요'],
   words: ['내 낱말장', '맞힌 낱말이 모여요. 받아쓰기까지 하면 ✎ 표시가 붙어요'],
+  progress: ['우리 아이 기록', ''],
 };
 
 function ChildSheet({ onClose }: { onClose: () => void }) {
@@ -326,8 +323,9 @@ export function Home({ tab }: { tab: HomeTab }) {
 
   return (
     <>
-      <header className={`home-head${tab === 'books' ? ' on-hero' : ''}`}>
-        {tab !== 'books' && <div>
+      <header className={`home-head${tab === 'books' ? ' on-hero' : tab === 'progress' ? ' only-actions' : ''}`}>
+        {tab === 'books' && <p className="hero-kicker" lang={p.lang}>{t(p.lang, 'appName')}</p>}
+        {(tab === 'study' || tab === 'words') && <div>
           <h1>{title}</h1>
           <p className="lead">{tab === 'study' ? <Bi mo={t(p.lang,'play')} ko="그림을 보고 소리를 들어요" /> : <Bi mo={t(p.lang,'words')} ko="내가 모은 낱말" />}</p>
         </div>}
@@ -348,6 +346,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'books' && <><Hero /><BooksTab /></>}
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
+      {tab === 'progress' && <Parent embedded />}
 
       <details className="parent-footer" lang={p.lang}><summary><span>{g(p.lang, 'guide')}</span><Chevron /></summary><p>{g(p.lang, 'readTip')}</p><footer className="home-foot">
         <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><span aria-hidden="true">›</span></button>
@@ -361,7 +360,7 @@ export function Home({ tab }: { tab: HomeTab }) {
         {TABS.map((item) => (
           <button key={item.id} aria-current={tab === item.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: item.id })}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d={item.icon} /></svg>
-            <span lang={p.lang}>{t(p.lang, item.id === 'books' ? 'books' : item.id === 'study' ? 'play' : 'words')}</span>
+            <span lang={p.lang}>{t(p.lang, item.id === 'books' ? 'books' : item.id === 'study' ? 'play' : item.id === 'words' ? 'words' : 'progressTab')}</span>
           </button>
         ))}
       </nav>
