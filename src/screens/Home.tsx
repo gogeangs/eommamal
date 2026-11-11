@@ -17,10 +17,13 @@ import { useNav, type HomeTab } from '../nav';
 
 function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => void }) {
   const { p, set } = useProgress();
+  const nav = useNav();
   const pick = (id: LangId) => {
     set('lang', id);
     set('langChosen', true);
     onClose();
+    // First run: always start on the bookshelf, whatever tab the link pointed at.
+    if (welcome) nav({ view: 'home', tab: 'books' }, { replace: true });
   };
   return (
     <div className={`sheet-backdrop${welcome ? ' welcome' : ''}`} onClick={welcome ? undefined : onClose}>
@@ -289,11 +292,11 @@ function WordsTab() {
 /* ---------- shell ---------- */
 
 const TABS: { id: HomeTab; label: string; icon: string }[] = [
-  { id: 'books', label: '책장', icon: 'M4 5a2 2 0 0 1 2-2h4v16H6a2 2 0 0 0-2 2V5Zm16 0a2 2 0 0 0-2-2h-4v16h4a2 2 0 0 1 2 2V5Z' },
-  { id: 'study', label: '공부', icon: 'M4 20l4-1 11-11-3-3L5 16l-1 4Zm11-14 3 3' },
-  { id: 'words', label: '낱말장', icon: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7L12 3Z' },
-  { id: 'progress', label: '기록', icon: 'M4.5 20v-7.5h4V20Zm5.5 0V5h4v15Zm5.5 0v-11h4v11Z' },
-  { id: 'settings', label: '설정', icon: 'M12 12.2a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2ZM4.5 20.5a7.5 7.5 0 0 1 15 0' },
+  { id: 'books', label: '책장', icon: 'M3 5.6C3 4.7 3.7 4 4.6 4H10a2 2 0 0 1 2 2v14.2c-.6-.7-1.5-1.2-2.5-1.2H4.6c-.9 0-1.6-.7-1.6-1.6V5.6Zm18 0c0-.9-.7-1.6-1.6-1.6H14a2 2 0 0 0-2 2v14.2c.6-.7 1.5-1.2 2.5-1.2h4.9c.9 0 1.6-.7 1.6-1.6V5.6Z' },
+  { id: 'study', label: '공부', icon: 'M15 3.4a2 2 0 0 1 2.8 0l2.8 2.8a2 2 0 0 1 0 2.8L9.6 20 4.4 21.2a.6.6 0 0 1-.7-.7L4.9 15.3 15 3.4Z' },
+  { id: 'words', label: '낱말장', icon: 'M12 2.8l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.7l-5.4 2.9 1.1-6.1-4.5-4.3 6.1-.8L12 2.8Z' },
+  { id: 'progress', label: '기록', icon: 'M3.5 13.5A1.5 1.5 0 0 1 5 12h2a1.5 1.5 0 0 1 1.5 1.5v6A1.5 1.5 0 0 1 7 21H5a1.5 1.5 0 0 1-1.5-1.5v-6Zm6.75-9A1.5 1.5 0 0 1 11.75 3h.5a1.5 1.5 0 0 1 1.5 1.5v15a1.5 1.5 0 0 1-1.5 1.5h-.5a1.5 1.5 0 0 1-1.5-1.5v-15Zm5.25 4.5A1.5 1.5 0 0 1 17 7.5h2A1.5 1.5 0 0 1 20.5 9v10.5A1.5 1.5 0 0 1 19 21h-2a1.5 1.5 0 0 1-1.5-1.5V9Z' },
+  { id: 'settings', label: '설정', icon: 'M12 12.2a4.6 4.6 0 1 0 0-9.2 4.6 4.6 0 0 0 0 9.2ZM3.8 20.2c0-4.3 3.7-6.8 8.2-6.8s8.2 2.5 8.2 6.8c0 .6-.5 1-1 1H4.8c-.5 0-1-.4-1-1Z' },
 ];
 
 const TAB_TERM = { books: 'books', study: 'play', words: 'words', progress: 'progressTab', settings: 'settings' } as const;

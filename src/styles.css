@@ -1125,3 +1125,22 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .hero .lead.hero-ko{font-size:.88rem}
 @media (min-width:768px){.hero .lead.hero-ko{font-size:1rem}}
 .v-home .hero{margin-bottom:14px}
+
+/* ---------- round 22 ---------- */
+/* tab icons are filled shapes in every state (grey when idle, white in the yellow circle) */
+.tabbar .tab-ico svg,.tabbar button[aria-current="page"] .tab-ico svg{fill:currentColor;stroke:none;filter:none}
+.tabbar button[aria-current="page"] .tab-ico{color:#fff}
+.tabbar button[aria-current="page"] .tab-ico svg{width:28px;height:28px;filter:drop-shadow(0 1px 1px color-mix(in srgb,#7a5200 30%,transparent))}
+/* the label sits above the white ring of the raised circle, so it is never covered */
+.tabbar button{position:relative}
+.tabbar .tab-ico{position:relative;z-index:1}
+.tabbar button>.tab-label{position:relative;z-index:2}
+
+/* settings rows: same font as the rest of the screen */
+.settings-row{font-family:var(--ko)}
+.settings-row>span{font-weight:800}
+.settings-row>b{font-weight:700}
+
+/* progress: book titles in the display font chosen per language, Korean title in SUITE */
+.pbooks b{font-family:var(--display);letter-spacing:var(--display-ls);font-weight:400;font-size:1.15rem;line-height:1.15}
+.pbooks span[lang="ko"]{font-family:var(--ko)}
