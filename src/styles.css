@@ -915,3 +915,6 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .home-head.only-actions{justify-content:flex-end;margin-bottom:-8px}
 .hero-art{margin-top:0}
 @media (min-width:768px){.hero-art{margin-top:0}}
+/* app name above the title: the display font chosen for each language */
+.hero-kicker{font-family:var(--display);letter-spacing:var(--display-ls);font-weight:400;font-size:.98rem;color:var(--ink);opacity:.75}
+@media (min-width:768px){.hero-kicker{font-size:1.1rem}}
