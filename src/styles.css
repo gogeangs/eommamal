@@ -1121,3 +1121,7 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .tabbar button[aria-current="page"] .tab-ico{box-shadow:0 0 0 7px var(--card)}
 /* room for the raised active circle: page text can scroll fully above it */
 .tabbar-space{height:calc(128px + env(safe-area-inset-bottom,0px))}
+/* Stories: Korean question a bit larger; more space before the story list */
+.hero .lead.hero-ko{font-size:.88rem}
+@media (min-width:768px){.hero .lead.hero-ko{font-size:1rem}}
+.v-home .hero{margin-bottom:14px}
