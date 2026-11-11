@@ -1091,3 +1091,6 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .page-flap{position:absolute;inset:0;background:linear-gradient(135deg,#fffdf7 0%,#f7efdc 45%,#e6d6ae 80%,#cdb88a 100%);
   clip-path:polygon(min(100%,var(--s)) max(0%,var(--s) - 100%), min(100%,var(--s)) calc(var(--s) - 100%),
     calc(var(--s) - 100%) calc(var(--s) - 100%), calc(var(--s) - 100%) min(100%,var(--s)), max(0%,var(--s) - 100%) min(100%,var(--s)))}
+/* more room above the star illustration */
+.v-home .hero-art{margin-top:20px}
+@media (min-width:768px){.v-home .hero-art{margin-top:28px}}
