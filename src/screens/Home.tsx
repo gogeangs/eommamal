@@ -376,8 +376,8 @@ export function Home({ tab }: { tab: HomeTab }) {
       <header className={`home-head${tab === 'books' ? ' on-hero' : tab === 'progress' || tab === 'settings' ? ' only-actions' : ''}`}>
         {tab === 'books' && <FitLine className="hero-kicker" lang={p.lang} text={t(p.lang, 'appName')} />}
         {(tab === 'study' || tab === 'words') && <div>
-          <h1>{title}</h1>
-          <p className="lead tab-sub" lang={p.lang}>{t(p.lang, tab === 'study' ? 'play' : 'words')}</p>
+          <h1 lang={p.lang}>{t(p.lang, tab === 'study' ? 'play' : 'words')}</h1>
+          <p className="lead tab-sub" lang="ko">{title}</p>
         </div>}
         <div className="home-actions">
         {profiles.length > 1 && (
