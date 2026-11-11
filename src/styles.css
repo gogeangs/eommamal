@@ -1,9 +1,13 @@
+/* 메모먼트 꾹꾹체 — subset to Hangul + Latin (woff2). */
+@font-face{font-family:'Memoment';src:url('./assets/fonts/MemomentKkukkukk.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 /* Layout: one phone-width column. Home = language chips, story shelf, study shortcuts, word book.
    Reader = picture panel, two-language text, bottom controls. Activities share the same column. */
 :root{
   --paper:#F4F6F1; --card:#FFFFFF; --ink:#1F2B3A; --muted:#5E6B78; --line:#DCE3DA;
   --sun:#F2B533; --sun-ink:#4A3300; --leaf:#2F7A5B; --leaf-soft:#E2F0E8;
-  --display:'Jua','Nunito',system-ui,sans-serif;
+  /* Display font: 메모먼트 꾹꾹체 for Korean and English; other languages keep Jua → Nunito (see bottom of file). */
+  --display-base:'Jua','Nunito',system-ui,sans-serif;
+  --display:'Memoment',var(--display-base);
   --body:'Nunito','Gowun Dodum',system-ui,'PingFang SC','Noto Sans CJK SC',sans-serif;
   --ko:'Gowun Dodum','Nunito',system-ui,sans-serif;
 }
@@ -570,3 +574,9 @@ h1 .bi>small{font-family:var(--display);font-weight:400;font-size:.62em;opacity:
 .opts.n3 .opt .tile{min-height:0}
 .dict-options.at-end{border-top:1.5px dashed var(--line);padding-top:12px;margin-top:4px}
 .label{text-transform:none}
+
+/* ---------- display font by language ----------
+   메모먼트 꾹꾹체 has Hangul and Latin only. Text in other languages keeps the previous display font,
+   so a word is never drawn half in one font and half in another (e.g. Vietnamese diacritics). */
+:is(:lang(ru),:lang(mn),:lang(vi),:lang(uz),:lang(zh)){--display:var(--display-base)}
+:is(h1,h2,.qtitle) :is(:lang(ru),:lang(mn),:lang(vi),:lang(uz),:lang(zh)){font-family:var(--display)}
