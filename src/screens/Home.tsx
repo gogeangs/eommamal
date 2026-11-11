@@ -8,6 +8,7 @@ import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
 import { ChildManager, Parent } from './Parent';
 import { AccountPanel } from './AccountPanel';
+import { GatedSubscribe, PlanStatus } from './Subscribe';
 import { useAccount } from '../lib/account';
 import { g } from '../lib/grownUi';
 import { usePlan } from '../lib/plan';
@@ -145,13 +146,6 @@ function BookCard({ s }: { s: Story }) {
 /** Bookshelf header: the app's illustration, and the family's plan in the two stat slots. */
 function Hero() {
   const { p } = useProgress();
-  const plan = usePlan();
-  const nav = useNav();
-  const goSubscribe = () => {
-    nav({ view: 'home', tab: 'progress' });
-    window.setTimeout(() => document.getElementById('subscribe')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
-  };
-  const member = plan.state === 'sub';
   return (
     <section className="hero" aria-label="엄마말 그림책">
       <div className="hero-text">
@@ -159,14 +153,6 @@ function Hero() {
         <p className="lead"><Bi mo={t(p.lang, 'storyPrompt')} ko="오늘은 어떤 이야기를 읽을까요?" /></p>
       </div>
       <Illus name="hero-star" className="hero-art" />
-      <div className="hero-stats">
-        <div className="stat">
-          <b className="stat-num">{member ? <span lang={p.lang}>{t(p.lang, 'active')}</span> : plan.state === 'trial' ? `D-${plan.trialLeft}` : <span lang={p.lang}>{t(p.lang, 'ended')}</span>}</b>
-          <span lang={p.lang}>{t(p.lang, member ? 'member' : 'trial')}</span>
-          {!member && <button className="sub-btn" lang={p.lang} onClick={goSubscribe}>{t(p.lang, 'subscribe')}<Chevron /></button>}
-        </div>
-      </div>
-
     </section>
   );
 }
@@ -283,7 +269,7 @@ const TABS: { id: HomeTab; label: string; icon: string }[] = [
   { id: 'books', label: '책장', icon: 'M4 5a2 2 0 0 1 2-2h4v16H6a2 2 0 0 0-2 2V5Zm16 0a2 2 0 0 0-2-2h-4v16h4a2 2 0 0 1 2 2V5Z' },
   { id: 'study', label: '공부', icon: 'M4 20l4-1 11-11-3-3L5 16l-1 4Zm11-14 3 3' },
   { id: 'words', label: '낱말장', icon: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7L12 3Z' },
-  { id: 'progress', label: '기록', icon: 'M4 19V5m0 14h16M8 15l3.5-4 3 2.5L19 8' },
+  { id: 'progress', label: '기록', icon: 'M4.5 20v-7.5h4V20Zm5.5 0V5h4v15Zm5.5 0v-11h4v11Z' },
   { id: 'settings', label: '설정', icon: 'M12 12.2a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2ZM4.5 20.5a7.5 7.5 0 0 1 15 0' },
 ];
 
@@ -309,6 +295,11 @@ function SettingsTab({ onLanguage }: { onLanguage: () => void }) {
           </div>
         </section>
       </>)}
+
+      <div id="subscribe" className="settings-plan">
+        <PlanStatus />
+        <GatedSubscribe />
+      </div>
 
       <button className="settings-row" onClick={onLanguage}>
         <span>{t(L, 'language')}</span>

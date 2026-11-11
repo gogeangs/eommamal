@@ -952,3 +952,30 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 @media (min-width:768px){.tab-label{font-size:.88rem}}
 /* keep page text from showing through the gap under the floating bar */
 .tabbar::after{content:"";position:absolute;left:-14px;right:-14px;top:100%;height:calc(max(10px,env(safe-area-inset-bottom,0px)) + 2px);background:var(--home-bg);z-index:-1;border-radius:0}
+
+/* ---------- round 13 ---------- */
+/* tab bar: labels 2px smaller; the active icon is a filled white shape */
+.tab-label{font-size:.615rem}
+@media (min-width:768px){.tab-label{font-size:.755rem}}
+.tabbar button[aria-current="page"] .tab-ico svg{fill:#fff;stroke:#fff;stroke-width:1.6;filter:drop-shadow(0 1px 1px color-mix(in srgb,#7a5200 35%,transparent))}
+
+/* reader language panel: the three reading modes share the full width */
+.reader-tools{flex-wrap:nowrap}
+.reader-tools .seg{flex:1;min-width:0}
+.reader-tools .seg button{flex:1;min-width:0;padding-inline:6px;font-family:var(--body);overflow-wrap:anywhere}
+
+/* settings: trial / subscription block */
+.settings-plan{display:flex;flex-direction:column;gap:10px}
+.settings-plan:empty{display:none}
+
+/* story cards: smaller category tags; foreign title and Korean title closer */
+.ctag{font-size:.62rem;padding:1px 8px}
+.book.wide.flip-front b{line-height:1.05}
+.book.wide.flip-front .book-ko{margin-top:-3px}
+
+/* phone: cards run to the left screen edge (square left side); the thumbnail grows left to where the card used to start */
+@media (max-width:767px){
+  .v-home .shelf .book-flip{margin-left:calc(-1 * max(16px, env(safe-area-inset-left, 0px)))}
+  .v-home .book.wide.flip-front{border-radius:0 28px 28px 0;padding-left:max(16px, env(safe-area-inset-left, 0px));grid-template-columns:44% minmax(0,1fr)}
+  .v-home .flip-back{border-radius:0 28px 28px 0}
+}

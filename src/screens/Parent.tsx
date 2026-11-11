@@ -145,10 +145,10 @@ export function Parent({ embedded = false }: { embedded?: boolean } = {}) {
         ))}
       </div>
 
-      <div id="subscribe">
+      {!embedded && <div id="subscribe">
         <PlanStatus />
         <GatedSubscribe />
-      </div>
+      </div>}
 
       <section className="pcard">
         <H lang={lang} k="week" n={`${active} / 7`} />
