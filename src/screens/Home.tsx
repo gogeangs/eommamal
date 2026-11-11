@@ -154,21 +154,22 @@ function Hero() {
       <div className="hero-text">
         <h1>엄마말 그림책</h1>
         <p className="lead"><Bi mo={t(p.lang, 'storyPrompt')} ko="오늘은 어떤 이야기를 읽을까요?" /></p>
-        <div className="hero-stats">
-          <div className="stat">
-            <b className="stat-num">{member ? <span lang={p.lang}>{t(p.lang, 'active')}</span> : plan.state === 'trial' ? `D-${plan.trialLeft}` : <span lang={p.lang}>{t(p.lang, 'ended')}</span>}</b>
-            <span lang={p.lang}>{t(p.lang, member ? 'member' : 'trial')}</span>
-            {!member && <button className="sub-btn" lang={p.lang} onClick={goSubscribe}>{t(p.lang, 'subscribe')}</button>}
-          </div>
-          <button className="stat stat-link" lang={p.lang} onClick={() => nav({ view: 'parent' })}>
-            <b>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3.5-4 3 2.5L19 8" /></svg>
-            </b>
-            <span>{pt(p.lang, 'title')}<Chevron /></span>
-          </button>
-        </div>
       </div>
       <Illus name="hero-star" className="hero-art" />
+      <div className="hero-stats">
+        <div className="stat">
+          <b className="stat-num">{member ? <span lang={p.lang}>{t(p.lang, 'active')}</span> : plan.state === 'trial' ? `D-${plan.trialLeft}` : <span lang={p.lang}>{t(p.lang, 'ended')}</span>}</b>
+          <span lang={p.lang}>{t(p.lang, member ? 'member' : 'trial')}</span>
+          {!member && <button className="sub-btn" lang={p.lang} onClick={goSubscribe}>{t(p.lang, 'subscribe')}</button>}
+        </div>
+        <button className="stat stat-link" lang={p.lang} onClick={() => nav({ view: 'parent' })}>
+          <b>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3.5-4 3 2.5L19 8" /></svg>
+          </b>
+          <span>{t(p.lang, 'progressShort')}<Chevron /></span>
+        </button>
+      </div>
+
     </section>
   );
 }
@@ -256,7 +257,7 @@ function WordsTab() {
       {p.learned.length === 0 && (
         <section className="empty-words">
           <Illus name="empty-words" className="illus empty-art" />
-          <p><Bi mo={t(p.lang, 'emptyWords')} ko="낱말 친구를 만나러 가 볼까요? 놀기에서 시작해요!" /></p>
+          <p><Bi mo={t(p.lang, 'emptyWords')} ko={"낱말 친구를 만나러 가 볼까요?\n놀기에서 시작해요!"} /></p>
         </section>
       )}
       <section>
