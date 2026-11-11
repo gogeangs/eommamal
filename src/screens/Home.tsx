@@ -8,7 +8,6 @@ import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
 import { ChildManager, Parent } from './Parent';
 import { AccountPanel } from './AccountPanel';
-import { GatedSubscribe, PlanStatus } from './Subscribe';
 import { useAccount } from '../lib/account';
 import { g } from '../lib/grownUi';
 import { usePlan } from '../lib/plan';
@@ -316,15 +315,10 @@ function SettingsTab({ onLanguage }: { onLanguage: () => void }) {
           <span className="acc-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12.2a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2ZM4.5 20.5a7.5 7.5 0 0 1 15 0" /></svg></span>
           <div>
             <p className="ptip">{pt(L, 'accountWhy')}</p>
-            <button className="btn2" disabled>{g(L, 'signIn')} · {t(L, 'soon')}</button>
+            <button className="btn2 soon-btn" disabled>{g(L, 'signIn')} ({t(L, 'soon')})</button>
           </div>
         </section>
       </>)}
-
-      <div id="subscribe" className="settings-plan">
-        <PlanStatus />
-        <GatedSubscribe />
-      </div>
 
       <button className="settings-row" onClick={onLanguage}>
         <span>{t(L, 'language')}</span>

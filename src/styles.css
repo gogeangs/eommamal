@@ -1065,3 +1065,29 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .home-head.on-hero .lang-btn{padding:7px 10px;gap:6px}
 .home-head.on-hero .lang-btn small{font-size:.68rem;padding-right:6px}
 .home-head.on-hero .lang-btn b{font-size:.92rem}
+
+/* ---------- round 18 ---------- */
+/* tab labels 800 */
+.tabbar button>.tab-label,.tabbar button[aria-current="page"]>.tab-label{font-weight:800}
+
+/* settings: "Sign in (Coming soon)" as a pale, low-contrast disabled button */
+.soon-btn:disabled{background:color-mix(in srgb,var(--line) 45%,var(--card));color:color-mix(in srgb,var(--muted) 55%,var(--card));
+  border-color:transparent;box-shadow:none;cursor:not-allowed;opacity:1;font-weight:700}
+
+/* avatar picker: the selection ring is a true circle */
+.avatar-pick button{display:inline-grid;place-items:center;line-height:0;box-sizing:content-box}
+
+/* reader: page progress as a bar (like the shelf cards), no dots */
+.pager .page-bar{flex:1;max-width:260px;height:12px;border-radius:999px;background:color-mix(in srgb,var(--line) 70%,var(--card));overflow:hidden}
+.pager .page-bar i{display:block;height:100%;border-radius:999px;background:var(--accent);transition:width .35s ease}
+
+/* reader: forward page turn — the previous picture curls away from the bottom-right corner */
+.scene-btn{overflow:hidden}
+.page-turn{position:absolute;inset:0;z-index:2;pointer-events:none;animation:curl .7s cubic-bezier(.45,.05,.55,.95) forwards;
+  filter:drop-shadow(-3px -3px 6px color-mix(in srgb,#1a1200 25%,transparent))}
+.page-turn>:first-child{position:absolute;inset:0;width:100%;height:100%;
+  clip-path:polygon(0 0, min(100%,var(--s)) 0, min(100%,var(--s)) max(0%,var(--s) - 100%), max(0%,var(--s) - 100%) min(100%,var(--s)), 0 min(100%,var(--s)))}
+.page-turn>:first-child img{width:100%;height:100%;object-fit:cover}
+.page-flap{position:absolute;inset:0;background:linear-gradient(135deg,#fffdf7 0%,#f7efdc 45%,#e6d6ae 80%,#cdb88a 100%);
+  clip-path:polygon(min(100%,var(--s)) max(0%,var(--s) - 100%), min(100%,var(--s)) calc(var(--s) - 100%),
+    calc(var(--s) - 100%) calc(var(--s) - 100%), calc(var(--s) - 100%) min(100%,var(--s)), max(0%,var(--s) - 100%) min(100%,var(--s)))}

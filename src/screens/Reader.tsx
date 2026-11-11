@@ -47,6 +47,7 @@ function StoryReader({ storyId }: { storyId: string }) {
   const [voiceNote, setVoiceNote] = useState('');
   const [showTools, setShowTools] = useState(false);
   const [hideNoVoice, setHideNoVoice] = useState(false);
+  const [turning, setTurning] = useState<number | null>(null);
   const lang = langById(p.lang);
   const ui = UI[p.lang];
   const pg = st.pages[page];
@@ -82,6 +83,8 @@ function StoryReader({ storyId }: { storyId: string }) {
       nav({ view: 'done', story: st.id });
       return;
     }
+    // Turning forward: the old picture peels away from the bottom-right corner (like the bookshelf cards).
+    if (d > 0 && !matchMedia('(prefers-reduced-motion: reduce)').matches) setTurning(page);
     setPage((x) => Math.max(0, Math.min(st.pages.length - 1, x + d)));
   };
 
@@ -162,6 +165,12 @@ function StoryReader({ storyId }: { storyId: string }) {
         onClick={() => { if (swiped.current) { swiped.current = false; return; } readAloud(); }}
       >
         <Scene key={page} page={pg} alt="" />
+        {turning != null && turning !== page && (
+          <span className="page-turn" key={`turn-${turning}`} aria-hidden="true" onAnimationEnd={() => setTurning(null)}>
+            <Scene page={st.pages[turning]} alt="" />
+            <span className="page-flap" />
+          </span>
+        )}
         <span className="tap-hint" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z" /><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" /></svg>
         </span>
@@ -223,11 +232,7 @@ function StoryReader({ storyId }: { storyId: string }) {
       <div className="dock">
         <div className="dock-inner">
           <div className="pager" aria-label={g(p.lang, 'page', { a: page + 1, b: st.pages.length })}>
-            <div className="dots" aria-hidden="true">
-              {st.pages.map((_, i) => (
-                <i key={i} className={i === page ? 'on' : ''} />
-              ))}
-            </div>
+            <span className="page-bar" aria-hidden="true"><i style={{ width: `${((page + 1) / st.pages.length) * 100}%` }} /></span>
             <span className="page-count" aria-hidden="true">{page + 1} / {st.pages.length}</span>
           </div>
           <div className="controls">

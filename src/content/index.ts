@@ -24,6 +24,8 @@ export function findStory(id: string): Story {
 }
 
 let KO_TO_ID: Record<string, string> = {};
+/** Text that must never be split into vocabulary words (character names etc.). */
+export const NOT_WORDS: string[] = ['나비'];
 let KO_RE = /$^/g;
 const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -32,7 +34,10 @@ export function refreshIndex() {
   ALL_WORDS.length = 0;
   ALL_WORDS.push(...Object.keys(V));
   KO_TO_ID = Object.fromEntries(ALL_WORDS.map((id) => [V[id].ko, id]));
-  const kos = ALL_WORDS.map((id) => V[id].ko).filter(Boolean).sort((a, b) => b.length - a.length);
+  // Names and other words that merely contain a vocabulary word (나비 the cat ⊃ 비 "rain") stay plain text:
+  // they are matched first (longer wins) but have no word id, so they are not turned into word buttons.
+  const kos = [...ALL_WORDS.map((id) => V[id].ko).filter(Boolean), ...NOT_WORDS.filter((w) => !KO_TO_ID[w])]
+    .sort((a, b) => b.length - a.length);
   KO_RE = kos.length ? new RegExp('(' + kos.map(esc).join('|') + ')', 'g') : /$^/g;
 }
 refreshIndex();
