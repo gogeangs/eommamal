@@ -306,7 +306,6 @@ function SettingsTab({ onLanguage }: { onLanguage: () => void }) {
   const L = p.lang;
   return (
     <div className="settings-tab stack" lang={L}>
-      <h1>{t(L, 'settings')}</h1>
 
       {acc.enabled ? <AccountPanel /> : (<>
         <h2 className="ph"><span>{pt(L, 'account')}</span></h2>
@@ -373,10 +372,10 @@ export function Home({ tab }: { tab: HomeTab }) {
 
   return (
     <>
-      <header className={`home-head${tab === 'books' ? ' on-hero' : tab === 'progress' || tab === 'settings' ? ' only-actions' : ''}`}>
+      <header className={`home-head${tab === 'books' ? ' on-hero' : ''}`}>
         {tab === 'books' && <FitLine className="hero-kicker" lang={p.lang} text={t(p.lang, 'appName')} />}
-        {(tab === 'study' || tab === 'words') && <div>
-          <h1 lang={p.lang}>{t(p.lang, tab === 'study' ? 'play' : 'words')}</h1>
+        {tab !== 'books' && <div>
+          <h1 lang={p.lang}>{t(p.lang, TAB_TERM[tab])}</h1>
           <p className="lead tab-sub" lang="ko">{title}</p>
         </div>}
         <div className="home-actions">

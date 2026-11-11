@@ -132,9 +132,9 @@ export function Parent({ embedded = false }: { embedded?: boolean } = {}) {
   return (
     <>
       {!embedded && <TopBar grown />}
-      <header className="phead">
+      {!embedded && <header className="phead">
         <h1 lang={lang}>{pt(lang, 'title')}</h1>
-      </header>
+      </header>}
 
       <div className="child-tabs" role="tablist" aria-label={g(lang, 'chooseChild')}>
         {profiles.map((pr, i) => (
