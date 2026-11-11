@@ -6,7 +6,9 @@ import { Bi, Chevron, Illus, Scene, Tile, WordCard } from '../components/ui';
 import { childName, useProgress } from '../lib/progress';
 import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
-import { Parent } from './Parent';
+import { ChildManager, Parent } from './Parent';
+import { AccountPanel } from './AccountPanel';
+import { useAccount } from '../lib/account';
 import { g } from '../lib/grownUi';
 import { usePlan } from '../lib/plan';
 import { useNav, type HomeTab } from '../nav';
@@ -282,13 +284,52 @@ const TABS: { id: HomeTab; label: string; icon: string }[] = [
   { id: 'study', label: '공부', icon: 'M4 20l4-1 11-11-3-3L5 16l-1 4Zm11-14 3 3' },
   { id: 'words', label: '낱말장', icon: 'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7L12 3Z' },
   { id: 'progress', label: '기록', icon: 'M4 19V5m0 14h16M8 15l3.5-4 3 2.5L19 8' },
+  { id: 'settings', label: '설정', icon: 'M12 12.2a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2ZM4.5 20.5a7.5 7.5 0 0 1 15 0' },
 ];
+
+const TAB_TERM = { books: 'books', study: 'play', words: 'words', progress: 'progressTab', settings: 'settings' } as const;
+
+/** Settings tab: the parent's account, home language & reading options, and children. Grown-up screen → family language only. */
+function SettingsTab({ onLanguage }: { onLanguage: () => void }) {
+  const { p } = useProgress();
+  const acc = useAccount();
+  const lang = LANGS.find((l) => l.id === p.lang)!;
+  const L = p.lang;
+  return (
+    <div className="settings-tab stack" lang={L}>
+      <h1>{t(L, 'settings')}</h1>
+
+      {acc.enabled ? <AccountPanel /> : (<>
+        <h2 className="ph"><span>{pt(L, 'account')}</span></h2>
+        <section className="pcard account-soon">
+          <span className="acc-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12.2a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2ZM4.5 20.5a7.5 7.5 0 0 1 15 0" /></svg></span>
+          <div>
+            <p className="ptip">{pt(L, 'accountWhy')}</p>
+            <button className="btn2" disabled>{g(L, 'signIn')} · {t(L, 'soon')}</button>
+          </div>
+        </section>
+      </>)}
+
+      <button className="settings-row" onClick={onLanguage}>
+        <span>{t(L, 'language')}</span>
+        <b>{lang.name}</b>
+        <Chevron />
+      </button>
+
+      <h2 className="ph"><span>{pt(L, 'children')}</span></h2>
+      <ChildManager />
+
+      <p className="pnote privacy">{pt(L, acc.email ? 'privacySync' : 'privacy')}</p>
+    </div>
+  );
+}
 
 const TITLES: Record<HomeTab, [string, string]> = {
   books: ['엄마말 그림책', '엄마 아빠의 말로 읽고, 한국어 낱말을 모아요'],
   study: ['공부하기', '책을 읽지 않아도 바로 시작할 수 있어요'],
   words: ['내 낱말장', '맞힌 낱말이 모여요. 받아쓰기까지 하면 ✎ 표시가 붙어요'],
   progress: ['우리 아이 기록', ''],
+  settings: ['설정', ''],
 };
 
 function ChildSheet({ onClose }: { onClose: () => void }) {
@@ -323,7 +364,7 @@ export function Home({ tab }: { tab: HomeTab }) {
 
   return (
     <>
-      <header className={`home-head${tab === 'books' ? ' on-hero' : tab === 'progress' ? ' only-actions' : ''}`}>
+      <header className={`home-head${tab === 'books' ? ' on-hero' : tab === 'progress' || tab === 'settings' ? ' only-actions' : ''}`}>
         {tab === 'books' && <p className="hero-kicker" lang={p.lang}>{t(p.lang, 'appName')}</p>}
         {(tab === 'study' || tab === 'words') && <div>
           <h1>{title}</h1>
@@ -347,6 +388,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
       {tab === 'progress' && <Parent embedded />}
+      {tab === 'settings' && <SettingsTab onLanguage={() => setSheet(true)} />}
 
       <details className="parent-footer" lang={p.lang}><summary><span>{g(p.lang, 'guide')}</span><Chevron /></summary><p>{g(p.lang, 'readTip')}</p><footer className="home-foot">
         <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><span aria-hidden="true">›</span></button>
@@ -359,8 +401,8 @@ export function Home({ tab }: { tab: HomeTab }) {
       <nav className="tabbar" aria-label="메뉴">
         {TABS.map((item) => (
           <button key={item.id} aria-current={tab === item.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: item.id })}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={item.icon} /></svg>
-            <span lang={p.lang}>{t(p.lang, item.id === 'books' ? 'books' : item.id === 'study' ? 'play' : item.id === 'words' ? 'words' : 'progressTab')}</span>
+            <span className="tab-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={item.icon} /></svg></span>
+            <span className="tab-label" lang={p.lang}>{t(p.lang, TAB_TERM[item.id])}</span>
           </button>
         ))}
       </nav>

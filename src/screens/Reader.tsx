@@ -123,11 +123,11 @@ function StoryReader({ storyId }: { storyId: string }) {
     <div className="reader">
       <TopBar>
         <button className="size-btn settings-toggle" aria-expanded={showTools} onClick={() => setShowTools(v => !v)} lang={p.lang}>
-          <svg className="gear" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" /><path d="M12 2.8v2.4M12 18.8v2.4M21.2 12h-2.4M5.2 12H2.8M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7M18.5 18.5l-1.7-1.7M7.2 7.2 5.5 5.5" /><circle cx="12" cy="12" r="6.6" /></svg>
-          {t(p.lang, 'settings')}
+          <svg className="gear" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9M12 3C9.4 5.6 8.2 8.6 8.2 12s1.2 6.4 3.8 9" /></svg>
+          {t(p.lang, 'language')}
         </button>
       </TopBar>
-      {showTools && <div className="reader-settings" role="group" aria-label={t(p.lang, 'settings')} lang={p.lang}>
+      {showTools && <div className="reader-settings" role="group" aria-label={t(p.lang, 'language')} lang={p.lang}>
         <div className="reader-tools">
           <button
             className="size-btn"

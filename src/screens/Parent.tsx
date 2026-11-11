@@ -41,7 +41,7 @@ function lastWeek(lang: LangId) {
   return out;
 }
 
-function ChildManager() {
+export function ChildManager() {
   const { p, profiles, profile, addProfile, updateProfile, removeProfile, resetProfile } = useProgress();
   const L = p.lang;
   const [adding, setAdding] = useState(false);
@@ -224,10 +224,11 @@ export function Parent({ embedded = false }: { embedded?: boolean } = {}) {
         </details>
       )}
 
-      <AccountPanel />
-
-      <H lang={lang} k="children" />
-      <ChildManager />
+      {!embedded && <>
+        <AccountPanel />
+        <H lang={lang} k="children" />
+        <ChildManager />
+      </>}
 
       <p className="pnote privacy" lang={lang}>{pt(lang, signedIn ? 'privacySync' : 'privacy')}</p>
     </>

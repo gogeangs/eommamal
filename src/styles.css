@@ -918,3 +918,37 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 /* app name above the title: the display font chosen for each language */
 .hero-kicker{font-family:var(--display);letter-spacing:var(--display-ls);font-weight:400;font-size:.98rem;color:var(--ink);opacity:.75}
 @media (min-width:768px){.hero-kicker{font-size:1.1rem}}
+
+/* ---------- round 12: floating tab bar with a raised yellow active tab ---------- */
+.tabbar-space{height:104px}
+.tabbar{left:50%;right:auto;bottom:max(10px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(calc(100% - 20px),600px);
+  border:0;border-radius:28px;background:var(--card);padding:8px 4px 8px;gap:0;align-items:flex-end;overflow:visible;
+  box-shadow:0 10px 28px color-mix(in srgb,#7a5200 20%,transparent)}
+.tabbar button{background:none!important;color:var(--muted);min-height:58px;padding:4px 2px 2px;border-radius:16px;justify-content:flex-end;max-width:none}
+.tab-ico{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;transition:width .25s ease,height .25s ease,margin .25s ease,background-color .25s ease}
+.tabbar .tab-ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.9}
+.tab-label{font-size:.8rem;font-weight:700;margin-top:4px!important;line-height:1.15;text-align:center;overflow-wrap:anywhere}
+.tabbar button[aria-current="page"]{color:var(--leaf)}
+.tabbar button[aria-current="page"] .tab-ico{width:58px;height:58px;margin-top:-34px;background:var(--sun);color:var(--sun-ink);
+  box-shadow:0 0 0 7px var(--card),0 -6px 14px 6px color-mix(in srgb,#7a5200 10%,transparent)}
+.tabbar button[aria-current="page"] .tab-ico svg{width:28px;height:28px;stroke-width:2.1;fill:none}
+.tabbar button[aria-current="page"] .tab-label{font-weight:800}
+.tabbar button:not(:disabled):hover,.tabbar button:not(:disabled):active{transform:none}
+.tabbar button:not([aria-current="page"]):not(:disabled):active .tab-ico{transform:scale(.9)}
+@media (min-width:768px){.tab-label{font-size:.9rem}}
+
+/* settings tab */
+.settings-tab h1{margin-bottom:4px}
+.account-soon{display:flex;gap:14px;align-items:flex-start}
+.acc-avatar{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--leaf-soft)}
+.acc-avatar svg{width:28px;height:28px;fill:none;stroke:var(--leaf);stroke-width:2;stroke-linecap:round}
+.account-soon .ptip{margin:0 0 10px}
+.settings-row{font:inherit;display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--card);border:0;border-radius:18px;padding:16px 18px;cursor:pointer;color:var(--ink)}
+.settings-row>span{flex:1;font-weight:800}
+.settings-row>b{color:var(--muted);font-weight:700}
+.settings-row .chev{transform:rotate(-90deg)}
+.tabbar button[aria-current="page"] .tab-ico{transform:translateY(-16px);margin-bottom:-16px}
+.tab-label{font-size:.74rem;white-space:nowrap;overflow-wrap:normal;letter-spacing:-.01em}
+@media (min-width:768px){.tab-label{font-size:.88rem}}
+/* keep page text from showing through the gap under the floating bar */
+.tabbar::after{content:"";position:absolute;left:-14px;right:-14px;top:100%;height:calc(max(10px,env(safe-area-inset-bottom,0px)) + 2px);background:var(--home-bg);z-index:-1;border-radius:0}
