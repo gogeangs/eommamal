@@ -1098,3 +1098,15 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .v-home :is(.home-head h1,.phead h1,.settings-tab h1,h2.ph,.pcard h2){font-family:var(--ko);font-weight:800;letter-spacing:-.02em}
 .v-home :is(.home-head h1,.phead h1,.settings-tab h1){font-size:1.75rem;line-height:1.2}
 .v-home :is(h2.ph,.pcard h2,.phead h1,.settings-tab h1) [lang]{font-family:var(--ko);letter-spacing:-.02em}
+
+/* ---------- round 19: Play / My words ---------- */
+/* subtitle under the tab title: the family-language word only, styled like the small Korean line it replaces */
+.lead.tab-sub{font-family:var(--ko);font-size:.85rem;font-weight:700;color:var(--muted);opacity:.72;margin-top:4px}
+/* Play: activity cards without a border */
+.act-row{border:0}
+/* story scope: always open (no dropdown), smaller borderless chips */
+.parent-scope{border:0;padding:14px}
+.parent-scope .chips{margin-top:10px;gap:6px}
+.parent-scope .chip{font-size:.78rem;border:0;padding:6px 12px;background:color-mix(in srgb,var(--line) 45%,var(--card))}
+.parent-scope .chip small{font-size:.9em}
+.parent-scope .chip[aria-pressed="true"]{background:var(--sun);color:var(--sun-ink)}

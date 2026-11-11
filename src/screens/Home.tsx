@@ -216,15 +216,14 @@ function StudyTab() {
   const scopes: [string, string][] = [['all', '모든 낱말'], ...STORIES.map((s): [string, string] => [s.id, s.title.ko])];
   return (
     <>
-      <details className="parent-scope">
-        <summary>이야기 선택 · {scopes.find(([id]) => id === p.scope)?.[1] ?? '모든 낱말'}</summary>
+      <section className="parent-scope">
         <p className="label" style={{ margin: 0 }}>무엇으로 공부할까요?</p>
         <div className="chips" role="group" aria-label="공부할 낱말">
           {scopes.map(([id, name]) => (
             <button key={id} className="chip" aria-pressed={p.scope === id} onClick={() => set('scope', id)}>{name}</button>
           ))}
         </div>
-      </details>
+      </section>
       <section className="stack">
         <p className="label" style={{ margin: 0 }}>그림을 누르고 놀아요</p>
         <ol className="act-list">
@@ -378,7 +377,7 @@ export function Home({ tab }: { tab: HomeTab }) {
         {tab === 'books' && <FitLine className="hero-kicker" lang={p.lang} text={t(p.lang, 'appName')} />}
         {(tab === 'study' || tab === 'words') && <div>
           <h1>{title}</h1>
-          <p className="lead">{tab === 'study' ? <Bi mo={t(p.lang,'play')} ko="그림을 보고 소리를 들어요" /> : <Bi mo={t(p.lang,'words')} ko="내가 모은 낱말" />}</p>
+          <p className="lead tab-sub" lang={p.lang}>{t(p.lang, tab === 'study' ? 'play' : 'words')}</p>
         </div>}
         <div className="home-actions">
         {profiles.length > 1 && (
