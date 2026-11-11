@@ -1094,3 +1094,7 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 /* more room above the star illustration */
 .v-home .hero-art{margin-top:20px}
 @media (min-width:768px){.v-home .hero-art{margin-top:28px}}
+/* Play / My words / Progress / Settings: titles in SUITE instead of the hand-drawn display font */
+.v-home :is(.home-head h1,.phead h1,.settings-tab h1,h2.ph,.pcard h2){font-family:var(--ko);font-weight:800;letter-spacing:-.02em}
+.v-home :is(.home-head h1,.phead h1,.settings-tab h1){font-size:1.75rem;line-height:1.2}
+.v-home :is(h2.ph,.pcard h2,.phead h1,.settings-tab h1) [lang]{font-family:var(--ko);letter-spacing:-.02em}
