@@ -1,3 +1,4 @@
+import { g } from './grownUi';
 // Learner settings and progress, kept in this browser (localStorage).
 // Several children can share one device: each child (profile) has its own set of keys.
 // A server-backed store (Supabase) can replace this module without touching the screens.
@@ -238,4 +239,6 @@ export function useProgress() {
 }
 
 /** Display name for a child; the first child may have no name yet. */
-export const childName = (pr: Profile, i: number) => pr.name.trim() || `아이 ${i + 1}`;
+/** A child's name, or "Child 2" in the family's language when no name was given (grown-ups never see Korean). */
+export const childName = (pr: Profile, i: number, lang?: LangId) =>
+  pr.name.trim() || (lang ? g(lang, 'childN', { n: i + 1 }) : `${i + 1}`);

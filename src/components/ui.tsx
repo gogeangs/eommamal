@@ -6,6 +6,7 @@ import { useNav, type HomeTab } from '../nav';
 import type { ReactNode } from 'react';
 import type { Page } from '../content/types';
 import { WORD_BG, WORD_IMG, assetUrl } from '../content/pack';
+import type { LangId } from '../content';
 import { t } from '../lib/childUi';
 
 /**
@@ -64,12 +65,25 @@ export function Tile({ id, dim = false }: { id: string; dim?: boolean }) {
 }
 
 /** Says a word in Korean, then in the learner's language when the device has that voice. */
+/**
+ * Words whose "translation" is just the Korean word spelled in Latin letters (songpyeon, hanbok, yunnori…).
+ * A foreign voice reads the spelling with its own rules ("song-pie-on"), which teaches the wrong sound,
+ * so for these only the Korean voice speaks. The written word on screen stays as it is.
+ */
+const KOREAN_LOANWORDS: Record<string, LangId[]> = {
+  songpyeon: ['en', 'vi', 'uz'],
+  hanbok: ['en', 'vi', 'uz'],
+  yut: ['en', 'vi', 'uz'],
+  tteokguk: ['uz'],
+};
+
 export function useSayWord() {
   const { p } = useProgress();
   return (id: string) => {
     const tts = langById(p.lang).tts;
     const items = [{ text: V[id].ko, lang: 'ko-KR', rate: 0.7 }];
-    if (hasVoice(tts)) items.push({ text: V[id][p.lang], lang: tts, rate: 0.85 });
+    const loan = KOREAN_LOANWORDS[id]?.includes(p.lang);
+    if (hasVoice(tts) && !loan) items.push({ text: V[id][p.lang], lang: tts, rate: 0.85 });
     speak(items);
   };
 }
@@ -99,12 +113,12 @@ export function Chevron() {
   return <svg className="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>;
 }
 
-export function TopBar({ label, quit = false, tab = 'books', replace = false, children }: { label?: ReactNode; quit?: boolean; tab?: HomeTab; replace?: boolean; children?: ReactNode }) {
+export function TopBar({ label, quit = false, grown = false, tab = 'books', replace = false, children }: { label?: ReactNode; quit?: boolean; grown?: boolean; tab?: HomeTab; replace?: boolean; children?: ReactNode }) {
   const nav = useNav();
   const { p } = useProgress();
   const text = label ?? (quit
     ? <><span className="ico" aria-hidden="true">✕</span><Bi row mo={t(p.lang, 'quit')} ko="그만하기" /></>
-    : <><svg className="back-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4.5 7.5 12l7.5 7.5" /></svg><Bi row mo={t(p.lang, 'home')} ko="책장" /></>);
+    : <><svg className="back-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4.5 7.5 12l7.5 7.5" /></svg>{grown ? <span lang={p.lang}>{t(p.lang, 'home')}</span> : <Bi row mo={t(p.lang, 'home')} ko="책장" />}</>);
   return (
     <div className="top">
       <button className="ghost back" onClick={() => nav({ view: 'home', tab }, { replace })}>

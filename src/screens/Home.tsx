@@ -5,6 +5,7 @@ import { Bi, Chevron, Illus, Scene, Tile, WordCard } from '../components/ui';
 import { childName, useProgress } from '../lib/progress';
 import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
+import { g } from '../lib/grownUi';
 import { usePlan } from '../lib/plan';
 import { useNav, type HomeTab } from '../nav';
 
@@ -12,7 +13,6 @@ import { useNav, type HomeTab } from '../nav';
 
 function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => void }) {
   const { p, set } = useProgress();
-  const nav = useNav();
   const pick = (id: LangId) => {
     set('lang', id);
     set('langChosen', true);
@@ -24,43 +24,40 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
         {welcome ? (
           <>
             <Illus name="welcome" className="illus welcome-art" />
-            <p className="sheet-kicker">엄마말 그림책에 오신 걸 환영해요</p>
-            <h2 id="lang-title">우리 집에서는 어떤 말을 쓰나요?</h2>
-            <p className="lead">고른 말과 한국어로 동화를 함께 읽어요. 나중에 언제든 바꿀 수 있어요.</p>
+            {/* Before a language is chosen we can't know it yet, so the welcome is in English. */}
+            <p className="sheet-kicker" lang="en">{g('en', 'welcomeKicker')}</p>
+            <h2 id="lang-title" lang="en">{g('en', 'welcomeTitle')}</h2>
+            <p className="lead" lang="en">{g('en', 'welcomeLead')}</p>
           </>
         ) : (
-          <h2 id="lang-title">우리 집 말 바꾸기</h2>
+          <h2 id="lang-title" lang={p.lang}>{g(p.lang, 'changeLang')}</h2>
         )}
         <div className="lang-list">
           {LANGS.map((l) => (
             <button key={l.id} className="lang-opt" aria-pressed={p.langChosen && l.id === p.lang} onClick={() => pick(l.id)}>
-              <b>{l.name}</b>
-              <span>{l.ko}</span>
+              <b lang={l.id}>{l.name}</b>
             </button>
           ))}
         </div>
-        {!welcome && <section className="parent-settings">
-          <button className="parent-link" onClick={() => nav({ view: 'parent' })}>
-            <span><span lang={p.lang}>{pt(p.lang, 'title')}</span> · 우리 아이 기록 보기</span><span aria-hidden="true">›</span>
-          </button>
-          <h3>보호자 설정</h3>
-          <p>아이의 읽기 방식과 글자 크기를 바꿀 수 있어요.</p>
-          <div className="seg parent-setting-row" role="group" aria-label="읽기 언어">
-            <button aria-pressed={p.mode === 'both'} onClick={() => set('mode','both')}>두 언어</button>
-            <button aria-pressed={p.mode === 'mo'} onClick={() => set('mode','mo')}>모국어</button>
-            <button aria-pressed={p.mode === 'ko'} onClick={() => set('mode','ko')}>한국어</button>
+        {!welcome && <section className="parent-settings" lang={p.lang}>
+          <h3>{g(p.lang, 'parentSettings')}</h3>
+          <p>{g(p.lang, 'settingsLead')}</p>
+          <div className="seg parent-setting-row" role="group" aria-label={g(p.lang, 'readingView')}>
+            <button aria-pressed={p.mode === 'both'} onClick={() => set('mode','both')}>{g(p.lang, 'modeBoth')}</button>
+            <button aria-pressed={p.mode === 'mo'} onClick={() => set('mode','mo')}>{g(p.lang, 'modeMo')}</button>
+            <button aria-pressed={p.mode === 'ko'} onClick={() => set('mode','ko')}>{g(p.lang, 'modeKo')}</button>
           </div>
-          <div className="seg parent-setting-row" role="group" aria-label="글자 크기">
-            <button aria-pressed={p.textSize === 'm'} onClick={() => set('textSize','m')}>보통 글자</button>
-            <button aria-pressed={p.textSize === 'l'} onClick={() => set('textSize','l')}>큰 글자</button>
+          <div className="seg parent-setting-row" role="group" aria-label={g(p.lang, 'textSize')}>
+            <button aria-pressed={p.textSize === 'm'} onClick={() => set('textSize','m')}>{g(p.lang, 'sizeM')}</button>
+            <button aria-pressed={p.textSize === 'l'} onClick={() => set('textSize','l')}>{g(p.lang, 'sizeL')}</button>
           </div>
-          <div className="seg parent-setting-row" role="group" aria-label="받아쓰기 방식">
-            <button aria-pressed={p.dictMode === 'blocks'} onClick={() => set('dictMode','blocks')}>글자 블록</button>
-            <button aria-pressed={p.dictMode === 'keys'} onClick={() => set('dictMode','keys')}>자판 입력</button>
+          <div className="seg parent-setting-row" role="group">
+            <button aria-pressed={p.dictMode === 'blocks'} onClick={() => set('dictMode','blocks')}>{g(p.lang, 'dictBlocks')}</button>
+            <button aria-pressed={p.dictMode === 'keys'} onClick={() => set('dictMode','keys')}>{g(p.lang, 'dictKeys')}</button>
           </div>
-          <p lang={p.lang} className="parent-tip">아이와 모국어로 먼저 읽고 한국어로 다시 읽어 보세요.</p>
+          <p className="parent-tip">{g(p.lang, 'readTip')}</p>
         </section>}
-        {!welcome && <button className="btn2" onClick={onClose}>닫기</button>}
+        {!welcome && <button className="btn2" lang={p.lang} onClick={onClose}>{g(p.lang, 'close')}</button>}
       </div>
     </div>
   );
@@ -249,11 +246,11 @@ function WordsTab() {
   const pct = Math.round((p.learned.length / ALL_WORDS.length) * 100);
   return (
     <>
-      <details className="parent-stats"><summary>모은 낱말 기록 보기</summary>
-      <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>우리 아이 기록 자세히 보기 (보호자용)</span><span aria-hidden="true">›</span></button><section className="summary">
-        <div><b>{p.learned.length}</b><span>모은 낱말</span></div>
-        <div><b>{p.written.length}</b><span>받아쓴 낱말</span></div>
-        <div><b>{p.traced.length}</b><span>따라 쓴 낱말</span></div>
+      <details className="parent-stats" lang={p.lang}><summary>{pt(p.lang, 'title')}</summary>
+      <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><span aria-hidden="true">›</span></button><section className="summary">
+        <div><b>{p.learned.length}</b><span>{pt(p.lang, 'words')}</span></div>
+        <div><b>{p.written.length}</b><span>{pt(p.lang, 'written')}</span></div>
+        <div><b>{p.traced.length}</b><span>{t(p.lang, 'trace')}</span></div>
       </section>
       </details>
       <div className="mini-bar" aria-label={`전체 낱말 중 ${pct}% 모음`}><i style={{ width: `${pct}%` }} /></div>
@@ -298,22 +295,22 @@ const TITLES: Record<HomeTab, [string, string]> = {
 };
 
 function ChildSheet({ onClose }: { onClose: () => void }) {
-  const { profiles, profile, switchProfile } = useProgress();
+  const { p, profiles, profile, switchProfile } = useProgress();
   const nav = useNav();
   return (
     <div className="sheet-backdrop" onClick={onClose}>
       <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="child-title" onClick={(e) => e.stopPropagation()}>
-        <h2 id="child-title">누가 읽을까요?</h2>
+        <h2 id="child-title" lang={p.lang}>{g(p.lang, 'whoReads')}</h2>
         <div className="lang-list">
           {profiles.map((pr, i) => (
             <button key={pr.id} className="lang-opt child-opt" aria-pressed={pr.id === profile.id} onClick={() => { switchProfile(pr.id); onClose(); }}>
               <Avatar pr={pr} size={44} />
-              <b>{childName(pr, i)}</b>
+              <b>{childName(pr, i, p.lang)}</b>
             </button>
           ))}
         </div>
-        <button className="btn2" onClick={() => nav({ view: 'parent' })}>아이 추가·관리 (보호자)</button>
-        <button className="btn2" onClick={onClose}>닫기</button>
+        <button className="btn2" lang={p.lang} onClick={() => nav({ view: 'parent' })}>{g(p.lang, 'manageKids')}</button>
+        <button className="btn2" lang={p.lang} onClick={onClose}>{g(p.lang, 'close')}</button>
       </div>
     </div>
   );
@@ -336,9 +333,9 @@ export function Home({ tab }: { tab: HomeTab }) {
         </div>}
         <div className="home-actions">
         {profiles.length > 1 && (
-          <button className="child-chip" onClick={() => setKids(true)} aria-label={`지금 읽는 아이: ${childName(profile, profiles.indexOf(profile))}. 바꾸기`}>
+          <button className="child-chip" onClick={() => setKids(true)} aria-label={`지금 읽는 아이: ${childName(profile, profiles.indexOf(profile), p.lang)}. 바꾸기`}>
             <Avatar pr={profile} size={36} />
-            <span>{childName(profile, profiles.indexOf(profile))}</span>
+            <span>{childName(profile, profiles.indexOf(profile), p.lang)}</span>
           </button>
         )}
         <button className="lang-btn" onClick={() => setSheet(true)} aria-label={`우리 집 말: ${lang.ko}. 바꾸기`}>
@@ -352,10 +349,10 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 
-      <details className="parent-footer"><summary><span>보호자 안내 및 문의</span><Chevron /></summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
-        <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span><span lang={p.lang}>{pt(p.lang, 'title')}</span> · 우리 아이 기록</span><span aria-hidden="true">›</span></button>
-        <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
-        <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
+      <details className="parent-footer" lang={p.lang}><summary><span>{g(p.lang, 'guide')}</span><Chevron /></summary><p>{g(p.lang, 'readTip')}</p><footer className="home-foot">
+        <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><span aria-hidden="true">›</span></button>
+        <span>{g(p.lang, 'footNote')}</span>
+        <button className="foot-link" onClick={() => nav({ view: 'contact' })}>{g(p.lang, 'contact')} ›</button>
         <button className="foot-link quiet" onClick={() => nav({ view: 'admin' })}>콘텐츠 관리 (운영자용) ›</button>
       </footer></details>
 

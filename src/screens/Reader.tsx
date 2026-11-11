@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../lib/childUi';
+import { g } from '../lib/grownUi';
 import { NO_VOICE, UI, V, findStory, langById, splitKorean } from '../content';
 import { Bi, Scene, Tile, TopBar, useSayWord } from '../components/ui';
 import { useProgress, type ReadMode } from '../lib/progress';
@@ -87,7 +88,7 @@ function StoryReader({ storyId }: { storyId: string }) {
   const readAloud = () => {
     if (speaking) return stop();
     if (!speechSupported()) {
-      setVoiceNote('이 브라우저에서는 소리 내어 읽기를 쓸 수 없어요.');
+      setVoiceNote(g(p.lang, 'noTts'));
       return;
     }
     const q: SpeechItem[] = [];
@@ -95,7 +96,7 @@ function StoryReader({ storyId }: { storyId: string }) {
       if (motherVoice) {
         q.push({ text: pg[p.lang], lang: lang.tts, onWord: (c) => setHi({ line: 'mo', word: tokenAt(moToks, c) }) });
       } else {
-        setVoiceNote(`${lang.ko}는 엄마 아빠가 읽어 주세요. 한국어만 소리로 읽어요.`);
+        setVoiceNote(g(p.lang, 'momReads'));
       }
     }
     if (showKorean) q.push({ text: pg.ko, lang: 'ko-KR', onWord: (c) => setHi({ line: 'ko', word: tokenAt(koToks, c) }) });
@@ -121,22 +122,25 @@ function StoryReader({ storyId }: { storyId: string }) {
   return (
     <div className="reader">
       <TopBar>
-        <button className="size-btn settings-toggle" aria-expanded={showTools} onClick={() => setShowTools(v => !v)}>⚙ {t(p.lang, 'settings')}</button>
+        <button className="size-btn settings-toggle" aria-expanded={showTools} onClick={() => setShowTools(v => !v)} lang={p.lang}>
+          <svg className="gear" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" /><path d="M12 2.8v2.4M12 18.8v2.4M21.2 12h-2.4M5.2 12H2.8M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7M18.5 18.5l-1.7-1.7M7.2 7.2 5.5 5.5" /><circle cx="12" cy="12" r="6.6" /></svg>
+          {t(p.lang, 'settings')}
+        </button>
       </TopBar>
-      {showTools && <div className="reader-settings" role="group" aria-label="읽기 설정">
+      {showTools && <div className="reader-settings" role="group" aria-label={t(p.lang, 'settings')} lang={p.lang}>
         <div className="reader-tools">
           <button
             className="size-btn"
-            aria-label={big ? '글자 보통 크기로' : '글자 크게'}
+            aria-label={g(p.lang, big ? 'sizeM' : 'sizeL')}
             aria-pressed={big}
             onClick={() => set('textSize', big ? 'm' : 'l')}
           >
-            가<span>{big ? '−' : '+'}</span>
+            A<span>{big ? '−' : '+'}</span>
           </button>
-          <div className="seg" role="group" aria-label="보기 방식">
-            <button aria-pressed={p.mode === 'both'} onClick={() => setMode('both')}>함께</button>
-            <button aria-pressed={p.mode === 'mo'} onClick={() => setMode('mo')}>{lang.ko}</button>
-            <button aria-pressed={p.mode === 'ko'} onClick={() => setMode('ko')}>한국어</button>
+          <div className="seg" role="group" aria-label={g(p.lang, 'readingView')}>
+            <button aria-pressed={p.mode === 'both'} onClick={() => setMode('both')}>{g(p.lang, 'together')}</button>
+            <button aria-pressed={p.mode === 'mo'} onClick={() => setMode('mo')}>{lang.name}</button>
+            <button aria-pressed={p.mode === 'ko'} onClick={() => setMode('ko')}>{g(p.lang, 'korean')}</button>
           </div>
         </div>
       </div>}
@@ -171,7 +175,6 @@ function StoryReader({ storyId }: { storyId: string }) {
             </span>
             <p>
               <b lang={p.lang}>{NO_VOICE[p.lang]}</b>
-              <span lang="ko">{lang.ko} 목소리가 없어요 · 엄마 아빠가 읽어 주세요</span>
             </p>
             <button className="novoice-x" aria-label="안내 닫기" onClick={() => setHideNoVoice(true)}>✕</button>
           </div>
@@ -185,7 +188,6 @@ function StoryReader({ storyId }: { storyId: string }) {
         )}
         {showKorean && (
           <p className={`korean${showMother ? '' : ' solo'}`} lang="ko">
-            {showMother && <span className="tag">한국어</span>}
             {koToks.map((t, i) => (
               <span key={i} className={hi?.line === 'ko' && hi.word === i ? 'hl' : undefined}>
                 {splitKorean(t.text).map((part, j) =>
@@ -202,7 +204,7 @@ function StoryReader({ storyId }: { storyId: string }) {
       </div>
 
       <section className="reader-words">
-        <p className="label"><b className="label-main">그림 낱말</b><span className="label-sub">눌러서 들어봐요</span></p>
+        <p className="label" lang={p.lang}><b className="label-main">{g(p.lang, 'pictureWords')}</b><span className="label-sub">{g(p.lang, 'tapToListen')}</span></p>
         <div className="pw">
           {pg.w.map((id) => (
             <button key={id} className="pchip" onClick={() => say(id)}>
@@ -220,14 +222,18 @@ function StoryReader({ storyId }: { storyId: string }) {
       <div className="dock-space" aria-hidden="true" />
       <div className="dock">
         <div className="dock-inner">
-          <div className="dots" aria-label={`${page + 1} / ${st.pages.length}쪽`}>
-            {st.pages.map((_, i) => (
-              <i key={i} className={i === page ? 'on' : ''} />
-            ))}
+          <div className="pager" aria-label={g(p.lang, 'page', { a: page + 1, b: st.pages.length })}>
+            <div className="dots" aria-hidden="true">
+              {st.pages.map((_, i) => (
+                <i key={i} className={i === page ? 'on' : ''} />
+              ))}
+            </div>
+            <span className="page-count" aria-hidden="true">{page + 1} / {st.pages.length}</span>
           </div>
           <div className="controls">
-            <button className="round nav" aria-label="이전 쪽" disabled={page === 0} onClick={() => go(-1)}>
+            <button className="round nav" disabled={page === 0} onClick={() => go(-1)}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+              <small lang={p.lang}>{t(p.lang, 'prev')}</small>
             </button>
             <button className={`play${speaking ? ' on' : ''}`} onClick={readAloud}>
               <span className="ico" aria-hidden="true">
@@ -237,10 +243,11 @@ function StoryReader({ storyId }: { storyId: string }) {
               </span>
               {speaking ? <Bi mo={ui.stop} ko="멈추기" /> : <Bi mo={ui.listen} ko="듣기" />}
             </button>
-            <button className={`round nav${last ? ' go' : ''}`} aria-label={last ? '다 읽었어요' : '다음 쪽'} onClick={() => go(1)}>
+            <button className={`round nav${last ? ' go' : ''}`} onClick={() => go(1)}>
               {last
                 ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
                 : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>}
+              <small lang={p.lang}>{t(p.lang, last ? 'finish' : 'next')}</small>
             </button>
           </div>
         </div>

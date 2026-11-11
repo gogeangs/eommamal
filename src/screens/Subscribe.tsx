@@ -3,6 +3,8 @@ import type { LangId } from '../content';
 import { Illus } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { DAILY_STORIES, usePlan } from '../lib/plan';
+import { g, LOCALE } from '../lib/grownUi';
+import { t } from '../lib/childUi';
 import { useNav } from '../nav';
 
 /** Subscription wording in the family's language (Korean shown alongside). Drafts for native review. */
@@ -41,17 +43,18 @@ function ParentGate({ onPass, onCancel }: { onPass: () => void; onCancel: () => 
     return { a, b, ans, opts };
   }, []);
   const [wrong, setWrong] = useState(false);
+  const lang = useProgress().p.lang;
   return (
     <div className="gate stack" role="group" aria-labelledby="gate-q">
-      <p className="label" style={{ margin: 0 }}>보호자 확인</p>
+      <p className="label" style={{ margin: 0 }} lang={lang}>{g(lang, 'parentCheck')}</p>
       <p id="gate-q" className="gate-q">{q.a} × {q.b} = ?</p>
       <div className="gate-opts">
         {q.opts.map((o) => (
           <button key={o} className="btn2" onClick={() => (o === q.ans ? onPass() : setWrong(true))}>{o}</button>
         ))}
       </div>
-      {wrong && <p className="pnote">다시 골라 주세요.</p>}
-      <button className="ghost" onClick={onCancel}>취소</button>
+      {wrong && <p className="pnote" lang={lang}>{g(lang, 'tryAgain')}</p>}
+      <button className="ghost" lang={lang} onClick={onCancel}>{g(lang, 'cancel')}</button>
     </div>
   );
 }
@@ -68,37 +71,37 @@ export function SubscribePanel() {
     const a = L('active');
     return (
       <section className="pcard sub-card on">
-        <h2 className="ph"><span lang={p.lang}>{a.mo}</span><small>{a.ko}</small></h2>
-        {plan.sub.until && <p className="pnote">다음 갱신일: {new Date(plan.sub.until).toLocaleDateString('ko-KR')}</p>}
+        <h2 className="ph"><span lang={p.lang}>{a.mo}</span></h2>
+        {plan.sub.until && <p className="pnote" lang={p.lang}>{g(p.lang, 'nextRenewal', { d: new Date(plan.sub.until).toLocaleDateString(LOCALE[p.lang]) })}</p>}
       </section>
     );
   }
 
   const run = async (fn: () => Promise<void>) => {
     setBusy(true); setMsg('');
-    try { await fn(); } catch (e) { setMsg(e instanceof Error ? e.message : '잠시 후 다시 시도해 주세요.'); }
+    try { await fn(); } catch (e) { setMsg(e instanceof Error ? e.message : g(p.lang, 'later')); }
     setBusy(false);
   };
 
   return (
-    <section className="pcard sub-card stack">
-      <h2 className="ph"><span lang={p.lang}>{L('plan').mo}</span><small>{L('plan').ko}</small></h2>
-      <p className="sub-price"><b>{plan.price}</b> <span lang={p.lang}>{L('month').mo}</span> · 월</p>
+    <section className="pcard sub-card stack" lang={p.lang}>
+      <h2 className="ph"><span>{L('plan').mo}</span></h2>
+      <p className="sub-price"><b>{plan.price}</b> <span>{L('month').mo}</span></p>
       <ul className="sub-list">
         {(['b1', 'b2', 'b3'] as const).map((k) => (
-          <li key={k}><span lang={p.lang}>{L(k).mo}</span><small>{L(k).ko}</small></li>
+          <li key={k}><span>{L(k).mo}</span></li>
         ))}
       </ul>
       {plan.native ? (
         <>
-          <button className="play" disabled={busy} onClick={() => run(plan.subscribe)}>{busy ? '잠시만요…' : `${plan.price} / 월 구독하기`}</button>
-          <button className="ghost" disabled={busy} onClick={() => run(plan.restore)}>구독 복원하기</button>
+          <button className="play" disabled={busy} onClick={() => run(plan.subscribe)}>{busy ? g(p.lang, 'wait') : g(p.lang, 'subscribeFor', { price: plan.price })}</button>
+          <button className="ghost" disabled={busy} onClick={() => run(plan.restore)}>{g(p.lang, 'restore')}</button>
         </>
       ) : (
-        <p className="sub-app"><span lang={p.lang}>{L('appOnly').mo}</span><br />{L('appOnly').ko}</p>
+        <p className="sub-app">{L('appOnly').mo}</p>
       )}
       {msg && <p className="pnote" role="alert">{msg}</p>}
-      <p className="pnote"><span lang={p.lang}>{L('renew').mo}</span><br />{L('renew').ko}</p>
+      <p className="pnote">{L('renew').mo}</p>
     </section>
   );
 }
@@ -113,17 +116,14 @@ export function ReadLimit() {
     <section className="read-limit stack">
       <Illus name="celebrate" className="illus limit-art" />
       <h1 lang={p.lang}>{L('done').mo}</h1>
-      <p className="lead">{L('done').ko}</p>
       <p lang={p.lang} className="limit-mo">{L('tomorrow').mo}</p>
-      <p className="pnote">{L('tomorrow').ko}</p>
-      <div className="prow">
-        <button className="btn2" onClick={() => nav({ view: 'home' }, { replace: true })}>책장으로</button>
-        <button className="play" onClick={() => nav({ view: 'quiz', story: 'all' }, { replace: true })}>낱말 놀이</button>
+      <div className="prow" lang={p.lang}>
+        <button className="btn2" onClick={() => nav({ view: 'home' }, { replace: true })}>{t(p.lang, 'home')}</button>
+        <button className="play" onClick={() => nav({ view: 'quiz', story: 'all' }, { replace: true })}>{t(p.lang, 'play')}</button>
       </div>
-      <div className="limit-parent">
-        <p lang={p.lang}>{L('ask').mo}</p>
-        <p className="pnote">{L('ask').ko}</p>
-        {step === 'kid' && <button className="ghost" onClick={() => setStep('gate')}>보호자: 가족 구독 알아보기 ›</button>}
+      <div className="limit-parent" lang={p.lang}>
+        <p>{L('ask').mo}</p>
+        {step === 'kid' && <button className="ghost" onClick={() => setStep('gate')}>{g(p.lang, 'exploreSub')}</button>}
         {step === 'gate' && <ParentGate onPass={() => setStep('offer')} onCancel={() => setStep('kid')} />}
       </div>
       {step === 'offer' && <SubscribePanel />}
@@ -140,7 +140,6 @@ export function PlanStatus() {
   return (
     <p className={`plan-status ${plan.state}`}>
       <span lang={p.lang}>{t.mo}</span>
-      <small>{t.ko}</small>
     </p>
   );
 }
@@ -154,7 +153,9 @@ export function GatedSubscribe() {
 }
 function GateThen({ onPass }: { onPass: () => void }) {
   const [gate, setGate] = useState(false);
+  const { p } = useProgress();
+  const plan = usePlan();
   return gate
     ? <section className="pcard"><ParentGate onPass={onPass} onCancel={() => setGate(false)} /></section>
-    : <button className="parent-link" onClick={() => setGate(true)}><span>가족 구독 알아보기 · 월 4,900원</span><span aria-hidden="true">›</span></button>;
+    : <button className="parent-link" lang={p.lang} onClick={() => setGate(true)}><span>{g(p.lang, 'seeSub', { price: plan.price })}</span><span aria-hidden="true">›</span></button>;
 }
