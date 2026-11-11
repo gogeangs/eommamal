@@ -762,7 +762,6 @@ body:has(.wrap.v-home){background:var(--home-bg)}
 button:not(.no-press),.book{-webkit-tap-highlight-color:transparent;transition:transform .12s ease,filter .15s ease,box-shadow .15s ease,background-color .15s ease}
 @media (hover:hover){
   button:not(.no-press):not(:disabled):hover{filter:brightness(.97)}
-  :is(.play,.btn2,.pchip,.opt,.wcard,.sub-btn,.read-tab):hover{transform:translateY(-1px)}
   .book.wide.flip-front:hover{box-shadow:0 10px 22px color-mix(in srgb,#9a6a00 20%,transparent)}
 }
 button:not(.no-press):not(:disabled):active{transform:scale(.96);filter:brightness(.93)}
@@ -833,8 +832,6 @@ button:not(.no-press):not(:disabled):active{transform:scale(.96);filter:brightne
 button:not(.no-press):not(:disabled):hover,
 button:not(.no-press):not(:disabled):active{filter:none}
 @media (hover:hover){
-  button:not(.no-press):not(:disabled):not(.ghost):hover{transform:translateY(-2px)}
-  .tabbar button:not(:disabled):hover,.round.nav:not(:disabled):hover{transform:translateY(-1px)}
   :is(.play,.sub-btn,.round.go,.read-tab):hover{filter:brightness(.97)}
   :is(.pchip,.opt,.wcard,.btn2,.stat-link>b,.lang-opt,.topic):hover{box-shadow:0 8px 18px color-mix(in srgb,#9a6a00 16%,transparent)}
 }
@@ -1052,3 +1049,12 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 @media (min-width:768px){.hero h1{font-size:3rem}.hero .lead.hero-ko{font-size:.85rem}}
 .v-home .hero + section{margin-top:10px}
 @media (max-width:767px){.hero h1{font-size:2rem}}
+
+/* ---------- round 17: no "lift on hover" anywhere (press feedback on tap stays) ---------- */
+@media (hover:hover){
+  button:not(.no-press):not(:disabled):hover,
+  :is(.play,.btn2,.pchip,.opt,.wcard,.sub-btn,.read-tab,.round.nav,.book.wide.flip-front):hover{transform:none}
+  :is(.pchip,.opt,.wcard,.btn2,.stat-link>b,.lang-opt,.topic):hover{box-shadow:none}
+  .book.wide.flip-front:hover{box-shadow:0 6px 18px color-mix(in srgb,#9a6a00 14%,transparent)}
+  .book.wide.flip-front:hover .cover{transform:rotate(-4deg)}
+}
