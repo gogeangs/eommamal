@@ -121,7 +121,7 @@ function StoryReader({ storyId }: { storyId: string }) {
   return (
     <div className="reader">
       <TopBar>
-        <button className="size-btn" aria-expanded={showTools} onClick={() => setShowTools(v => !v)}>⚙ {t(p.lang, 'settings')}</button>
+        <button className="size-btn settings-toggle" aria-expanded={showTools} onClick={() => setShowTools(v => !v)}>⚙ {t(p.lang, 'settings')}</button>
       </TopBar>
       {showTools && <div className="reader-settings" role="group" aria-label="읽기 설정">
         <div className="reader-tools">
@@ -202,7 +202,7 @@ function StoryReader({ storyId }: { storyId: string }) {
       </div>
 
       <section className="reader-words">
-        <p className="label"><b className="label-main">그림 낱말</b>눌러서 들어봐요</p>
+        <p className="label"><b className="label-main">그림 낱말</b><span className="label-sub">눌러서 들어봐요</span></p>
         <div className="pw">
           {pg.w.map((id) => (
             <button key={id} className="pchip" onClick={() => say(id)}>
@@ -230,7 +230,11 @@ function StoryReader({ storyId }: { storyId: string }) {
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
             </button>
             <button className={`play${speaking ? ' on' : ''}`} onClick={readAloud}>
-              <span className="ico" aria-hidden="true">{speaking ? '■' : '▶'}</span>
+              <span className="ico" aria-hidden="true">
+                {speaking
+                  ? <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5" /></svg>
+                  : <svg viewBox="0 0 24 24"><path d="M8 5.6v12.8a1.2 1.2 0 0 0 1.8 1l10-6.4a1.2 1.2 0 0 0 0-2l-10-6.4A1.2 1.2 0 0 0 8 5.6Z" /></svg>}
+              </span>
               {speaking ? <Bi mo={ui.stop} ko="멈추기" /> : <Bi mo={ui.listen} ko="듣기" />}
             </button>
             <button className={`round nav${last ? ' go' : ''}`} aria-label={last ? '다 읽었어요' : '다음 쪽'} onClick={() => go(1)}>

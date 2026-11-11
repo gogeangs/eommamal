@@ -11,6 +11,17 @@ import './styles.css';
 
 registerSW({ immediate: true });
 
+/** Fade out the launch splash (index.html) once the app has drawn — kept on screen at least ~1.2s. */
+function hideSplash() {
+  const el = document.getElementById('splash');
+  if (!el) return;
+  const wait = Math.max(0, 1200 - performance.now());
+  window.setTimeout(() => {
+    el.classList.add('out');
+    window.setTimeout(() => el.remove(), 500);
+  }, wait);
+}
+
 async function boot() {
   // Published content pack first, then this device's preview (from the admin screen) on top.
   const published = await contentStore.loadPublished();
@@ -29,5 +40,7 @@ async function boot() {
       </ProgressProvider>
     </StrictMode>,
   );
+  hideSplash();
 }
-boot();
+// Never leave the splash up if start-up fails.
+boot().finally(hideSplash);
