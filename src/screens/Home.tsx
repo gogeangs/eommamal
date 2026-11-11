@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { t } from '../lib/childUi';
 import { ALL_WORDS, LANGS, STORIES, UI, type LangId, type Story } from '../content';
-import { Bi, Illus, Scene, Tile, WordCard } from '../components/ui';
+import { Bi, Chevron, Illus, Scene, Tile, WordCard } from '../components/ui';
 import { childName, useProgress } from '../lib/progress';
 import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
@@ -128,6 +128,11 @@ function BookCard({ s }: { s: Story }) {
 function Hero() {
   const { p } = useProgress();
   const plan = usePlan();
+  const nav = useNav();
+  const goSubscribe = () => {
+    nav({ view: 'parent' });
+    window.setTimeout(() => document.getElementById('subscribe')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+  };
   const member = plan.state === 'sub';
   return (
     <section className="hero" aria-label="엄마말 그림책">
@@ -142,6 +147,9 @@ function Hero() {
           <div className={`stat${member ? ' on' : ''}`}>
             <b lang={p.lang}>{t(p.lang, member ? 'active' : 'notYet')}</b>
             <span><Bi mo={t(p.lang, 'member')} ko="유료 회원" /></span>
+            {!member && (
+              <button className="sub-btn" onClick={goSubscribe}><Bi mo={t(p.lang, 'subscribe')} ko="구독하기" /></button>
+            )}
           </div>
         </div>
       </div>
@@ -318,7 +326,7 @@ export function Home({ tab }: { tab: HomeTab }) {
         )}
         <button className="lang-btn" onClick={() => setSheet(true)} aria-label={`우리 집 말: ${lang.ko}. 바꾸기`}>
           <small>{t(p.lang, 'parent')}</small>
-          <b>{lang.name} ▾</b>
+          <b>{lang.name}<Chevron /></b>
         </button>
         </div>
       </header>
@@ -327,7 +335,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       {tab === 'study' && <StudyTab />}
       {tab === 'words' && <WordsTab />}
 
-      <details className="parent-footer"><summary>보호자 안내 · 문의</summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
+      <details className="parent-footer"><summary>보호자 안내 및 문의<Chevron /></summary><p lang={p.lang}>모국어로 함께 읽고 한국어로 다시 읽어 보세요.</p><footer className="home-foot">
         <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span><span lang={p.lang}>{pt(p.lang, 'title')}</span> · 우리 아이 기록</span><span aria-hidden="true">›</span></button>
         <span>함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.</span>
         <button className="foot-link" onClick={() => nav({ view: 'contact' })}>문의하기 ›</button>
@@ -339,8 +347,8 @@ export function Home({ tab }: { tab: HomeTab }) {
         {TABS.map((item) => (
           <button key={item.id} aria-current={tab === item.id ? 'page' : undefined} onClick={() => nav({ view: 'home', tab: item.id })}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d={item.icon} /></svg>
-            <span>{item.id === 'books' ? '이야기' : item.id === 'study' ? '놀기' : '내 낱말'}</span>
-            <small>{t(p.lang,item.id === 'books' ? 'books' : item.id === 'study' ? 'play' : 'words')}</small>
+            <span lang={p.lang}>{t(p.lang, item.id === 'books' ? 'books' : item.id === 'study' ? 'play' : 'words')}</span>
+            <small lang="ko">{item.id === 'books' ? '이야기' : item.id === 'study' ? '놀기' : '내 낱말'}</small>
           </button>
         ))}
       </nav>

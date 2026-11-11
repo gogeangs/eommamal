@@ -146,8 +146,10 @@ export function Parent() {
         ))}
       </div>
 
-      <PlanStatus />
-      <GatedSubscribe />
+      <div id="subscribe">
+        <PlanStatus />
+        <GatedSubscribe />
+      </div>
 
       <section className="pcard">
         <H lang={lang} k="week" n={`${active} / 7`} />

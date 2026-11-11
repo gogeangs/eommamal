@@ -94,6 +94,11 @@ export function WordCard({ id }: { id: string }) {
   );
 }
 
+/** Small down-chevron for things that open a list or a panel. */
+export function Chevron() {
+  return <svg className="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>;
+}
+
 export function TopBar({ label, quit = false, tab = 'books', replace = false, children }: { label?: ReactNode; quit?: boolean; tab?: HomeTab; replace?: boolean; children?: ReactNode }) {
   const nav = useNav();
   const { p } = useProgress();
