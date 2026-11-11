@@ -81,6 +81,29 @@ const reducedMotion = () => {
 };
 
 /** A story on the shelf. Tapping flips the card to show the story's picture, then opens the book. */
+/** One line of text that never wraps: shrinks its font (down to `min` px) until it fits the space it has. */
+function FitLine({ text, lang, className, min = 10 }: { text: string; lang: string; className?: string; min?: number }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const fit = () => {
+      el.style.fontSize = '';
+      let size = parseFloat(getComputedStyle(el).fontSize);
+      while (el.scrollWidth > el.clientWidth + 1 && size > min) {
+        size -= 0.5;
+        el.style.fontSize = `${size}px`;
+      }
+    };
+    fit();
+    document.fonts?.ready.then(fit).catch(() => {});
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(fit) : null;
+    ro?.observe(el);
+    return () => ro?.disconnect();
+  }, [text, lang, min]);
+  return <p ref={ref} className={`${className ?? ''} fit-line`} lang={lang}>{text}</p>;
+}
+
 /** Cards rise and fade in as they scroll into view (once). */
 function useRevealOnScroll<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -358,7 +381,7 @@ export function Home({ tab }: { tab: HomeTab }) {
   return (
     <>
       <header className={`home-head${tab === 'books' ? ' on-hero' : tab === 'progress' || tab === 'settings' ? ' only-actions' : ''}`}>
-        {tab === 'books' && <p className="hero-kicker" lang={p.lang}>{t(p.lang, 'appName')}</p>}
+        {tab === 'books' && <FitLine className="hero-kicker" lang={p.lang} text={t(p.lang, 'appName')} />}
         {(tab === 'study' || tab === 'words') && <div>
           <h1>{title}</h1>
           <p className="lead">{tab === 'study' ? <Bi mo={t(p.lang,'play')} ko="그림을 보고 소리를 들어요" /> : <Bi mo={t(p.lang,'words')} ko="내가 모은 낱말" />}</p>

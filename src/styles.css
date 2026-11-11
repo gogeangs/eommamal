@@ -1058,3 +1058,10 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
   .book.wide.flip-front:hover{box-shadow:0 6px 18px color-mix(in srgb,#9a6a00 14%,transparent)}
   .book.wide.flip-front:hover .cover{transform:rotate(-4deg)}
 }
+/* app name: always one line (FitLine shrinks long names to fit beside the language button) */
+.fit-line{white-space:nowrap;overflow:hidden;text-overflow:clip}
+/* a slightly more compact language button leaves room for long app names (Russian) */
+.home-head.on-hero{gap:8px}
+.home-head.on-hero .lang-btn{padding:7px 10px;gap:6px}
+.home-head.on-hero .lang-btn small{font-size:.68rem;padding-right:6px}
+.home-head.on-hero .lang-btn b{font-size:.92rem}
