@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { t } from '../lib/childUi';
 import { ALL_WORDS, UI, V, findStory, looksAlike, pickSession, shuffle } from '../content';
-import { Progress, Tile, TopBar } from '../components/ui';
+import { Bi, Progress, Tile, TopBar } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { speak } from '../lib/speech';
 import { Result } from './Result';
@@ -72,19 +72,17 @@ export function Quiz({ storyId }: { storyId: string }) {
 
   return (
     <>
-      <TopBar label="✕ 그만하기" tab="study" replace />
-      <Progress label="낱말 놀이" i={i} n={rounds.length} />
+      <TopBar quit tab="study" replace />
+      <Progress label={<Bi row mo={t(p.lang,'play')} ko="낱말 놀이" />} i={i} n={rounds.length} />
       <section className="stack">
         {r.type === 'listen' ? (
           <>
-            <p className="qtitle">{t(p.lang,'choose')}</p>
-            <p className="lead" lang={p.lang}>{ui.lp}</p>
-            <button className="btn2" onClick={() => sayKo(r.w)}>▶ 다시 듣기</button>
+            <p className="qtitle"><Bi mo={ui.lp} ko="듣고 그림을 골라요" /></p>
+            <button className="btn2" onClick={() => sayKo(r.w)}><span className="ico" aria-hidden="true">▶</span><Bi mo={t(p.lang,'listenAgain')} ko="다시 듣기" /></button>
           </>
         ) : (
           <>
-            <p className="qtitle">한국어 낱말을 골라요</p>
-            <p className="lead" lang={p.lang}>{ui.sp}</p>
+            <p className="qtitle"><Bi mo={ui.sp} ko="한국어 낱말을 골라요" /></p>
             <div className="qpic">
               <Tile id={r.w} />
               <b lang={p.lang}>{V[r.w][p.lang]}</b>
@@ -92,7 +90,7 @@ export function Quiz({ storyId }: { storyId: string }) {
           </>
         )}
       </section>
-      <div className="opts">
+      <div className={`opts n${r.opts.length}`}>
         {r.opts.map((id, n) => (
           <button
             key={id}
@@ -108,7 +106,7 @@ export function Quiz({ storyId }: { storyId: string }) {
       <p className="fb" aria-live="polite">
         {right ? `${V[r.w].ko} · ${V[r.w][p.lang]} — ${t(p.lang,'wellDone')}` : wrong.length ? `${t(p.lang,'retry')} · 다시 들어 보고 골라 볼까요?` : ''}
       </p>
-      {readyNext && <button className="play next-round" onClick={() => {setI(x=>x+1);setTried(false);setWrong([]);setRight(null);setReadyNext(false);}}>{t(p.lang,'next')} · 다음 ▶</button>}
+      {readyNext && <button className="play next-round" onClick={() => {setI(x=>x+1);setTried(false);setWrong([]);setRight(null);setReadyNext(false);}}><Bi mo={t(p.lang,'next')} ko="다음" /><span className="ico" aria-hidden="true">▶</span></button>}
     </>
   );
 }

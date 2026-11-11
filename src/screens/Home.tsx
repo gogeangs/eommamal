@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { t } from '../lib/childUi';
 import { ALL_WORDS, LANGS, STORIES, type LangId, type Story } from '../content';
-import { Illus, Scene, Tile, WordCard } from '../components/ui';
+import { Bi, Illus, Scene, Tile, WordCard } from '../components/ui';
 import { childName, useProgress } from '../lib/progress';
 import { Avatar } from './Parent';
 import { pt } from '../lib/parentUi';
@@ -20,7 +20,7 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
     onClose();
   };
   return (
-    <div className="sheet-backdrop" onClick={welcome ? undefined : onClose}>
+    <div className={`sheet-backdrop${welcome ? ' welcome' : ''}`} onClick={welcome ? undefined : onClose}>
       <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="lang-title" onClick={(e) => e.stopPropagation()}>
         {welcome ? (
           <>
@@ -110,7 +110,7 @@ function ContinueCard() {
     <button className="continue" onClick={() => nav({ view: 'read', story: s.id })}>
       <Scene page={s.pages[page]} className="cover" />
       <div>
-        <span className="label" style={{ margin: 0 }}>{t(p.lang, 'continue')} · 이어 읽기</span>
+        <span className="label" style={{ margin: 0 }}><Bi row mo={t(p.lang, 'continue')} ko="이어 읽기" /></span>
         <b lang={p.lang}>{s.title[p.lang]}</b>
         <span>{s.title.ko} · {page + 1} / {s.pages.length}쪽</span>
         <div className="mini-bar"><i style={{ width: `${((page + 1) / s.pages.length) * 100}%` }} /></div>
@@ -127,7 +127,7 @@ function BooksTab() {
       <PlanStatus />
       <ContinueCard />
       <section>
-        <p className="label">{t(p.lang, 'newStories')} · 새 이야기</p>
+        <p className="label"><Bi row mo={t(p.lang, 'newStories')} ko="새 이야기" /></p>
         <div className="shelf">
           {STORIES.filter((s) => !s.culture && !s.hidden).map((s) => <BookCard key={s.id} s={s} wide />)}
         </div>
@@ -209,7 +209,7 @@ function WordsTab() {
         </section>
       )}
       <section>
-        <p className="label">{t(p.lang,'words')} · 내 낱말을 눌러 들어요</p>
+        <p className="label"><Bi row mo={t(p.lang,'words')} ko="눌러서 들어요" /></p>
         <div className="wbook">
           {ALL_WORDS.filter((id) => p.learned.includes(id)).map((id) =>
             p.learned.includes(id) ? (
@@ -277,7 +277,7 @@ export function Home({ tab }: { tab: HomeTab }) {
       <header className="home-head">
         <div>
           <h1>{title}</h1>
-          <p className="lead">{tab === 'books' ? t(p.lang,'storyPrompt') : tab === 'study' ? `${t(p.lang,'play')} · 그림을 보고 소리를 들어요` : `${t(p.lang,'words')} · 내가 모은 낱말`}</p>
+          <p className="lead">{tab === 'books' ? <span lang={p.lang}>{t(p.lang,'storyPrompt')}</span> : tab === 'study' ? <Bi mo={t(p.lang,'play')} ko="그림을 보고 소리를 들어요" /> : <Bi mo={t(p.lang,'words')} ko="내가 모은 낱말" />}</p>
         </div>
         <div className="home-actions">
         {profiles.length > 1 && (

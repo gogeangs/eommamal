@@ -499,3 +499,74 @@ details.pcard summary{cursor:pointer;font-weight:800;min-height:28px}
 .acc-sync.syncing{color:var(--muted)}.acc-sync.error{color:#B23B2B}
 .field input[type="email"],.field input[inputmode="numeric"]{letter-spacing:.02em}
 .field input[inputmode="numeric"]{font-size:1.4rem;letter-spacing:.3em;text-align:center}
+
+/* ==========================================================================
+   UI refresh (ui-improve branch)
+   1. One rule for two-language labels: child's language first, Korean under it.
+   2. Buttons centre an icon + label instead of "▶ 모국어 · 한국어" strings.
+   3. Calmer home header, slimmer trial notice, clearer welcome screen.
+   4. Reader: icon page arrows, compact dismissible no-voice notice.
+   5. Activities: chunkier progress bar, 3 answers in one row.
+   ========================================================================== */
+
+/* 1. two-language label */
+.bi{display:inline-flex;flex-direction:column;align-items:inherit;gap:1px;line-height:1.2;min-width:0;vertical-align:middle}
+.bi>small{font-family:var(--ko);font-size:.7em;font-weight:700;opacity:.72;letter-spacing:0;text-transform:none}
+.bi.row{flex-direction:row;align-items:baseline;flex-wrap:wrap;column-gap:6px;row-gap:0}
+.bi.row>small{font-size:.82em}
+h1 .bi,.qtitle .bi,.lead .bi{align-items:flex-start}
+h1 .bi>small{font-family:var(--display);font-weight:400;font-size:.62em;opacity:.65;margin-top:4px}
+.qtitle .bi>small{font-size:.6em;margin-top:2px}
+.lead .bi>small{font-size:.85em}
+.result-head h1 .bi{align-items:center}
+
+/* 2. buttons: icon + label, centred, never splitting a word */
+.play,.btn2{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding-inline:18px;line-height:1.15;text-align:center}
+.play .bi,.btn2 .bi{align-items:center}
+.ico{font-style:normal;flex:none;font-size:.95em;line-height:1}
+.ghost{display:inline-flex;align-items:center;gap:6px}
+.ghost .ico{font-size:1.1em}
+.ghost .bi.row>small{font-weight:700}
+.next-round{gap:12px}
+.tools .btn2{padding-inline:10px}
+.btn2.say{width:56px;height:56px;min-height:56px;padding:0;border-radius:50%;flex:none;margin-left:auto}
+.tword .btn2.say{width:56px}
+
+/* 3. home */
+.home-head .lead{margin-top:4px}
+.label .bi.row>small{font-weight:700}
+.plan-status.trial{background:none;padding:0;font-size:.82rem;color:var(--muted);gap:2px 6px}
+.plan-status.trial::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--leaf);align-self:center}
+.plan-status.trial small{opacity:1}
+.sheet-backdrop.welcome{background:var(--paper);align-items:center}
+.sheet-backdrop.welcome .sheet{border-radius:0;max-height:100%;background:transparent}
+.book.wide{transition:transform .12s}
+.book.wide:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+
+/* 4. reader */
+.controls{grid-template-columns:60px 1fr 60px;gap:12px}
+.controls .round.nav{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;padding:0}
+.round.nav svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.round.nav:disabled{opacity:.3}
+.round.nav.go{box-shadow:0 3px 0 color-mix(in srgb,var(--leaf) 60%,#000)}
+.play{box-shadow:0 3px 0 color-mix(in srgb,var(--sun) 70%,#7a5200)}
+.play.on{background:var(--ink);color:var(--paper);box-shadow:none}
+.play:active,.round:active,.btn2:active,.opt:active,.blk:active,.sent-card:active{transform:translateY(2px)}
+.novoice{display:grid;grid-template-columns:28px minmax(0,1fr) 32px;gap:8px;align-items:center;padding:8px 6px 8px 10px;border-radius:14px;font-size:.85rem;line-height:1.35}
+.novoice p{margin:0;display:flex;flex-direction:column;gap:1px}
+.novoice b{font-weight:800}
+.novoice p span{font-family:var(--ko);color:var(--muted);font-size:.78rem}
+.novoice-ico{width:28px;height:28px;border-radius:50%;background:var(--card);display:grid;place-items:center}
+.novoice-ico svg{width:18px;height:18px;fill:var(--sun-ink);stroke:var(--sun-ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.novoice-x{font:inherit;width:32px;height:32px;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer;font-size:.9rem}
+
+/* 5. activities */
+.bar{height:12px;border-radius:999px;background:color-mix(in srgb,var(--line) 70%,var(--card))}
+.bar i{border-radius:999px}
+.label.count{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.opts.n3{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.opts.n3 .opt:last-child:nth-child(odd){grid-column:auto;width:auto;justify-self:stretch}
+.opts.n3 .opt{min-height:0;padding:8px;border-radius:20px}
+.opts.n3 .opt .tile{min-height:0}
+.dict-options.at-end{border-top:1.5px dashed var(--line);padding-top:12px;margin-top:4px}
+.label{text-transform:none}

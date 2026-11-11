@@ -6,6 +6,21 @@ import { useNav, type HomeTab } from '../nav';
 import type { ReactNode } from 'react';
 import type { Page } from '../content/types';
 import { WORD_BG, WORD_IMG, assetUrl } from '../content/pack';
+import { t } from '../lib/childUi';
+
+/**
+ * A two-language label: the child's language first, Korean underneath (or beside it with `row`).
+ * Use this instead of "모국어 · 한국어" strings so long labels never wrap mid-phrase.
+ */
+export function Bi({ mo, ko, row = false }: { mo: ReactNode; ko: ReactNode; row?: boolean }) {
+  const { p } = useProgress();
+  return (
+    <span className={`bi${row ? ' row' : ''}`}>
+      <span lang={p.lang}>{mo}</span>
+      <small lang="ko">{ko}</small>
+    </span>
+  );
+}
 
 /** A story picture: the finished illustration when there is one, else the drawn SVG placeholder. */
 export function Scene({ page, className = 'panel', alt = '' }: { page: Page; className?: string; alt?: string }) {
@@ -79,28 +94,32 @@ export function WordCard({ id }: { id: string }) {
   );
 }
 
-export function TopBar({ label = '‹ 책장', tab = 'books', replace = false, children }: { label?: string; tab?: HomeTab; replace?: boolean; children?: ReactNode }) {
+export function TopBar({ label, quit = false, tab = 'books', replace = false, children }: { label?: ReactNode; quit?: boolean; tab?: HomeTab; replace?: boolean; children?: ReactNode }) {
   const nav = useNav();
+  const { p } = useProgress();
+  const text = label ?? (quit
+    ? <><span className="ico" aria-hidden="true">✕</span><Bi row mo={t(p.lang, 'quit')} ko="그만하기" /></>
+    : <><span className="ico" aria-hidden="true">‹</span><Bi row mo={t(p.lang, 'home')} ko="책장" /></>);
   return (
     <div className="top">
       <button className="ghost back" onClick={() => nav({ view: 'home', tab }, { replace })}>
-        {label}
+        {text}
       </button>
       {children}
     </div>
   );
 }
 
-export function Progress({ label, i, n }: { label: string; i: number; n: number }) {
+export function Progress({ label, i, n }: { label: ReactNode; i: number; n: number }) {
   return (
     <>
       <div className="row">
         <p className="label">{label}</p>
-        <p className="label">
+        <p className="label count">
           {Math.min(i + 1, n)} / {n}
         </p>
       </div>
-      <div className="bar">
+      <div className="bar" role="progressbar" aria-valuemin={0} aria-valuemax={n} aria-valuenow={Math.min(i + 1, n)}>
         <i style={{ width: `${((i + 1) / Math.max(n, 1)) * 100}%` }} />
       </div>
     </>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../lib/childUi';
 import { UI, V, findStory, syllables, SESSION, pickSession } from '../content';
-import { Illus, Progress, Tile, TopBar, WordCard } from '../components/ui';
+import { Bi, Illus, Progress, Tile, TopBar, WordCard } from '../components/ui';
 import { matches, partial, strokesFor, type Pt } from '../lib/hangul';
 import { useProgress } from '../lib/progress';
 import { speak } from '../lib/speech';
@@ -158,17 +158,16 @@ export function Trace({ storyId }: { storyId: string }) {
         <TopBar />
         <header className="stack result-head">
           <Illus name="celebrate" className="illus celebrate-art" />
-          <h1>따라 쓰기를 마쳤어요!</h1>
-          <p className="lead" lang={p.lang}>{UI[p.lang].ok}</p>
+          <h1><Bi mo={UI[p.lang].ok} ko="따라 쓰기를 마쳤어요!" /></h1>
         </header>
         <section>
           <p className="label">따라 쓴 낱말 · 눌러서 들어요</p>
           <div className="wbook">{words.map((id) => <WordCard key={id} id={id} />)}</div>
         </section>
         <div className="stack">
-          <button className="play" onClick={() => nav({ view: 'dict', story: st.id })}>✎ 이제 받아쓰기 해 봐요</button>
+          <button className="play" onClick={() => nav({ view: 'dict', story: st.id })}><span className="ico" aria-hidden="true">✎</span><Bi mo={t(p.lang,'dictation')} ko="이제 받아쓰기 해 봐요" /></button>
           <button className="btn2" onClick={() => { setSeed((s) => s + 1); setWi(0); setSi(0); }}>{st.words.length > SESSION ? '다른 낱말 6개 더 쓰기' : '다시 따라 쓰기'}</button>
-          <button className="btn2" onClick={() => nav({ view: 'home' })}>책장으로</button>
+          <button className="btn2" onClick={() => nav({ view: 'home' })}><Bi mo={t(p.lang,'home')} ko="책장으로" /></button>
         </div>
       </>
     );
@@ -177,8 +176,8 @@ export function Trace({ storyId }: { storyId: string }) {
   const sy = syllables(V[w].ko);
   return (
     <>
-      <TopBar label="✕ 그만하기" tab="study" replace />
-      <Progress label="따라 쓰기 · 획순" i={wi} n={words.length} />
+      <TopBar quit tab="study" replace />
+      <Progress label={<Bi row mo={t(p.lang,'trace')} ko="따라 쓰기" />} i={wi} n={words.length} />
       <div className="tword">
         <div className="tw-tile"><Tile id={w} /></div>
         <div>
@@ -187,15 +186,15 @@ export function Trace({ storyId }: { storyId: string }) {
           </p>
           <p className="lead" lang={p.lang}>{V[w][p.lang]}</p>
         </div>
-        <button className="btn2" aria-label="소리 듣기" onClick={() => sayKo(V[w].ko)}>▶</button>
+        <button className="btn2 say" aria-label="소리 듣기" onClick={() => sayKo(V[w].ko)}>▶</button>
       </div>
       <div className="pad">
         <canvas ref={canvasRef} role="img" aria-label={`${sy[si]} 글자를 획순대로 따라 쓰는 칸`} />
       </div>
       <p className="fb" aria-live="polite" style={{ color: msg.bad ? '#E06A55' : undefined }}>{msg.text}</p>
       <div className="tools">
-        <button className="btn2" onClick={() => setDemoTick((t) => t + 1)}>▶ 획순 보기 · 따라 해요</button>
-        <button className="btn2" onClick={() => { setDemoTick(0); setRound((x) => x + 1); }}>이 글자 다시</button>
+        <button className="btn2" onClick={() => setDemoTick((t) => t + 1)}><span className="ico" aria-hidden="true">▶</span><Bi mo={t(p.lang,'showMe')} ko="획순 보기" /></button>
+        <button className="btn2" onClick={() => { setDemoTick(0); setRound((x) => x + 1); }}><span className="ico" aria-hidden="true">↺</span><Bi mo={t(p.lang,'retry')} ko="이 글자 다시" /></button>
       </div>
     </>
   );

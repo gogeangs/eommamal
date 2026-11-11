@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../lib/childUi';
 import { NO_VOICE, UI, V, findStory, langById, splitKorean } from '../content';
-import { Scene, Tile, TopBar, useSayWord } from '../components/ui';
+import { Bi, Scene, Tile, TopBar, useSayWord } from '../components/ui';
 import { useProgress, type ReadMode } from '../lib/progress';
 import { hasVoice, onVoicesChanged, speak, speechSupported, stopSpeaking, wordStarts, type SpeechItem } from '../lib/speech';
 import { useNav } from '../nav';
@@ -45,6 +45,7 @@ function StoryReader({ storyId }: { storyId: string }) {
   const [hi, setHi] = useState<Hi>(null);
   const [voiceNote, setVoiceNote] = useState('');
   const [showTools, setShowTools] = useState(false);
+  const [hideNoVoice, setHideNoVoice] = useState(false);
   const lang = langById(p.lang);
   const ui = UI[p.lang];
   const pg = st.pages[page];
@@ -163,11 +164,17 @@ function StoryReader({ storyId }: { storyId: string }) {
       </button>
 
       <div className={`text${big ? ' big' : ''}`}>
-        {showMother && !motherVoice && speechSupported() && (
-          <p className="novoice" lang={p.lang}>
-            <b>{NO_VOICE[p.lang]}</b>
-            <span lang="ko">이 휴대폰에는 {lang.ko} 읽기 목소리가 없어요. 엄마 아빠가 소리 내어 읽어 주세요.</span>
-          </p>
+        {showMother && !motherVoice && speechSupported() && !hideNoVoice && (
+          <div className="novoice" role="note">
+            <span className="novoice-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z" /><path d="m17 9 5 5m0-5-5 5" fill="none" /></svg>
+            </span>
+            <p>
+              <b lang={p.lang}>{NO_VOICE[p.lang]}</b>
+              <span lang="ko">{lang.ko} 목소리가 없어요 · 엄마 아빠가 읽어 주세요</span>
+            </p>
+            <button className="novoice-x" aria-label="안내 닫기" onClick={() => setHideNoVoice(true)}>✕</button>
+          </div>
         )}
         {showMother && (
           <p className="mother" lang={p.lang}>
@@ -219,12 +226,17 @@ function StoryReader({ storyId }: { storyId: string }) {
             ))}
           </div>
           <div className="controls">
-            <button className="round" aria-label="이전 쪽" disabled={page === 0} onClick={() => go(-1)}>‹</button>
-            <button className="play" onClick={readAloud}>
-              {speaking ? `■ ${ui.stop}` : `▶ ${ui.listen} · 듣기`}
+            <button className="round nav" aria-label="이전 쪽" disabled={page === 0} onClick={() => go(-1)}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
             </button>
-            <button className={`round${last ? ' go' : ''}`} aria-label={last ? '다 읽었어요' : '다음 쪽'} onClick={() => go(1)}>
-              {last ? '✓ 끝' : '다음 ›'}
+            <button className={`play${speaking ? ' on' : ''}`} onClick={readAloud}>
+              <span className="ico" aria-hidden="true">{speaking ? '■' : '▶'}</span>
+              {speaking ? <Bi mo={ui.stop} ko="멈추기" /> : <Bi mo={ui.listen} ko="듣기" />}
+            </button>
+            <button className={`round nav${last ? ' go' : ''}`} aria-label={last ? '다 읽었어요' : '다음 쪽'} onClick={() => go(1)}>
+              {last
+                ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>}
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { t } from '../lib/childUi';
 import { ALL_WORDS, UI, V, findStory, pickSession, shuffle, syllables } from '../content';
-import { Progress, Tile, TopBar } from '../components/ui';
+import { Bi, Progress, Tile, TopBar } from '../components/ui';
 import { useProgress } from '../lib/progress';
 import { speak } from '../lib/speech';
 import { Result } from './Result';
@@ -105,18 +105,14 @@ export function Dictation({ storyId }: { storyId: string }) {
 
   return (
     <>
-      <TopBar label="✕ 그만하기" tab="study" replace />
-      <Progress label="받아쓰기" i={i} n={rounds.length} />
-      <details className="dict-options"><summary>쓰기 방법 선택</summary><div className="seg dmode" role="group" aria-label="쓰는 방법">
-        <button aria-pressed={blocks} onClick={() => { set('dictMode', 'blocks'); setFilled([]); }}>글자 블록</button>
-        <button aria-pressed={!blocks} onClick={() => { set('dictMode', 'keys'); setFilled([]); }}>자판으로 쓰기</button>
-      </div></details>
+      <TopBar quit tab="study" replace />
+      <Progress label={<Bi row mo={t(p.lang, 'dictation')} ko="받아쓰기" />} i={i} n={rounds.length} />
       <section className="stack">
-        <p className="qtitle">{t(p.lang,'write')} · 잘 듣고 써 봐요</p>
+        <p className="qtitle"><Bi mo={t(p.lang, 'write')} ko="잘 듣고 써 봐요" /></p>
         <p className="lead">{target.length}글자 낱말이에요</p>
         <div className="listen">
-          <button className="play" onClick={() => sayKo(V[r.w].ko)}>▶ 듣기</button>
-          {miss > 0 && <button className="btn2" onClick={() => sayKo(V[r.w].ko, 0.45)}>천천히 듣기</button>}
+          <button className="play" onClick={() => sayKo(V[r.w].ko)}><span className="ico" aria-hidden="true">▶</span><Bi mo={UI[p.lang].listen} ko="듣기" /></button>
+          {miss > 0 && <button className="btn2" onClick={() => sayKo(V[r.w].ko, 0.45)}><Bi mo={t(p.lang, 'listenAgain')} ko="천천히 듣기" /></button>}
         </div>
         {hint ? (
           <div className="hint">
@@ -125,7 +121,7 @@ export function Dictation({ storyId }: { storyId: string }) {
           </div>
         ) : miss >= 2 ? (
           <button className="btn2" onClick={() => setHint(true)}>
-            {t(p.lang,'hint')} · 그림 보기
+            <Bi mo={t(p.lang, 'hint')} ko="그림 보기" />
           </button>
         ) : null}
       </section>
@@ -150,8 +146,8 @@ export function Dictation({ storyId }: { storyId: string }) {
             ))}
           </div>
           <div className="tools">
-            <button className="ghost" onClick={() => !done && setFilled(filled.slice(0, -1))}>⌫ 지우기</button>
-            <button className="ghost" onClick={() => !done && setFilled([])}>모두 지우기</button>
+            <button className="ghost" onClick={() => !done && setFilled(filled.slice(0, -1))}><span className="ico" aria-hidden="true">⌫</span><Bi row mo={t(p.lang, 'erase')} ko="지우기" /></button>
+            <button className="ghost" onClick={() => !done && setFilled([])}><Bi row mo={t(p.lang, 'clear')} ko="모두 지우기" /></button>
           </div>
         </>
       ) : (
@@ -174,10 +170,14 @@ export function Dictation({ storyId }: { storyId: string }) {
             value={typed}
             onChange={(e) => setTyped(e.target.value)}
           />
-          <button className="play" type="submit">확인</button>
+          <button className="play" type="submit"><Bi mo={t(p.lang, 'check')} ko="확인" /></button>
         </form>
       )}
       <p className="fb" aria-live="polite" style={{ color: miss && !done ? 'var(--muted)' : undefined }}>{msg}</p>
+      <details className="dict-options at-end"><summary>쓰기 방법 선택</summary><div className="seg dmode" role="group" aria-label="쓰는 방법">
+        <button aria-pressed={blocks} onClick={() => { set('dictMode', 'blocks'); setFilled([]); }}>글자 블록</button>
+        <button aria-pressed={!blocks} onClick={() => { set('dictMode', 'keys'); setFilled([]); }}>자판으로 쓰기</button>
+      </div></details>
     </>
   );
 }
