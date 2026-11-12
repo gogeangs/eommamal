@@ -22,10 +22,10 @@
       #splash .art>img{display:block;width:100%;height:auto}
       #splash .brand{--w:min(78vw,360px);position:fixed;left:50%;top:max(11vh,env(safe-area-inset-top,0px));width:var(--w);transform:translateX(-50%);z-index:1}
       #splash .brand img{display:block;width:100%;height:auto;filter:drop-shadow(0 8px 18px rgba(120,80,0,.14))}
-      #splash .brand p{position:absolute;left:12%;right:12%;top:63%;margin:0;text-align:center;color:#1F2B3A;
-        font:400 calc(var(--w) * .078)/1.18 'Ownglyph PDH','Nunito',sans-serif;letter-spacing:-.01em}
-      #splash .brand p:lang(vi){font-family:'Playpen Sans','Nunito',sans-serif;letter-spacing:0;font-size:calc(var(--w) * .066)}
-      #splash .brand p:lang(ru),#splash .brand p:lang(mn){font-family:'Shantell Sans','Nunito',sans-serif;letter-spacing:0;font-size:calc(var(--w) * .066)}
+      #splash .brand p{position:absolute;left:12%;right:12%;top:calc(63% + 8px);margin:0;text-align:center;color:#1F2B3A;
+        font:400 calc(var(--w) * .078)/1.02 'Ownglyph PDH','Nunito',sans-serif;letter-spacing:-.01em}
+      #splash .brand p:lang(vi){font-family:'Playpen Sans','Nunito',sans-serif;letter-spacing:0;font-size:calc(var(--w) * .066);line-height:1.08}
+      #splash .brand p:lang(ru),#splash .brand p:lang(mn){font-family:'Shantell Sans','Nunito',sans-serif;letter-spacing:0;font-size:calc(var(--w) * .066);line-height:1.08}
       #splash .brand p:lang(zh){font-family:'ZCOOL KuaiLe','Nunito',sans-serif;letter-spacing:0;font-size:calc(var(--w) * .09)}
       @media (orientation:portrait){#splash{justify-content:flex-end}}
       @media (orientation:landscape){#splash .brand{--w:min(40vh,320px);top:4vh}#splash .art>img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}}
