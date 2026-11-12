@@ -1166,3 +1166,4 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .parent-settings .seg{border:0;background:color-mix(in srgb,var(--line) 45%,var(--card))}
 .sheet-close{width:100%;margin-top:4px}
 .tabbar button[aria-current="page"] .tab-ico svg{width:31px;height:31px}
+.lang-opt span[lang="ko"]{font-family:var(--ko);font-weight:600;font-size:.8rem;color:var(--muted);line-height:1.2}

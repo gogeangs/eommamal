@@ -43,6 +43,7 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
           {LANGS.map((l) => (
             <button key={l.id} className="lang-opt" aria-pressed={p.langChosen && l.id === p.lang} onClick={() => pick(l.id)}>
               <b lang={l.id}>{l.name}</b>
+              <span lang="ko">{l.ko}</span>
             </button>
           ))}
         </div>
