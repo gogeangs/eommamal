@@ -1167,3 +1167,6 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .sheet-close{width:100%;margin-top:4px}
 .tabbar button[aria-current="page"] .tab-ico svg{width:31px;height:31px}
 .lang-opt span[lang="ko"]{font-family:var(--ko);font-weight:600;font-size:.8rem;color:var(--muted);line-height:1.2}
+/* progress: practiced days show the star character from the bookshelf illustration */
+.week li.on i{background:transparent;border:0}
+.week-star{width:118%;height:auto;max-width:none;filter:drop-shadow(0 2px 2px color-mix(in srgb,#9a6a00 25%,transparent))}

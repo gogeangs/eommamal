@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ALL_WORDS, STORIES, V, type LangId } from '../content';
-import { Scene, TopBar, WordCard } from '../components/ui';
+import { Scene, TopBar, WordCard, Illus } from '../components/ui';
 import { AVATARS, childName, useProgress, type Profile } from '../lib/progress';
 import { pt } from '../lib/parentUi';
 import { g, LOCALE } from '../lib/grownUi';
@@ -155,7 +155,7 @@ export function Parent({ embedded = false }: { embedded?: boolean } = {}) {
         <ol className="week" lang={lang} aria-label={g(lang, 'daysStudied', { n: active })}>
           {week.map((d) => (
             <li key={d.key} className={`${days.has(d.key) ? 'on' : ''}${d.today ? ' today' : ''}`}>
-              <i aria-hidden="true">{days.has(d.key) ? '★' : ''}</i>
+              <i aria-hidden="true">{days.has(d.key) && <Illus name="star" className="week-star" />}</i>
               <span>{d.today ? g(lang, 'today') : d.label}</span>
             </li>
           ))}
