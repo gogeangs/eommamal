@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { t } from '../lib/childUi';
-import { ALL_WORDS, UI, V, findStory, looksAlike, pickSession, shuffle } from '../content';
+import { ALL_WORDS, UI, V, findStory, langById, looksAlike, pickSession, shuffle } from '../content';
 import { Bi, Progress, Tile, TopBar } from '../components/ui';
 import { useProgress } from '../lib/progress';
-import { speak } from '../lib/speech';
+import { hasVoice, speak } from '../lib/speech';
+import { g } from '../lib/grownUi';
 import { Result } from './Result';
 
 interface Round { w: string; type: 'listen' | 'see'; opts: string[] }
@@ -17,13 +18,25 @@ const makeRounds = (words: string[]): Round[] =>
 
 const sayKo = (id: string) => speak([{ text: V[id].ko, lang: 'ko-KR', rate: 0.7 }]);
 
-/** Word game: hear a word and pick the picture, or see a picture and pick the Korean word. */
+/**
+ * Word game: hear a word and pick the picture, or see a picture and pick the word.
+ * The word is Korean, or — when the child learns the home language (p.target === 'home') — the home-language word,
+ * with Korean as the helper.
+ */
 export function Quiz({ storyId }: { storyId: string }) {
   const { p, addWord, miss, hit } = useProgress();
+  const home = p.target === 'home';
+  const tts = langById(p.lang).tts;
+  const homeVoice = home && hasVoice(tts);
+  /** The word being learned, as written. */
+  const word = (id: string) => (home ? V[id][p.lang] : V[id].ko);
+  /** The helper language next to it. */
+  const helper = (id: string) => (home ? V[id].ko : V[id][p.lang]);
+  const say = (id: string) => (home ? (homeVoice ? speak([{ text: V[id][p.lang], lang: tts, rate: 0.75 }]) : false) : sayKo(id));
   const st = findStory(storyId);
   const [seed, setSeed] = useState(0);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const rounds = useMemo(() => makeRounds(pickSession(st.words, p.learned)), [st, seed]);
+  const rounds = useMemo(() => makeRounds(pickSession(st.words, home ? p.learnedHome : p.learned)), [st, seed]);
   const [i, setI] = useState(0);
   const [stars, setStars] = useState(0);
   const [tried, setTried] = useState(false);
@@ -35,7 +48,7 @@ export function Quiz({ storyId }: { storyId: string }) {
 
   useEffect(() => {
     if (r?.type === 'listen') {
-      const t = setTimeout(() => sayKo(r.w), 250);
+      const t = setTimeout(() => say(r.w), 250);
       return () => clearTimeout(t);
     }
   }, [r]);
@@ -57,8 +70,8 @@ export function Quiz({ storyId }: { storyId: string }) {
     if (id === r.w) {
       setRight(id);
       if (!tried) { setStars((s) => s + 1); hit(id); }
-      addWord('learned', id);
-      sayKo(id);
+      addWord(home ? 'learnedHome' : 'learned', id);
+      say(id);
       setReadyNext(true);
       // The child moves on with the 'next' button, at their own pace.
     } else {
@@ -66,7 +79,7 @@ export function Quiz({ storyId }: { storyId: string }) {
       if (!tried) miss(r.w);
       setTried(true);
       // Children who can't read yet need to hear the word again, not just see a shake.
-      setTimeout(() => sayKo(r.w), 350);
+      setTimeout(() => say(r.w), 350);
     }
   };
 
@@ -78,14 +91,15 @@ export function Quiz({ storyId }: { storyId: string }) {
         {r.type === 'listen' ? (
           <>
             <p className="qtitle"><Bi mo={ui.lp} ko="듣고 그림을 골라요" /></p>
-            <button className="btn2" onClick={() => sayKo(r.w)}><span className="ico" aria-hidden="true">▶</span><Bi mo={t(p.lang,'listenAgain')} ko="다시 듣기" /></button>
+            {home && !homeVoice && <p className="qword-read"><b lang={p.lang}>{word(r.w)}</b><small>{g(p.lang, 'readWord')}</small></p>}
+            <button className="btn2" onClick={() => say(r.w)}><span className="ico" aria-hidden="true">▶</span><Bi mo={t(p.lang,'listenAgain')} ko="다시 듣기" /></button>
           </>
         ) : (
           <>
-            <p className="qtitle"><Bi mo={ui.sp} ko="한국어 낱말을 골라요" /></p>
+            <p className="qtitle"><Bi mo={home ? ui.sph : ui.sp} ko={home ? '낱말을 골라요' : '한국어 낱말을 골라요'} /></p>
             <div className="qpic">
               <Tile id={r.w} />
-              <b lang={p.lang}>{V[r.w][p.lang]}</b>
+              <b lang={home ? 'ko' : p.lang}>{helper(r.w)}</b>
             </div>
           </>
         )}
@@ -96,15 +110,15 @@ export function Quiz({ storyId }: { storyId: string }) {
             key={id}
             className={`opt${right === id ? ' right' : ''}${wrong.includes(id) ? ' wrong' : ''}`}
             disabled={wrong.includes(id)}
-            aria-label={r.type === 'listen' ? `${n + 1}번 그림` : V[id].ko}
+            aria-label={r.type === 'listen' ? `${n + 1}번 그림` : word(id)}
             onClick={() => choose(id)}
           >
-            {r.type === 'listen' ? <Tile id={id} /> : V[id].ko}
+            {r.type === 'listen' ? <Tile id={id} /> : <span lang={home ? p.lang : 'ko'}>{word(id)}</span>}
           </button>
         ))}
       </div>
       <p className="fb" aria-live="polite">
-        {right ? `${V[r.w].ko} · ${V[r.w][p.lang]} — ${t(p.lang,'wellDone')}` : wrong.length ? `${t(p.lang,'retry')} · 다시 들어 보고 골라 볼까요?` : ''}
+        {right ? `${word(r.w)} · ${helper(r.w)} — ${t(p.lang,'wellDone')}` : wrong.length ? `${t(p.lang,'retry')} · 다시 들어 보고 골라 볼까요?` : ''}
       </p>
       {readyNext && <button className="play next-round" onClick={() => {setI(x=>x+1);setTried(false);setWrong([]);setRight(null);setReadyNext(false);}}><Bi mo={t(p.lang,'next')} ko="다음" /><span className="ico" aria-hidden="true">▶</span></button>}
     </>

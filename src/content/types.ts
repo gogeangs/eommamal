@@ -2,7 +2,7 @@ export type LangId = 'ru' | 'mn' | 'vi' | 'uz' | 'zh' | 'en';
 export type Text = Record<LangId, string> & { ko: string };
 
 export interface Lang { id: LangId; name: string; ko: string; tts: string }
-export interface UiText { read: string; listen: string; stop: string; lp: string; sp: string; ok: string }
+export interface UiText { read: string; listen: string; stop: string; lp: string; sp: string; ok: string; /** pick the (home-language) word */ sph: string }
 export interface Page extends Text {
   art: () => string;
   /** finished illustration under public/, if one exists */

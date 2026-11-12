@@ -87,6 +87,16 @@ const EN = {
   changeEmail: 'Change email',
   checking: 'Checking…',
   signIn: 'Sign in',
+  homeLanguage: 'Home language',
+  parentLanguage: 'Language for parents',
+  learns: 'What your child learns',
+  learnKo: 'Korean',
+  learnKoHint: 'For children who are new to Korea',
+  learnHome: '{lang}',
+  learnHomeHint: 'For children growing up in Korea, so they keep the family language',
+  soon: 'coming soon',
+  learnedHome: '{lang} words learned',
+  readWord: 'Please read this word aloud to your child.',
 };
 type Key = keyof typeof EN;
 
@@ -172,6 +182,16 @@ const RU: Record<Key, string> = {
   changeEmail: 'Другая почта',
   checking: 'Проверяем…',
   signIn: 'Войти',
+  homeLanguage: 'Домашний язык',
+  parentLanguage: 'Язык для родителей',
+  learns: 'Что учит ребёнок',
+  learnKo: 'Корейский',
+  learnKoHint: 'Для детей, недавно приехавших в Корею',
+  learnHome: '{lang}',
+  learnHomeHint: 'Для детей, которые растут в Корее, — чтобы не забыть родной язык',
+  soon: 'скоро',
+  learnedHome: 'Выучено слов ({lang})',
+  readWord: 'Прочитайте это слово ребёнку вслух.',
 };
 
 const MN: Record<Key, string> = {
@@ -256,6 +276,16 @@ const MN: Record<Key, string> = {
   changeEmail: 'Имэйл солих',
   checking: 'Шалгаж байна…',
   signIn: 'Нэвтрэх',
+  homeLanguage: 'Гэрийн хэл',
+  parentLanguage: 'Эцэг эхэд зориулсан хэл',
+  learns: 'Хүүхэд юу сурах вэ',
+  learnKo: 'Солонгос хэл',
+  learnKoHint: 'Солонгост саяхан ирсэн хүүхдэд',
+  learnHome: '{lang}',
+  learnHomeHint: 'Солонгост өсөж буй хүүхэд эх хэлээ мартахгүйн тулд',
+  soon: 'удахгүй',
+  learnedHome: 'Сурсан үг ({lang})',
+  readWord: 'Энэ үгийг хүүхдэдээ чангаар уншиж өгөөрэй.',
 };
 
 const VI: Record<Key, string> = {
@@ -340,6 +370,16 @@ const VI: Record<Key, string> = {
   changeEmail: 'Đổi email',
   checking: 'Đang kiểm tra…',
   signIn: 'Đăng nhập',
+  homeLanguage: 'Ngôn ngữ ở nhà',
+  parentLanguage: 'Ngôn ngữ cho phụ huynh',
+  learns: 'Con học ngôn ngữ nào',
+  learnKo: 'Tiếng Hàn',
+  learnKoHint: 'Cho trẻ mới đến Hàn Quốc',
+  learnHome: '{lang}',
+  learnHomeHint: 'Cho trẻ lớn lên ở Hàn Quốc, để không quên tiếng của gia đình',
+  soon: 'sắp có',
+  learnedHome: 'Từ {lang} đã học',
+  readWord: 'Hãy đọc to từ này cho con nghe.',
 };
 
 const UZ: Record<Key, string> = {
@@ -424,6 +464,16 @@ const UZ: Record<Key, string> = {
   changeEmail: "Emailni o'zgartirish",
   checking: 'Tekshirilmoqda…',
   signIn: 'Kirish',
+  homeLanguage: 'Uy tili',
+  parentLanguage: 'Ota-onalar uchun til',
+  learns: "Farzand nimani o'rganadi",
+  learnKo: 'Koreys tili',
+  learnKoHint: 'Koreyaga yaqinda kelgan bolalar uchun',
+  learnHome: '{lang}',
+  learnHomeHint: "Koreyada o'sayotgan bolalar ona tilini unutmasligi uchun",
+  soon: 'tez orada',
+  learnedHome: "O'rganilgan so'zlar ({lang})",
+  readWord: "Bu so'zni bolangizga ovoz chiqarib o'qib bering.",
 };
 
 const ZH: Record<Key, string> = {
@@ -508,13 +558,125 @@ const ZH: Record<Key, string> = {
   changeEmail: '更换邮箱',
   checking: '正在验证…',
   signIn: '登录',
+  homeLanguage: '家里说的语言',
+  parentLanguage: '家长界面语言',
+  learns: '孩子学习的语言',
+  learnKo: '韩语',
+  learnKoHint: '适合刚来韩国的孩子',
+  learnHome: '{lang}',
+  learnHomeHint: '适合在韩国长大的孩子，不忘家里的语言',
+  soon: '即将推出',
+  learnedHome: '学会的{lang}词语',
+  readWord: '请把这个词读给孩子听。',
+};
+
+const KO: Record<Key, string> = {
+  welcomeKicker: '엄마말 그림책에 오신 걸 환영해요',
+  welcomeTitle: '우리 집에서는 어떤 말을 쓰나요?',
+  welcomeLead: '고른 말과 한국어로 동화를 함께 읽어요. 나중에 언제든 바꿀 수 있어요.',
+  changeLang: '우리 집 말 바꾸기',
+  parentSettings: '보호자 설정',
+  settingsLead: '아이의 읽기 방식과 글자 크기를 바꿀 수 있어요.',
+  modeBoth: '두 언어',
+  modeMo: '우리 집 말',
+  modeKo: '한국어만',
+  sizeM: '보통 글자',
+  sizeL: '큰 글자',
+  dictBlocks: '글자 블록',
+  dictKeys: '자판 입력',
+  readTip: '우리 집 말로 먼저 읽고, 한국어로 다시 읽어 보세요.',
+  close: '닫기',
+  cancel: '취소',
+  guide: '보호자 안내·문의',
+  footNote: '함께 만들어 가는 그림책이에요. 번역 오류나 의견을 알려 주세요.',
+  contact: '문의하기',
+  whoReads: '누가 읽을까요?',
+  manageKids: '아이 추가·관리',
+  together: '함께',
+  korean: '한국어',
+  textSize: '글자 크기',
+  readingView: '보여 줄 글',
+  pictureWords: '그림 속 낱말',
+  tapToListen: '눌러서 들어요',
+  noTts: '이 브라우저에서는 소리 내어 읽기가 안 돼요.',
+  momReads: '우리 집 말은 소리 내어 읽어 주세요. 한국어만 소리로 읽어 줘요.',
+  page: '{a} / {b}쪽',
+  today: '오늘',
+  daysStudied: '최근 7일 중 {n}일 공부했어요',
+  nameLabel: '이름 또는 별명',
+  childN: '아이 {n}',
+  nickTip: '실명 대신 별명을 써도 돼요.',
+  picture: '그림',
+  addChild: '아이 추가',
+  startsSame: '우리 집 말과 읽기 설정은 지금 아이와 같게 시작해요. 기록은 따로 쌓여요.',
+  add: '추가하기',
+  addSibling: '+ 아이 추가 (형제·자매)',
+  confirmReset: '{name}의 읽은 책, 낱말, 받아쓰기 기록을 모두 지울까요? 되돌릴 수 없어요.',
+  confirmRemove: '{name}을(를) 이 기기에서 지울까요? 기록도 함께 지워지고 되돌릴 수 없어요.',
+  resetBtn: '기록 지우기',
+  removeBtn: '아이 지우기',
+  resetOf: '{name}의 기록 지우기',
+  removeOf: '{name} 지우기',
+  chooseChild: '아이 고르기',
+  summary: '요약',
+  missed: '{n}번 틀렸어요',
+  pages: '{a}/{b}쪽',
+  parentCheck: '보호자 확인',
+  tryAgain: '다시 골라 주세요.',
+  nextRenewal: '다음 갱신일: {d}',
+  later: '잠시 후 다시 시도해 주세요.',
+  wait: '잠시만요…',
+  subscribeFor: '구독하기 · 월 {price}',
+  restore: '구독 복원하기',
+  exploreSub: '보호자: 가족 구독 알아보기',
+  seeSub: '가족 구독 · 월 {price}',
+  justNow: '방금',
+  minAgo: '{n}분 전',
+  admin: '콘텐츠 관리자',
+  syncing: '기록을 맞추는 중…',
+  syncFail: '동기화하지 못했어요: {m}',
+  synced: '기록 저장됨 · {t}',
+  signedIn: '로그인됨',
+  syncNow: '지금 맞추기',
+  signOut: '로그아웃',
+  confirmDelAcc: '보호자 계정과 서버에 저장된 아이들 기록을 모두 지울까요? 되돌릴 수 없어요. 이 기기의 기록은 남아요. 앱에서 산 구독은 App Store·Google Play에서 따로 해지해 주세요.',
+  delAcc: '계정 지우기',
+  delAccOf: '보호자 계정 지우기',
+  badEmail: '이메일 주소를 확인해 주세요.',
+  email: '보호자 이메일',
+  emailTip: '비밀번호 없이, 이메일로 받은 6자리 코드로 로그인해요. 처음이면 계정이 만들어져요.',
+  sending: '보내는 중…',
+  getCode: '로그인 코드 받기',
+  codeSent: '{email}로 보낸 코드',
+  spam: '메일이 안 보이면 스팸함도 확인해 주세요.',
+  changeEmail: '이메일 바꾸기',
+  checking: '확인 중…',
+  signIn: '로그인',
+  homeLanguage: '우리 집 말',
+  parentLanguage: '보호자 화면 언어',
+  learns: '아이가 배울 말',
+  learnKo: '한국어',
+  learnKoHint: '한국에 온 지 얼마 안 된 아이',
+  learnHome: '{lang}',
+  learnHomeHint: '한국에서 자라는 아이가 엄마·아빠 나라 말을 잊지 않게',
+  soon: '준비 중',
+  learnedHome: '익힌 {lang} 낱말',
+  readWord: '이 낱말을 아이에게 소리 내어 읽어 주세요.',
 };
 
 const ALL: Record<LangId, Record<Key, string>> = { ru: RU, mn: MN, vi: VI, uz: UZ, zh: ZH, en: EN };
 
 /** Grown-up text in the family's language. `{name}`-style placeholders are filled from `vars`. */
+/**
+ * A Korean guardian (e.g. a Korean mother teaching the father's language) can see grown-up screens in Korean.
+ * The progress provider sets this from the child's settings on every render; null = the family's language.
+ */
+let grownOverride: 'ko' | null = null;
+export const setGrownKorean = (on: boolean) => { grownOverride = on ? 'ko' : null; };
+export const grownKorean = () => grownOverride === 'ko';
+
 export function g(lang: LangId, key: Key, vars: Record<string, string | number> = {}) {
-  const s = (ALL[lang] ?? EN)[key] ?? EN[key];
+  const s = (grownOverride === 'ko' ? KO : ALL[lang] ?? EN)[key] ?? EN[key];
   return s.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''));
 }
 

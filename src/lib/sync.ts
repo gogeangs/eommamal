@@ -19,10 +19,10 @@ const get = <T,>(k: string, f: T): T => { try { const v = localStorage.getItem(k
 // Direct writes: no change event, so a sync never triggers another sync.
 const put = (k: string, v: unknown) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* full */ } };
 
-const LISTS = ['learned', 'written', 'traced', 'sentences', 'finished'] as const;
+const LISTS = ['learned', 'written', 'traced', 'sentences', 'finished', 'learnedHome'] as const;
 const MAX_MAPS = ['quizStars', 'dictStars'] as const;
 const PICK_MAPS = ['pages', 'misses'] as const;
-const SCALARS = ['lang', 'langChosen', 'mode', 'scope', 'dictMode', 'textSize', 'lastOpenedStoryId'] as const;
+const SCALARS = ['lang', 'langChosen', 'mode', 'scope', 'dictMode', 'textSize', 'lastOpenedStoryId', 'target', 'parentLang'] as const;
 
 const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
 const pick = <T,>(base: T, local: T, remote: T) => (same(local, base) ? remote : local);

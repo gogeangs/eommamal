@@ -15,16 +15,50 @@ import { useNav, type HomeTab } from '../nav';
 
 /* ---------- language ---------- */
 
+/** Who learns what: Korean (the home language helps), or the home language with a home-language or Korean grown-up. */
+const LEARN_OPTS = [
+  { target: 'ko', parentLang: '', ko: '아이가 한국어를 배워요' },
+  { target: 'home', parentLang: '', ko: '아이가 {lang}를 배워요' },
+  { target: 'home', parentLang: 'ko', ko: '아이가 {lang}를 배워요 · 보호자 화면은 한국어' },
+] as const;
+
 function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => void }) {
   const { p, set } = useProgress();
   const nav = useNav();
-  const pick = (id: LangId) => {
-    set('lang', id);
-    set('langChosen', true);
+  const [step, setStep] = useState<'lang' | 'learn'>('lang');
+  const finish = () => {
     onClose();
     // First run: always start on the bookshelf, whatever tab the link pointed at.
     if (welcome) nav({ view: 'home', tab: 'books' }, { replace: true });
   };
+  const pick = (id: LangId) => {
+    set('lang', id);
+    if (welcome) { setStep('learn'); return; }
+    set('langChosen', true);
+    finish();
+  };
+  const homeName = LANGS.find((l) => l.id === p.lang)!;
+  if (step === 'learn') {
+    return (
+      <div className="sheet-backdrop welcome">
+        <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="learn-title">
+          <h2 id="learn-title" lang={p.lang}>{g(p.lang, 'learns')}</h2>
+          <p className="lead" lang="ko">아이가 배울 말</p>
+          <div className="lang-list">
+            {LEARN_OPTS.map((o, i) => (
+              <button key={i} className="lang-opt" onClick={() => {
+                set('target', o.target); set('parentLang', o.parentLang); set('langChosen', true); finish();
+              }}>
+                <b lang={p.lang}>{o.target === 'ko' ? g(p.lang, 'learnKo') : homeName.name}</b>
+                <span lang={p.lang}>{g(p.lang, o.target === 'ko' ? 'learnKoHint' : 'learnHomeHint')}</span>
+                <span lang="ko">{o.ko.replace('{lang}', homeName.ko)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={`sheet-backdrop${welcome ? ' welcome' : ''}`} onClick={welcome ? undefined : onClose}>
       <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="lang-title" onClick={(e) => e.stopPropagation()}>
@@ -63,6 +97,16 @@ function LanguageSheet({ welcome, onClose }: { welcome: boolean; onClose: () => 
             <button aria-pressed={p.dictMode === 'blocks'} onClick={() => set('dictMode','blocks')}>{g(p.lang, 'dictBlocks')}</button>
             <button aria-pressed={p.dictMode === 'keys'} onClick={() => set('dictMode','keys')}>{g(p.lang, 'dictKeys')}</button>
           </div>
+          <div className="seg parent-setting-row" role="group" aria-label={g(p.lang, 'learns')}>
+            <button aria-pressed={p.target === 'ko'} onClick={() => set('target','ko')}>{g(p.lang, 'learnKo')}</button>
+            <button aria-pressed={p.target === 'home'} onClick={() => set('target','home')}>{LANGS.find((l) => l.id === p.lang)!.name}</button>
+          </div>
+          <p className="parent-tip">{g(p.lang, 'learns')}: {g(p.lang, p.target === 'home' ? 'learnHomeHint' : 'learnKoHint')}</p>
+          <div className="seg parent-setting-row" role="group" aria-label={g(p.lang, 'parentLanguage')}>
+            <button aria-pressed={p.parentLang !== 'ko'} onClick={() => set('parentLang','')}>{LANGS.find((l) => l.id === p.lang)!.name}</button>
+            <button aria-pressed={p.parentLang === 'ko'} onClick={() => set('parentLang','ko')}>한국어</button>
+          </div>
+          <p className="parent-tip">{g(p.lang, 'parentLanguage')}</p>
           <p className="parent-tip">{g(p.lang, 'readTip')}</p>
         </section>}
         {!welcome && <button className="play sheet-close" lang={p.lang} onClick={onClose}>{g(p.lang, 'close')}</button>}
@@ -254,17 +298,18 @@ function StudyTab() {
 
 function WordsTab() {
   const { p } = useProgress();
+  const mine = p.target === 'home' ? p.learnedHome : p.learned; // words in the language the child learns
   const nav = useNav();
   return (
     <>
       <section className="parent-stats" lang={p.lang}>
       <button className="parent-link" onClick={() => nav({ view: 'parent' })}><span>{pt(p.lang, 'title')}</span><ChevronRight /></button><section className="summary">
-        <div><b>{p.learned.length}</b><span>{pt(p.lang, 'words')}</span></div>
+        <div><b>{mine.length}</b><span>{pt(p.lang, 'words')}</span></div>
         <div><b>{p.written.length}</b><span>{pt(p.lang, 'written')}</span></div>
         <div><b>{p.traced.length}</b><span>{t(p.lang, 'trace')}</span></div>
       </section>
       </section>
-      {p.learned.length === 0 && (
+      {mine.length === 0 && (
         <section className="empty-words">
           <Illus name="empty-words" className="illus empty-art" />
           <p><Bi mo={t(p.lang, 'emptyWords')} ko={"낱말 친구를 만나러 가 볼까요?\n놀기에서 시작해요!"} /></p>
@@ -273,8 +318,8 @@ function WordsTab() {
       <section>
         <p className="label"><Bi row mo={t(p.lang,'words')} ko="눌러서 들어요" /></p>
         <div className="wbook">
-          {ALL_WORDS.filter((id) => p.learned.includes(id)).map((id) =>
-            p.learned.includes(id) ? (
+          {ALL_WORDS.filter((id) => mine.includes(id)).map((id) =>
+            mine.includes(id) ? (
               <WordCard key={id} id={id} />
             ) : (
               <div key={id} className="wcard locked">
@@ -317,14 +362,19 @@ function SettingsTab({ onLanguage }: { onLanguage: () => void }) {
           <span className="acc-avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12.2a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2ZM4.5 20.5a7.5 7.5 0 0 1 15 0" /></svg></span>
           <div>
             <p className="ptip">{pt(L, 'accountWhy')}</p>
-            <button className="btn2 soon-btn" disabled>{g(L, 'signIn')} ({t(L, 'soon')})</button>
+            <button className="btn2 soon-btn" disabled>{g(L, 'signIn')} ({g(L, 'soon')})</button>
           </div>
         </section>
       </>)}
 
       <button className="settings-row" onClick={onLanguage}>
-        <span>{t(L, 'language')}</span>
+        <span>{g(L, 'homeLanguage')}</span>
         <b>{lang.name}</b>
+        <Chevron />
+      </button>
+      <button className="settings-row" onClick={onLanguage}>
+        <span>{g(L, 'learns')}</span>
+        <b>{p.target === 'home' ? lang.name : g(L, 'learnKo')}</b>
         <Chevron />
       </button>
 

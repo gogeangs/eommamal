@@ -1170,3 +1170,7 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 /* progress: practiced days show the star character from the bookshelf illustration */
 .week li.on i{background:transparent;border:0}
 .week-star{width:118%;height:auto;max-width:none;filter:drop-shadow(0 2px 2px color-mix(in srgb,#9a6a00 25%,transparent))}
+/* home-language word game, when the device has no voice for that language: a grown-up reads the word */
+.qword-read{margin:0;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.qword-read b{font-size:1.6rem}
+.qword-read small{font-size:.8rem;color:var(--muted)}

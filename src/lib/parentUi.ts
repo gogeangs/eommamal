@@ -1,4 +1,5 @@
 import type { LangId } from '../content';
+import { grownKorean } from './grownUi';
 
 /** Parent-screen headings in the family's language. Korean is always shown next to them. Drafts for native review. */
 type Key =
@@ -78,4 +79,4 @@ const MO: Record<LangId, Record<Key, string>> = {
   },
 };
 
-export const pt = (lang: LangId, key: Key) => MO[lang][key];
+export const pt = (lang: LangId, key: Key) => (grownKorean() ? KO[key] : MO[lang][key]);

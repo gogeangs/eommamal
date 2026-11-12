@@ -1,4 +1,4 @@
-import { g } from './grownUi';
+import { g, setGrownKorean } from './grownUi';
 // Learner settings and progress, kept in this browser (localStorage).
 // Several children can share one device: each child (profile) has its own set of keys.
 // A server-backed store (Supabase) can replace this module without touching the screens.
@@ -54,6 +54,11 @@ export interface Progress {
   finished: string[]; // stories read to the last page at least once
   misses: Record<string, number>; // word → wrong answers not yet made up for by a later first-try answer
   days: string[]; // dates (YYYY-MM-DD, local) the child read or played, newest last
+  /** 'ko' = learn Korean (the home language helps); 'home' = learn the home language (Korean helps) */
+  target: 'ko' | 'home';
+  /** 'ko' = grown-up screens in Korean (e.g. a Korean mother teaching the father's language) */
+  parentLang: '' | 'ko';
+  learnedHome: string[]; // home-language words got right in the word game
 }
 
 const DEFAULTS: Progress = {
@@ -74,11 +79,14 @@ const DEFAULTS: Progress = {
   finished: [],
   misses: {},
   days: [],
+  target: 'ko',
+  parentLang: '',
+  learnedHome: [],
 };
 export const PROGRESS_DEFAULTS = DEFAULTS;
 export const KEYS = Object.keys(DEFAULTS) as (keyof Progress)[];
 /** Settings a new child copies from the child currently using the device. */
-const SHARED: (keyof Progress)[] = ['lang', 'langChosen', 'mode', 'textSize', 'dictMode'];
+const SHARED: (keyof Progress)[] = ['lang', 'langChosen', 'mode', 'textSize', 'dictMode', 'target', 'parentLang'];
 
 /* ---------- profiles ---------- */
 
@@ -105,7 +113,7 @@ const today = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 };
 
-type WordList = 'learned' | 'written' | 'traced' | 'sentences' | 'finished';
+type WordList = 'learned' | 'written' | 'traced' | 'sentences' | 'finished' | 'learnedHome';
 
 interface Ctx {
   p: Progress;
@@ -225,6 +233,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   }, [pid]);
 
   const profile = profiles.find((x) => x.id === pid) ?? profiles[0];
+  setGrownKorean(p.parentLang === 'ko'); // before the screens below render their grown-up text
   const value = useMemo(
     () => ({ p, set, addWord, bestScore, miss, hit, profiles, profile, switchProfile, addProfile, updateProfile, removeProfile, resetProfile }),
     [p, set, addWord, bestScore, miss, hit, profiles, profile, switchProfile, addProfile, updateProfile, removeProfile, resetProfile],

@@ -16,12 +16,12 @@ export const UI={
  zh:{read:'阅读',listen:'听故事',stop:'停止'},en:{read:'Read',listen:'Listen',stop:'Stop'}
 };
 
-Object.assign(UI.ru,{lp:'Послушай и выбери картинку',sp:'Выбери слово по-корейски',ok:'Молодец!'});
-Object.assign(UI.mn,{lp:'Сонсоод зургийг сонго',sp:'Солонгос үгийг сонго',ok:'Сайн байна!'});
-Object.assign(UI.vi,{lp:'Nghe và chọn hình',sp:'Chọn từ tiếng Hàn',ok:'Giỏi lắm!'});
-Object.assign(UI.uz,{lp:'Tinglab, rasmni tanla',sp:"Koreyscha so'zni tanla",ok:'Barakalla!'});
-Object.assign(UI.zh,{lp:'听一听，选图片',sp:'选出韩语单词',ok:'真棒！'});
-Object.assign(UI.en,{lp:'Listen and pick the picture',sp:'Pick the Korean word',ok:'Great job!'});
+Object.assign(UI.ru,{sph:'Выбери слово',lp:'Послушай и выбери картинку',sp:'Выбери слово по-корейски',ok:'Молодец!'});
+Object.assign(UI.mn,{sph:'Үгийг сонго',lp:'Сонсоод зургийг сонго',sp:'Солонгос үгийг сонго',ok:'Сайн байна!'});
+Object.assign(UI.vi,{sph:'Chọn từ đúng',lp:'Nghe và chọn hình',sp:'Chọn từ tiếng Hàn',ok:'Giỏi lắm!'});
+Object.assign(UI.uz,{sph:"So'zni tanla",lp:'Tinglab, rasmni tanla',sp:"Koreyscha so'zni tanla",ok:'Barakalla!'});
+Object.assign(UI.zh,{sph:'选出正确的词',lp:'听一听，选图片',sp:'选出韩语单词',ok:'真棒！'});
+Object.assign(UI.en,{sph:'Pick the word',lp:'Listen and pick the picture',sp:'Pick the Korean word',ok:'Great job!'});
 
 export const STORIES=[
 {id:'star',

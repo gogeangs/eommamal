@@ -1,4 +1,5 @@
 import type { LangId } from '../content';
+import { grownKorean } from './grownUi';
 
 /**
  * Contact screen words in the family's language (grown-up screen, never Korean).
@@ -120,5 +121,37 @@ const ZH: Record<Key, string> = {
   to: '收件地址', copyAddr: '复制地址', addrCopied: '邮箱地址已复制。', addrFail: '请长按地址复制。',
   note: 'Project30s Inc. · 您发送的内容只用于回复和改进服务。',
 };
+const KO: Record<Key, string> = {
+  title: '문의하기',
+  lead: '기관 도입, 번역·녹음 참여, 오류 신고 모두 환영해요.',
+  kind: '문의 종류',
+  org: '기관 도입·제휴',
+  orgHint: '도서관, 학교, 지역아동센터, 이주민 단체',
+  help: '번역·녹음 참여',
+  helpHint: '모국어 번역 검수, 동화 녹음 자원봉사',
+  bug: '오류 신고',
+  bugHint: '틀린 번역, 소리가 안 나요, 화면 오류',
+  etc: '기타 문의',
+  etcHint: '그 밖의 의견이나 질문',
+  name: '이름·기관 (선택)',
+  namePh: '예: 원곡동 작은도서관',
+  reply: '답장 받을 연락처 (선택)',
+  replyPh: '이메일 또는 전화번호',
+  body: '문의 내용',
+  bodyPhBug: '어느 동화, 몇 쪽에서 어떤 문제가 있었나요?',
+  bodyPh: '자유롭게 적어 주세요.',
+  needBody: '문의 내용을 적어 주세요.',
+  send: '메일로 보내기',
+  copy: '내용 복사',
+  opened: '메일 앱이 열리면 보내기를 눌러 주세요. 열리지 않으면 "내용 복사"를 눌러 메일이나 메시지에 붙여 넣어 주세요.',
+  copied: '복사했어요. 메일이나 메시지에 붙여 넣어 보내 주세요.',
+  copyFail: '여기서는 복사가 안 돼요. 위 글을 길게 눌러 복사해 주세요.',
+  to: '받는 곳',
+  copyAddr: '주소 복사',
+  addrCopied: '이메일 주소를 복사했어요.',
+  addrFail: '주소를 길게 눌러 복사해 주세요.',
+  note: '주식회사 프로젝트서티즈 · 보내 주신 내용은 답변과 서비스 개선에만 써요.',
+};
+
 const ALL: Record<LangId, Record<Key, string>> = { ru: RU, mn: MN, vi: VI, uz: UZ, zh: ZH, en: EN };
-export const ct = (lang: LangId, key: Key) => ALL[lang][key];
+export const ct = (lang: LangId, key: Key) => (grownKorean() ? KO[key] : ALL[lang][key]);

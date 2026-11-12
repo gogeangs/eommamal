@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ALL_WORDS, STORIES, V, type LangId } from '../content';
+import { ALL_WORDS, LANGS, STORIES, V, type LangId } from '../content';
 import { Scene, TopBar, WordCard, Illus } from '../components/ui';
 import { AVATARS, childName, useProgress, type Profile } from '../lib/progress';
 import { pt } from '../lib/parentUi';
-import { g, LOCALE } from '../lib/grownUi';
+import { g, grownKorean, LOCALE } from '../lib/grownUi';
 import { t } from '../lib/childUi';
 import { WORD_ART } from '../content';
 import { GatedSubscribe, PlanStatus } from './Subscribe';
@@ -30,7 +30,7 @@ function H({ lang, k, n }: { lang: LangId; k: Parameters<typeof pt>[1]; n?: stri
 }
 
 function lastWeek(lang: LangId) {
-  const day = new Intl.DateTimeFormat(LOCALE[lang], { weekday: 'short' });
+  const day = new Intl.DateTimeFormat(grownKorean() ? 'ko-KR' : LOCALE[lang], { weekday: 'short' });
   const out: { key: string; label: string; today: boolean }[] = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
@@ -127,7 +127,9 @@ export function Parent({ embedded = false }: { embedded?: boolean } = {}) {
   const week = lastWeek(lang);
   const active = week.filter((d) => days.has(d.key)).length;
   const hard = Object.entries(p.misses).filter(([id, n]) => n > 0 && V[id]).sort((a, b) => b[1] - a[1]).slice(0, 9);
-  const learned = ALL_WORDS.filter((id) => p.learned.includes(id));
+  // Words the child collected in the language they are learning.
+  const mine = p.target === 'home' ? p.learnedHome : p.learned;
+  const learned = ALL_WORDS.filter((id) => mine.includes(id));
 
   return (
     <>
@@ -164,7 +166,7 @@ export function Parent({ embedded = false }: { embedded?: boolean } = {}) {
 
       <section className="summary four" lang={lang} aria-label={g(lang, 'summary')}>
         <div><b>{finished}<small>/{shelf.length}</small></b><span>{pt(lang, 'books')}</span></div>
-        <div><b>{p.learned.length}<small>/{ALL_WORDS.length}</small></b><span>{pt(lang, 'words')}</span></div>
+        <div><b>{mine.length}<small>/{ALL_WORDS.length}</small></b><span>{p.target === 'home' ? g(lang, 'learnedHome', { lang: grownKorean() ? LANGS.find((l) => l.id === lang)!.ko : LANGS.find((l) => l.id === lang)!.name }) : pt(lang, 'words')}</span></div>
         <div><b>{p.written.length}</b><span>{pt(lang, 'written')}</span></div>
         <div><b>{p.sentences.length}</b><span>{pt(lang, 'sentences')}</span></div>
       </section>
