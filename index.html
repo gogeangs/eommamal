@@ -12,18 +12,42 @@
     <title>엄마말 그림책</title>
   </head>
   <body>
-    <!-- Launch splash: shown until the app has drawn, then faded out by main.tsx. Art source: resources/splash-source.png -->
+    <!-- Launch splash: shown until the app has drawn, then faded out by main.tsx.
+         Art: resources/splash-source.png · Logo: resources/logo-source.pdf
+         The app name under the logo is in the family's language (read from local storage; English before the first choice). -->
     <style>
       #splash{position:fixed;inset:0;z-index:100;background:#F8EDE0;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .45s ease}
       #splash.out{opacity:0;pointer-events:none}
-      #splash img{display:block;width:100%;height:auto}
       #splash .art{position:relative;width:min(100vw,100vh)}
-      #splash b{position:absolute;left:0;right:0;top:7%;text-align:center;font:400 clamp(2.2rem,9vw,4rem)/1.1 'Ownglyph PDH','Nunito',sans-serif;color:#1F2B3A;letter-spacing:-.02em}
-      @media (orientation:landscape){#splash img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}}
-      @media (orientation:portrait){#splash{justify-content:flex-end}#splash b{position:fixed;top:26vh;font-size:clamp(2.6rem,11vw,4.4rem)}}
+      #splash .art>img{display:block;width:100%;height:auto}
+      #splash .brand{--w:min(78vw,360px);position:fixed;left:50%;top:max(11vh,env(safe-area-inset-top,0px));width:var(--w);transform:translateX(-50%);z-index:1}
+      #splash .brand img{display:block;width:100%;height:auto;filter:drop-shadow(0 8px 18px rgba(120,80,0,.14))}
+      #splash .brand p{position:absolute;left:12%;right:12%;top:63%;margin:0;text-align:center;color:#1F2B3A;
+        font:400 calc(var(--w) * .078)/1.18 'Ownglyph PDH','Nunito',sans-serif;letter-spacing:-.01em}
+      #splash .brand p:lang(vi){font-family:'Playpen Sans','Nunito',sans-serif;letter-spacing:0;font-size:calc(var(--w) * .066)}
+      #splash .brand p:lang(ru),#splash .brand p:lang(mn){font-family:'Shantell Sans','Nunito',sans-serif;letter-spacing:0;font-size:calc(var(--w) * .066)}
+      #splash .brand p:lang(zh){font-family:'ZCOOL KuaiLe','Nunito',sans-serif;letter-spacing:0;font-size:calc(var(--w) * .09)}
+      @media (orientation:portrait){#splash{justify-content:flex-end}}
+      @media (orientation:landscape){#splash .brand{--w:min(40vh,320px);top:4vh}#splash .art>img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}}
       @media (prefers-reduced-motion:reduce){#splash{transition:none}}
     </style>
-    <div id="splash" aria-hidden="true"><div class="art"><img src="./src/assets/splash.webp" alt="" /><b>엄마말 그림책</b></div></div>
+    <div id="splash" aria-hidden="true">
+      <div class="art"><img src="./src/assets/splash.webp" alt="" /></div>
+      <div class="brand"><img src="./src/assets/logo.webp" alt="" /><p id="splash-name" lang="en">Picture books<br />in Mom’s language</p></div>
+    </div>
+    <script>
+      (function () {
+        var NAME = {
+          en: 'Picture books<br>in Mom’s language', ru: 'Книжки<br>на мамином языке', mn: 'Ээжийн хэлний<br>зурагт ном',
+          vi: 'Truyện tranh<br>bằng tiếng mẹ', uz: 'Ona tilidagi<br>rasmli kitoblar', zh: '妈妈话绘本'
+        };
+        try {
+          var raw = localStorage.getItem('emb-lang'); var lang = raw ? JSON.parse(raw) : 'en';
+          if (!NAME[lang]) lang = 'en';
+          var el = document.getElementById('splash-name'); el.innerHTML = NAME[lang]; el.lang = lang;
+        } catch (e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
