@@ -1,0 +1,52 @@
+rules_version = '2';
+// 엄마말 그림책 — Firestore security rules.
+// Paste into Firebase console → Firestore Database → Rules → Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    function reviewer() { return get(/databases/$(database)/documents/reviewers/$(request.auth.uid)).data; }
+    function isReviewer() { return signedIn() && exists(/databases/$(database)/documents/reviewers/$(request.auth.uid)); }
+
+    // A family's own data: only that guardian.
+    match /families/{uid} {
+      allow read, delete: if signedIn() && request.auth.uid == uid;
+      // The trial start can only move earlier, never later (so the free trial cannot be stretched).
+      allow create: if signedIn() && request.auth.uid == uid && request.resource.data.firstUse is string;
+      allow update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.firstUse is string
+        && request.resource.data.firstUse <= resource.data.firstUse;
+
+      match /children/{childId} {
+        allow read, delete: if signedIn() && request.auth.uid == uid;
+        allow create, update: if signedIn() && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['name', 'avatar', 'position', 'progress', 'updatedAt']);
+      }
+      match /reads/{day} {
+        allow read, write: if signedIn() && request.auth.uid == uid;
+      }
+    }
+
+    // Subscription state: read your own; written only by the server (later, with paid plans).
+    match /subscriptions/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // Roles are set by the operator in the console.
+    match /admins/{uid} { allow read: if signedIn() && request.auth.uid == uid; allow write: if false; }
+    match /reviewers/{uid} { allow read: if signedIn() && request.auth.uid == uid; allow write: if false; }
+
+    // Published content: everyone reads; admins write anything;
+    // reviewers may only change their own languages' corrections and marks (plus the 'updated' time).
+    match /content/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+      allow create: if isReviewer() && request.resource.data.keys().hasOnly(['version', 'stories', 'words', 'text', 'review']);
+      allow update: if isReviewer()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'review', 'updated'])
+        && request.resource.data.get('text', {}).diff(resource.data.get('text', {})).affectedKeys().hasOnly(reviewer().langs)
+        && request.resource.data.get('review', {}).diff(resource.data.get('review', {})).affectedKeys().hasOnly(reviewer().langs);
+    }
+  }
+}

@@ -168,4 +168,4 @@ Style: warm children's picture-book illustration, soft rounded shapes, gentle fl
 - Vite + React + TypeScript, PWA (홈 화면 설치, 오프라인 읽기)
 - 현재 그림은 코드로 그린 임시 SVG → 위 이미지로 교체 예정, 그림 칸 비율은 3:2로 변경 예정
 - 이미지 위치: 저장소 `public/images/` 아래 묶음별 폴더
-- 다음 단계: 원어민 녹음 음성, 콘텐츠 관리자 화면(Supabase), 기관용 진도 화면
+- 다음 단계: 원어민 녹음 음성, 콘텐츠 관리자 화면(서버), 기관용 진도 화면

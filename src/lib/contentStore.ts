@@ -1,11 +1,10 @@
 // Where content packs live. Today: a JSON file published with the app, plus drafts and
-// previews in this browser. Later a Supabase store can implement the same interface,
+// previews in this browser. With a server (Firebase) the published pack comes from there,
 // and the admin screen will not need to change.
 
 import { emptyPack, type Pack, type ReviewMark } from '../content/pack';
 import type { LangId } from '../content/types';
-import { supabase } from './supabase';
-import { dataUrlBytes } from './imageTools';
+import { backend } from './backend';
 
 export interface ContentStore {
   /** The published pack, or null when none is published yet. */
@@ -45,11 +44,11 @@ function writeJson(key: string, pack: Pack) {
 export const fileStore: ContentStore = {
   async loadPublished() {
     // With a server, the pack published from the admin screen wins; the file is the fallback.
-    if (supabase) {
+    const be = backend();
+    if (be) {
       try {
-        const { data } = await supabase.from('content_packs').select('pack').eq('id', 'main').maybeSingle();
-        const j = data?.pack as Pack | undefined;
-        if (j && j.version === 1) return j;
+        const j = await Promise.race([be.then((x) => x.loadContent()), new Promise<null>((r) => setTimeout(() => r(null), 4000))]);
+        if (j) return j;
       } catch { /* offline: use the file */ }
     }
     try {
@@ -78,45 +77,30 @@ export const setPublishedPack = (p: Pack | null) => { publishedPack = p ?? empty
 export const previewActive = () => !!contentStore.loadPreview();
 
 /**
- * Publishes straight to the server (content admins only): pictures go to the 'content' storage bucket,
- * the pack to content_packs. Every device gets it the next time the app starts.
+ * Publishes straight to the server (content admins). Pictures are not uploaded: the free server plan has no file
+ * storage, so a pack with new pictures goes out as a file (content.zip → GitHub) instead.
  */
 export async function publishToServer(pack: Pack, userId: string, onStep?: (msg: string) => void): Promise<Pack> {
-  if (!supabase) throw new Error('서버가 설정되지 않았어요.');
-  const db = supabase;
+  const p = backend();
+  if (!p) throw new Error('서버가 설정되지 않았어요.');
   const out = JSON.parse(JSON.stringify(pack)) as Pack;
   out.updated = new Date().toISOString();
-  const refs: { get: () => string | undefined; set: (v: string) => void; name: string }[] = [];
-  for (const st of out.stories) st.pages.forEach((p, i) => refs.push({ get: () => p.img, set: (v) => { p.img = v; }, name: `${st.id}-${String(i + 1).padStart(2, '0')}` }));
-  for (const w of out.words) refs.push({ get: () => w.img, set: (v) => { w.img = v; }, name: `word-${w.id}` });
-  const todo = refs.filter((r) => r.get()?.startsWith('data:'));
-  let n = 0;
-  for (const r of todo) {
-    onStep?.(`그림 올리는 중 ${++n}/${todo.length}`);
-    const { bytes, ext } = dataUrlBytes(r.get()!);
-    const path = `images/${r.name}-${Date.now().toString(36)}.${ext}`;
-    const { error } = await db.storage.from('content').upload(path, bytes, { contentType: `image/${ext}`, upsert: true });
-    if (error) throw new Error(`그림을 올리지 못했어요: ${error.message}`);
-    r.set(db.storage.from('content').getPublicUrl(path).data.publicUrl);
-  }
+  const hasNewPictures = out.stories.some((s) => s.pages.some((pg) => pg.img?.startsWith('data:'))) || out.words.some((w) => w.img?.startsWith('data:'));
+  if (hasNewPictures) throw new Error('새 그림이 들어 있어서 서버에 바로 올릴 수 없어요. 아래 "콘텐츠 파일 내려받기"로 게시해 주세요. (글만 바꾼 경우는 서버 게시가 돼요)');
+  if (JSON.stringify(out).length > 900_000) throw new Error('내용이 너무 커서 서버에 올릴 수 없어요. 파일로 게시해 주세요.');
   onStep?.('내용 저장 중');
-  // Translation corrections may have been saved by reviewers since this draft started: keep theirs, then ours.
-  const { data: cur } = await db.from('content_packs').select('pack').eq('id', 'main').maybeSingle();
-  const server = cur?.pack as Pack | undefined;
-  for (const field of ['text', 'review'] as const) {
-    const merged: Record<string, Record<string, unknown>> = {};
-    for (const src of [server?.[field], out[field]]) for (const [l, m] of Object.entries(src ?? {})) merged[l] = { ...(merged[l] ?? {}), ...(m ?? {}) };
-    (out as unknown as Record<string, unknown>)[field] = merged;
-  }
-  const { error } = await db.from('content_packs').upsert({ id: 'main', pack: out, updated_at: out.updated, updated_by: userId });
-  if (error) throw new Error(`게시하지 못했어요: ${error.message}`);
+  await (await p).publishContent(out, userId);
   setPublishedPack(out);
   return out;
 }
 
 /** Saves one language's translation corrections and review marks to the server (reviewers and admins). */
 export async function saveReviewToServer(lang: LangId, texts: Record<string, string | null>, marks: Record<string, ReviewMark | null>) {
-  if (!supabase) throw new Error('서버가 설정되지 않았어요.');
-  const { error } = await supabase.rpc('save_review', { lang, texts, marks });
-  if (error) throw new Error(error.message.includes('not a reviewer') ? '이 언어의 검수 권한이 없어요.' : error.message);
+  const p = backend();
+  if (!p) throw new Error('서버가 설정되지 않았어요.');
+  try { await (await p).saveReview(lang, texts, marks); }
+  catch (e) {
+    const m = e instanceof Error ? e.message : String(e);
+    throw new Error(/permission/i.test(m) ? '이 언어의 검수 권한이 없어요.' : m);
+  }
 }

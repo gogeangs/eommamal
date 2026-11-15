@@ -1,7 +1,7 @@
 import { g, setGrownKorean } from './grownUi';
 // Learner settings and progress, kept in this browser (localStorage).
 // Several children can share one device: each child (profile) has its own set of keys.
-// A server-backed store (Supabase) can replace this module without touching the screens.
+// Signed-in families are synced with the server by lib/sync.ts.
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { LangId } from '../content/types';
 

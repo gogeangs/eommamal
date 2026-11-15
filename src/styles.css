@@ -1194,3 +1194,4 @@ button:not(.no-press):not(:disabled):active{transform:translateY(1px) scale(.97)
 .review-by{color:var(--muted);font-size:.75rem}
 @media (min-width:700px){.review-save{position:sticky;bottom:8px;box-shadow:0 6px 20px rgba(0,0,0,.08)}}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.acc-or{text-align:center}

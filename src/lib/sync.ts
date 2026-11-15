@@ -1,11 +1,11 @@
-// Two-way sync between this device (localStorage) and the family's account (Supabase).
+// Two-way sync between this device (localStorage) and the family's account (Firebase, see lib/backend.ts).
 // Runs as a whole each time (the data is small): pull → merge → push → write back → tell the screens.
 //
 // Merge rules, against the state both sides had at the last sync ("base"):
 //  · collected things only grow: words, phrases, finished books, learning days (union), best stars (max)
 //  · settings, reading position and tricky-word counts: the side that changed since the base wins
 //  · a child removed on one device is removed everywhere
-import { supabase } from './supabase';
+import { backend } from './backend';
 import { KEYS, PROGRESS_DEFAULTS, RELOAD_EVENT, load, loadProfiles, prefix, type Profile, type Progress } from './progress';
 import { PLAN_KEYS, dayKey } from './plan';
 
@@ -24,7 +24,12 @@ const MAX_MAPS = ['quizStars', 'dictStars'] as const;
 const PICK_MAPS = ['pages', 'misses'] as const;
 const SCALARS = ['lang', 'langChosen', 'mode', 'scope', 'dictMode', 'textSize', 'lastOpenedStoryId', 'target', 'parentLang'] as const;
 
-const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+/** JSON with object keys sorted, so the same data compares equal whatever order the server returns. */
+const stable = (v: unknown): string =>
+  v && typeof v === 'object'
+    ? Array.isArray(v) ? `[${v.map(stable).join(',')}]` : `{${Object.keys(v).sort().map((k) => `${JSON.stringify(k)}:${stable((v as Record<string, unknown>)[k])}`).join(',')}}`
+    : JSON.stringify(v) ?? 'null';
+const same = (a: unknown, b: unknown) => stable(a) === stable(b);
 const pick = <T,>(base: T, local: T, remote: T) => (same(local, base) ? remote : local);
 
 export function mergeProgress(base: Progress, local: Progress, remote: Progress): Progress {
@@ -64,18 +69,16 @@ function writeLocal(children: Child[]) {
 export interface SyncResult { at: number; children: number }
 
 export async function syncNow(userId: string): Promise<SyncResult> {
-  if (!supabase) throw new Error('서버가 설정되지 않았어요.');
-  const db = supabase;
+  const be = await backend();
+  if (!be) throw new Error('서버가 설정되지 않았어요.');
   const today = dayKey();
 
   // 1. family: the earliest trial start seen anywhere
-  const { data: first, error: e1 } = await db.rpc('ensure_family', { local_first: get<string>(PLAN_KEYS.first, today) || today });
-  if (e1) throw e1;
+  const first = await be.ensureFamily(userId, get<string>(PLAN_KEYS.first, today) || today);
 
   // 2. children
-  const { data: rows, error: e2 } = await db.from('children').select('id,name,avatar,position,progress');
-  if (e2) throw e2;
-  const remote = new Map<string, Child>((rows ?? []).map((r) => [r.id as string, { ...(r as Child), progress: { ...PROGRESS_DEFAULTS, ...(r.progress as Progress) } }]));
+  const rows = await be.getChildren(userId);
+  const remote = new Map<string, Child>(rows.map((r) => [r.id, { id: r.id, name: r.name, avatar: r.avatar, position: r.position, progress: { ...PROGRESS_DEFAULTS, ...(r.progress as Progress) } }]));
   const baseAll = get<Base | null>(BASE_KEY, null);
   const base = baseAll?.user === userId ? baseAll.children : {};
   const deleted = new Set(get<string[]>(DELETED_KEY, []));
@@ -106,23 +109,20 @@ export async function syncNow(userId: string): Promise<SyncResult> {
   if (!merged.length) merged.push(local.get('p1') ?? localChildren()[0]);
 
   // 3. push what differs from the server
-  const upserts = merged.filter((c) => !same(c, remote.get(c.id))).map((c) => ({
-    family_id: userId, id: c.id, name: c.name, avatar: c.avatar, position: c.position, progress: c.progress, updated_at: new Date().toISOString(),
-  }));
-  if (upserts.length) { const { error } = await db.from('children').upsert(upserts); if (error) throw error; }
+  const upserts = merged.filter((c) => !same(c, remote.get(c.id)));
+  if (upserts.length) await be.putChildren(userId, upserts);
   const gone = [...remote.keys()].filter((id) => !merged.some((c) => c.id === id));
-  if (gone.length) { const { error } = await db.from('children').delete().in('id', gone); if (error) throw error; }
+  if (gone.length) await be.deleteChildren(userId, gone);
 
   // 4. today's opened stories (free plan allowance is per family)
   const reads = get<{ day: string; ids: string[] }>(PLAN_KEYS.reads, { day: today, ids: [] });
-  const { data: ids, error: e3 } = await db.rpc('mark_reads', { read_day: today, ids: reads.day === today ? reads.ids : [] });
-  if (e3) throw e3;
+  const ids = await be.markReads(userId, today, reads.day === today ? reads.ids : []);
 
   // 5. subscription bought in the app (also unlocks the web version when signed in)
-  const { data: sub } = await db.from('subscriptions').select('active,expires_at').maybeSingle();
-  const serverActive = !!sub?.active && (!sub.expires_at || new Date(sub.expires_at) > new Date());
+  const sub = await be.getSubscription(userId);
+  const serverActive = !!sub?.active && (!sub.until || new Date(sub.until) > new Date());
   const localSub = get<{ active: boolean; until?: string }>(PLAN_KEYS.sub, { active: false });
-  if (serverActive) put(PLAN_KEYS.sub, { active: true, until: sub?.expires_at ?? undefined });
+  if (serverActive) put(PLAN_KEYS.sub, { active: true, until: sub?.until });
   else if (localSub.active && localSub.until && new Date(localSub.until) < new Date()) put(PLAN_KEYS.sub, { active: false });
 
   // 6. write back and remember this state as the next base

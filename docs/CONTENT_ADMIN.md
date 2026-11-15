@@ -25,7 +25,7 @@
 ## 구조 (개발자용)
 - `src/content/pack.ts` — 콘텐츠 팩 형식(`Pack`)과 기본 콘텐츠(data.js)에 덮어쓰는 `applyPack()`
 - `src/lib/contentStore.ts` — 팩을 어디서 읽고 쓰는지(`ContentStore`). 지금은 `fileStore`
-  (`public/content/pack.json` + 브라우저 저장). **Supabase로 바꿀 때는 이 인터페이스만 구현**하면 관리 화면은 그대로 써요.
+  (`public/content/pack.json` + 브라우저 저장). 서버(Firebase)는 lib/backend.ts 에서 같은 인터페이스로 연결돼서 관리 화면은 그대로 써요.
 - `src/screens/Admin.tsx` — 관리 화면, `src/lib/imageTools.ts` — 그림 변환
 - 앱은 시작할 때 게시된 팩 → (있으면) 미리 보기 팩 순서로 적용한 뒤 화면을 그려요.
 - 이 화면에는 로그인이 없어요. 누구나 열 수 있지만 고친 내용은 그 사람 브라우저에만 남고, 게시는 GitHub 권한이 있어야 해요.

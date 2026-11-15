@@ -1,7 +1,6 @@
-// Guardian account (Supabase Auth, email code) and background sync.
+// Guardian account (Google or an e-mailed sign-in link) and background sync. Server: lib/backend.ts.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { Session } from '@supabase/supabase-js';
-import { supabase } from './supabase';
+import { backend, serverReady, type User } from './backend';
 import { syncNow } from './sync';
 import { CHANGE_EVENT } from './progress';
 import { identifyBuyer } from './billing';
@@ -17,8 +16,9 @@ interface Ctx {
   /** languages this account may review (all for admins) */
   reviewLangs: string[];
   sync: SyncState;
-  sendCode: (email: string) => Promise<void>;
-  verifyCode: (email: string, code: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  /** e-mails a sign-in link; the parent taps it to come back signed in */
+  sendLink: (email: string) => Promise<void>;
   syncNow: () => Promise<void>;
   signOut: () => Promise<void>;
   deleteAccount: () => Promise<void>;
@@ -28,26 +28,36 @@ const AccountContext = createContext<Ctx | null>(null);
 
 const friendly = (e: unknown) => {
   const m = e instanceof Error ? e.message : String((e as { message?: string })?.message ?? e);
-  if (/rate|seconds/i.test(m)) return '잠시 후 다시 시도해 주세요. (코드는 1분에 한 번 보낼 수 있어요)';
-  if (/expired|invalid|token/i.test(m)) return '코드가 맞지 않거나 시간이 지났어요. 새 코드를 받아 주세요.';
-  if (/fetch|network|Failed/i.test(m)) return '인터넷 연결을 확인해 주세요.';
+  if (/too-many-requests|quota/i.test(m)) return '잠시 후 다시 시도해 주세요.';
+  if (/invalid-action-code|expired/i.test(m)) return '로그인 링크가 만료됐거나 이미 쓰였어요. 새 링크를 받아 주세요.';
+  if (/invalid-email/i.test(m)) return '이메일 주소를 확인해 주세요.';
+  if (/popup-closed|cancelled/i.test(m)) return '로그인을 취소했어요.';
+  if (/unauthorized-domain/i.test(m)) return '이 주소에서는 로그인이 아직 허용되지 않았어요. (Firebase 승인된 도메인 설정 필요)';
+  if (/network|fetch|Failed|unavailable/i.test(m)) return '인터넷 연결을 확인해 주세요.';
   return m;
 };
 
 export function AccountProvider({ children }: { children: ReactNode }) {
-  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [reviewLangs, setReviewLangs] = useState<string[]>([]);
-  const [sync, setSync] = useState<SyncState>({ state: supabase ? 'idle' : 'off' });
+  const [sync, setSync] = useState<SyncState>({ state: serverReady() ? 'idle' : 'off' });
   const running = useRef(false);
   const again = useRef(false);
-  const userId = session?.user.id ?? null;
+  const userId = user?.uid ?? null;
 
   useEffect(() => {
-    if (!supabase) return;
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
-    const { data } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
-    return () => data.subscription.unsubscribe();
+    const p = backend();
+    if (!p) return;
+    let off = () => {};
+    let alive = true;
+    p.then(async (be) => {
+      if (!alive) return;
+      off = be.onAuth(setUser);
+      // Opened from the e-mailed sign-in link: finish signing in.
+      try { await be.completeSignInLink(); } catch (e) { setSync({ state: 'error', message: friendly(e) }); }
+    }).catch(() => setSync({ state: 'error', message: '서버에 연결하지 못했어요.' }));
+    return () => { alive = false; off(); };
   }, []);
 
   const run = useCallback(async () => {
@@ -67,10 +77,10 @@ export function AccountProvider({ children }: { children: ReactNode }) {
 
   // On sign-in: link store purchases to the family, check admin rights, sync.
   useEffect(() => {
-    if (!supabase || !userId) { setIsAdmin(false); setReviewLangs([]); return; }
-    supabase.from('reviewers').select('langs').eq('user_id', userId).maybeSingle().then(({ data }) => setReviewLangs((data?.langs as string[] | undefined) ?? []));
+    const p = backend();
+    if (!p || !userId) { setIsAdmin(false); setReviewLangs([]); return; }
     void identifyBuyer(userId);
-    supabase.from('admins').select('user_id').eq('user_id', userId).maybeSingle().then(({ data }) => setIsAdmin(!!data));
+    p.then((be) => { be.isAdmin(userId).then(setIsAdmin); be.reviewLangs(userId).then(setReviewLangs); });
     void run();
   }, [userId, run]);
 
@@ -92,32 +102,28 @@ export function AccountProvider({ children }: { children: ReactNode }) {
   }, [userId, run]);
 
   const value = useMemo<Ctx>(() => ({
-    enabled: !!supabase,
-    email: session?.user.email ?? null,
+    enabled: serverReady(),
+    email: user ? user.email ?? '(Google)' : null,
     userId,
     isAdmin,
     reviewLangs: isAdmin ? ['ru', 'mn', 'vi', 'uz', 'zh', 'en'] : reviewLangs,
     sync,
-    async sendCode(email) {
-      const { error } = await supabase!.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
-      if (error) throw new Error(friendly(error));
+    async signInWithGoogle() {
+      try { await (await backend()!).signInWithGoogle(); } catch (e) { throw new Error(friendly(e)); }
     },
-    async verifyCode(email, code) {
-      const { error } = await supabase!.auth.verifyOtp({ email, token: code, type: 'email' });
-      if (error) throw new Error(friendly(error));
+    async sendLink(email) {
+      try { await (await backend()!).sendSignInLink(email); } catch (e) { throw new Error(friendly(e)); }
     },
     syncNow: run,
     async signOut() {
-      await supabase!.auth.signOut();
+      await (await backend()!).signOut();
       setSync({ state: 'idle' });
     },
     async deleteAccount() {
-      const { error } = await supabase!.rpc('delete_my_account');
-      if (error) throw new Error(friendly(error));
+      try { await (await backend()!).deleteAccount(); } catch (e) { throw new Error(friendly(e)); }
       try { localStorage.removeItem('emb-sync-base'); } catch { /* ignore */ }
-      await supabase!.auth.signOut();
     },
-  }), [session, userId, isAdmin, reviewLangs, sync, run]);
+  }), [user, userId, isAdmin, reviewLangs, sync, run]);
 
   return <AccountContext.Provider value={value}>{children}</AccountContext.Provider>;
 }

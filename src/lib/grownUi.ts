@@ -97,6 +97,11 @@ const EN = {
   soon: 'coming soon',
   learnedHome: '{lang} words learned',
   readWord: 'Please read this word aloud to your child.',
+  googleSignIn: 'Continue with Google',
+  orEmail: 'or with your email',
+  linkTip: 'No password: we e-mail you a sign-in link. Open it on this phone. An account is created the first time.',
+  getLink: 'Send sign-in link',
+  linkSent: 'We sent a sign-in link to {email}. Open the email on this phone and tap the link.',
 };
 type Key = keyof typeof EN;
 
@@ -192,6 +197,11 @@ const RU: Record<Key, string> = {
   soon: 'скоро',
   learnedHome: 'Выучено слов ({lang})',
   readWord: 'Прочитайте это слово ребёнку вслух.',
+  googleSignIn: 'Войти через Google',
+  orEmail: 'или по электронной почте',
+  linkTip: 'Без пароля: мы пришлём ссылку для входа. Откройте её на этом телефоне. Аккаунт создаётся при первом входе.',
+  getLink: 'Прислать ссылку для входа',
+  linkSent: 'Мы отправили ссылку на {email}. Откройте письмо на этом телефоне и нажмите на ссылку.',
 };
 
 const MN: Record<Key, string> = {
@@ -286,6 +296,11 @@ const MN: Record<Key, string> = {
   soon: 'удахгүй',
   learnedHome: 'Сурсан үг ({lang})',
   readWord: 'Энэ үгийг хүүхдэдээ чангаар уншиж өгөөрэй.',
+  googleSignIn: 'Google-ээр нэвтрэх',
+  orEmail: 'эсвэл и-мэйлээр',
+  linkTip: 'Нууц үггүй: нэвтрэх холбоосыг и-мэйлээр илгээнэ. Энэ утсан дээрээ нээгээрэй. Анх нэвтрэхэд бүртгэл үүснэ.',
+  getLink: 'Нэвтрэх холбоос илгээх',
+  linkSent: '{email} хаяг руу холбоос илгээлээ. Энэ утсан дээрээ и-мэйлээ нээж холбоос дээр дарна уу.',
 };
 
 const VI: Record<Key, string> = {
@@ -380,6 +395,11 @@ const VI: Record<Key, string> = {
   soon: 'sắp có',
   learnedHome: 'Từ {lang} đã học',
   readWord: 'Hãy đọc to từ này cho con nghe.',
+  googleSignIn: 'Đăng nhập bằng Google',
+  orEmail: 'hoặc bằng email',
+  linkTip: 'Không cần mật khẩu: chúng tôi gửi đường dẫn đăng nhập qua email. Hãy mở trên điện thoại này. Tài khoản được tạo ở lần đầu.',
+  getLink: 'Gửi đường dẫn đăng nhập',
+  linkSent: 'Đã gửi đường dẫn đến {email}. Hãy mở email trên điện thoại này và bấm vào đường dẫn.',
 };
 
 const UZ: Record<Key, string> = {
@@ -474,6 +494,11 @@ const UZ: Record<Key, string> = {
   soon: 'tez orada',
   learnedHome: "O'rganilgan so'zlar ({lang})",
   readWord: "Bu so'zni bolangizga ovoz chiqarib o'qib bering.",
+  googleSignIn: 'Google orqali kirish',
+  orEmail: 'yoki elektron pochta orqali',
+  linkTip: 'Parolsiz: kirish havolasini pochtangizga yuboramiz. Uni shu telefonda oching. Hisob birinchi kirishda yaratiladi.',
+  getLink: 'Kirish havolasini yuborish',
+  linkSent: '{email} manziliga havola yubordik. Xatni shu telefonda ochib, havolani bosing.',
 };
 
 const ZH: Record<Key, string> = {
@@ -568,6 +593,11 @@ const ZH: Record<Key, string> = {
   soon: '即将推出',
   learnedHome: '学会的{lang}词语',
   readWord: '请把这个词读给孩子听。',
+  googleSignIn: '使用 Google 登录',
+  orEmail: '或使用电子邮箱',
+  linkTip: '无需密码：我们会把登录链接发到你的邮箱。请在这部手机上打开。首次登录会自动创建账号。',
+  getLink: '发送登录链接',
+  linkSent: '登录链接已发送到 {email}。请在这部手机上打开邮件并点击链接。',
 };
 
 const KO: Record<Key, string> = {
@@ -662,6 +692,11 @@ const KO: Record<Key, string> = {
   soon: '준비 중',
   learnedHome: '익힌 {lang} 낱말',
   readWord: '이 낱말을 아이에게 소리 내어 읽어 주세요.',
+  googleSignIn: 'Google로 로그인',
+  orEmail: '또는 이메일로',
+  linkTip: '비밀번호 없이, 이메일로 받은 로그인 링크를 이 휴대폰에서 열면 로그인돼요. 처음이면 계정이 만들어져요.',
+  getLink: '로그인 링크 받기',
+  linkSent: '{email}로 로그인 링크를 보냈어요. 이 휴대폰에서 메일을 열고 링크를 눌러 주세요.',
 };
 
 const ALL: Record<LangId, Record<Key, string>> = { ru: RU, mn: MN, vi: VI, uz: UZ, zh: ZH, en: EN };

@@ -17,7 +17,6 @@ export function AccountPanel({ compact = false }: { compact?: boolean }) {
   const { p } = useProgress();
   const L = p.lang;
   const [email, setEmail] = useState('');
-  const [code, setCode] = useState('');
   const [step, setStep] = useState<'email' | 'code'>('email');
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
@@ -69,27 +68,23 @@ export function AccountPanel({ compact = false }: { compact?: boolean }) {
   return (
     <section className="pcard stack account" lang={L}>
       {head}
+      <button className="play" disabled={busy} onClick={() => void run(acc.signInWithGoogle)}>{g(L, 'googleSignIn')}</button>
+      <p className="pnote acc-or">{g(L, 'orEmail')}</p>
       {step === 'email' ? (
-        <form className="stack" onSubmit={(e) => { e.preventDefault(); if (!/^\S+@\S+\.\S+$/.test(email.trim())) { setMsg(g(L, 'badEmail')); return; } void run(async () => { await acc.sendCode(email.trim()); setStep('code'); }); }}>
+        <form className="stack" onSubmit={(e) => { e.preventDefault(); if (!/^\S+@\S+\.\S+$/.test(email.trim())) { setMsg(g(L, 'badEmail')); return; } void run(async () => { await acc.sendLink(email.trim()); setStep('code'); }); }}>
           <div className="field">
             <label htmlFor="acc-email">{g(L, 'email')}</label>
             <input id="acc-email" type="email" inputMode="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="parent@example.com" />
-            <small>{g(L, 'emailTip')}</small>
+            <small>{g(L, 'linkTip')}</small>
           </div>
-          <button className="play" disabled={busy}>{busy ? g(L, 'sending') : g(L, 'getCode')}</button>
+          <button className="btn2" disabled={busy}>{busy ? g(L, 'sending') : g(L, 'getLink')}</button>
         </form>
       ) : (
-        <form className="stack" onSubmit={(e) => { e.preventDefault(); void run(() => acc.verifyCode(email.trim(), code.trim())); }}>
-          <div className="field">
-            <label htmlFor="acc-code">{g(L, 'codeSent', { email })}</label>
-            <input id="acc-code" inputMode="numeric" autoComplete="one-time-code" maxLength={8} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))} placeholder="123456" />
-            <small>{g(L, 'spam')}</small>
-          </div>
-          <div className="prow">
-            <button type="button" className="btn2" onClick={() => { setStep('email'); setCode(''); setMsg(''); }}>{g(L, 'changeEmail')}</button>
-            <button className="play" disabled={busy || code.length < 6}>{busy ? g(L, 'checking') : g(L, 'signIn')}</button>
-          </div>
-        </form>
+        <div className="stack">
+          <p className="ptip" role="status">{g(L, 'linkSent', { email })}</p>
+          <p className="pnote">{g(L, 'spam')}</p>
+          <button type="button" className="btn2" onClick={() => { setStep('email'); setMsg(''); }}>{g(L, 'changeEmail')}</button>
+        </div>
       )}
       {msg && <p className="pnote" role="alert">{msg}</p>}
     </section>

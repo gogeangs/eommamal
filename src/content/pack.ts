@@ -4,7 +4,7 @@
 // Where packs come from (see lib/contentStore.ts):
 //   1. public/content/pack.json — published with the app (file workflow, today)
 //   2. a preview pack kept in this browser while an editor checks their changes
-// A Supabase-backed store can later provide the same Pack shape.
+// 3. the server (Firebase, lib/backend.ts) when the app is built with one — it wins over the file
 
 import { STORIES, V, refreshIndex } from './index';
 import { applyText, captureShipped } from './i18n';

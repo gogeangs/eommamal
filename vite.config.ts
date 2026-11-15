@@ -29,6 +29,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,png,svg,webp,woff2,ttf,json}'],
+        // The server code is only downloaded when the app is built with a Firebase project.
+        globIgnores: process.env.VITE_FIREBASE_API_KEY ? [] : ['**/firebaseBackend-*.js'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/,
