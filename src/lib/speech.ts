@@ -31,94 +31,186 @@ export function wordStarts(text: string): number[] {
   return out;
 }
 
+import { audioHash } from './audioHash';
+
 const synth: SpeechSynthesis | undefined =
   typeof window !== 'undefined' ? window.speechSynthesis : undefined;
 
-// Some browsers load voices asynchronously; screens can re-check through useVoices().
+interface Recording {
+  file: string;
+  textHash: string;
+  audioHash?: string;
+  durationMs?: number;
+}
+interface AudioManifest {
+  version: number;
+  languages: Record<string, { complete: boolean; count: number }>;
+  entries: Record<string, Recording>;
+}
 const voiceListeners = new Set<() => void>();
-synth?.addEventListener?.('voiceschanged', () => voiceListeners.forEach((f) => f()));
+const recordings = new Map<string, Recording>();
+const recordedLanguages = new Set<string>();
+const notifyVoices = () => voiceListeners.forEach(fn => fn());
+synth?.addEventListener?.('voiceschanged', notifyVoices);
+
+/** Load metadata in advance; the small JSON is PWA-precached, never the MP3s. */
+if (typeof window !== 'undefined') {
+  fetch(import.meta.env.BASE_URL + 'audio/manifest.json')
+    .then(r => { if (!r.ok) throw new Error('No audio manifest'); return r.json() as Promise<AudioManifest>; })
+    .then(m => {
+      if (m.version !== 1 || !m.entries || !m.languages) return;
+      recordings.clear();
+      recordedLanguages.clear();
+      for (const [language, state] of Object.entries(m.languages)) {
+        if (state.complete && state.count > 0) recordedLanguages.add(language);
+      }
+      for (const [id, entry] of Object.entries(m.entries)) {
+        const language = id.split('/')[0];
+        if (!/^(ko|ru|mn|vi|uz|zh|en)$/.test(language)) continue;
+        if (!entry.file?.startsWith(language + '/') || entry.file.includes('..')) continue;
+        if (!/^[a-f0-9]{64}$/.test(entry.textHash)) continue;
+        recordings.set(language + ':' + entry.textHash, entry);
+      }
+      notifyVoices();
+    })
+    .catch(() => { /* Missing manifest leaves the original browser voices intact. */ });
+}
 export function onVoicesChanged(f: () => void) {
   voiceListeners.add(f);
   return () => { voiceListeners.delete(f); };
 }
-
-export const speechSupported = () => !!synth;
+export const speechSupported = () => !!synth || typeof Audio !== 'undefined';
 
 export function pickVoice(code: string): SpeechSynthesisVoice | null {
   if (!synth) return null;
   const voices = synth.getVoices();
   const base = code.split('-')[0].toLowerCase();
   return (
-    voices.find((v) => v.lang.replace('_', '-') === code) ??
-    voices.find((v) => v.lang.toLowerCase().startsWith(base)) ??
+    voices.find(v => v.lang.replace('_', '-').toLowerCase() === code.toLowerCase()) ??
+    voices.find(v => v.lang.toLowerCase().startsWith(base)) ??
     null
   );
 }
-
-export const hasVoice = (code: string) => !!pickVoice(code);
+export const hasVoice = (code: string) =>
+  recordedLanguages.has(code.split('-')[0].toLowerCase()) || !!pickVoice(code);
 
 function clearHighlight() {
-  document.querySelectorAll('.speaking').forEach((e) => e.classList.remove('speaking'));
+  document.querySelectorAll('.speaking').forEach(e => e.classList.remove('speaking'));
 }
 
-/** Speaks items one after another. Returns false when speech is unavailable. */
-let current: (() => void) | null = null;
+let cancelCurrent: (() => void) | null = null;
+let generation = 0;
 
+/** Read sequentially: valid recording first, existing browser TTS as fallback. */
 export function speak(items: SpeechItem[], onEnd?: () => void): boolean {
-  if (!synth) return false;
-  current?.();
-  synth.cancel();
-  let i = 0;
+  stopSpeaking();
+  if (!items.length || (!synth && !recordings.size)) return false;
+  const token = generation;
+  let index = 0;
   const next = () => {
+    if (generation !== token) return;
     clearHighlight();
-    if (i >= items.length) {
-      onEnd?.();
-      return;
-    }
-    const it = items[i++];
-    const u = new SpeechSynthesisUtterance(it.text);
-    u.lang = it.lang;
-    const v = pickVoice(it.lang);
-    if (v) u.voice = v;
-    u.rate = it.rate ?? 0.85;
-    if (it.highlightId && !it.onWord) document.getElementById(it.highlightId)?.classList.add('speaking');
-
-    // Word timing: real boundary events win; otherwise an estimate based on text length.
-    let gotBoundary = false;
-    let timers: number[] = [];
-    const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
-    if (it.onWord) {
-      const starts = wordStarts(it.text);
-      u.onboundary = (e) => {
+    if (index >= items.length) { cancelCurrent = null; onEnd?.(); return; }
+    const item = items[index++];
+    const language = item.lang.split('-')[0].toLowerCase();
+    const recording = recordings.get(language + ':' + audioHash(item.text));
+    let finished = false;
+    const timers: number[] = [];
+    const clearTimers = () => { timers.forEach(clearTimeout); timers.length = 0; };
+    const finish = () => {
+      if (finished || token !== generation) return;
+      finished = true;
+      clearTimers();
+      item.onDone?.();
+      next();
+    };
+    const highlight = () => {
+      if (item.highlightId && !item.onWord) document.getElementById(item.highlightId)?.classList.add('speaking');
+    };
+    const schedule = (durationMs: number) => {
+      if (!item.onWord) return;
+      const starts = wordStarts(item.text);
+      const total = Math.max(1, item.text.length);
+      starts.forEach(s => {
+        const t = Math.min(Math.max(0, durationMs - 30), Math.round(durationMs * s / total));
+        timers.push(window.setTimeout(() => {
+          if (generation === token && !finished) item.onWord?.(s);
+        }, t));
+      });
+    };
+    const browserSpeech = () => {
+      if (generation !== token || finished) return;
+      clearTimers();
+      if (!synth || typeof SpeechSynthesisUtterance === 'undefined') { finish(); return; }
+      const utterance = new SpeechSynthesisUtterance(item.text);
+      utterance.lang = item.lang;
+      const voice = pickVoice(item.lang);
+      if (voice) utterance.voice = voice;
+      utterance.rate = item.rate ?? 0.85;
+      let boundary = false;
+      utterance.onboundary = e => {
         if (e.name && e.name !== 'word') return;
-        if (!gotBoundary) { gotBoundary = true; clearTimers(); }
-        it.onWord!(e.charIndex);
+        if (!boundary) { boundary = true; clearTimers(); }
+        item.onWord?.(e.charIndex);
       };
-      u.onstart = () => {
-        if (gotBoundary) return;
-        const cjk = /[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/.test(it.text);
-        const msPerChar = (cjk ? 260 : 75) / (u.rate || 1);
+      utterance.onstart = () => {
+        if (boundary) return;
+        const cjk = /[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/.test(item.text);
+        const perChar = (cjk ? 260 : 75) / (utterance.rate || 1);
+        const starts = wordStarts(item.text);
         let t = 0;
-        starts.forEach((s, k) => {
-          timers.push(window.setTimeout(() => !gotBoundary && it.onWord!(s), t));
-          const end = k + 1 < starts.length ? starts[k + 1] : it.text.length;
-          t += Math.max(1, end - s) * msPerChar + 60;
+        starts.forEach((s, i) => {
+          timers.push(window.setTimeout(() => {
+            if (!boundary && !finished && generation === token) item.onWord?.(s);
+          }, t));
+          const end = starts[i + 1] ?? item.text.length;
+          t += Math.max(1, end - s) * perChar + 60;
         });
       };
-    }
-    const finish = () => { clearTimers(); it.onDone?.(); next(); };
-    u.onend = finish;
-    u.onerror = finish;
-    current = clearTimers;
-    synth.speak(u);
+      utterance.onend = finish;
+      utterance.onerror = finish;
+      cancelCurrent = () => { clearTimers(); utterance.onend = null; utterance.onerror = null; synth.cancel(); };
+      highlight();
+      synth.speak(utterance);
+    };
+    if (!recording || typeof Audio === 'undefined') { browserSpeech(); return; }
+    const audio = new Audio();
+    const version = recording.audioHash ? '?v=' + recording.audioHash.slice(0, 16) : '';
+    audio.src = import.meta.env.BASE_URL + 'audio/' + recording.file + version;
+    // Files are synthesized at a child-friendly rate. Preserve the relative rate
+    // changes requested by dictation (e.g. its slow-repeat button).
+    audio.playbackRate = Math.min(1.5, Math.max(0.5, (item.rate ?? 0.85) / 0.85));
+    let fallback = false;
+    const onFailure = () => {
+      if (fallback || finished || generation !== token) return;
+      fallback = true;
+      audio.pause();
+      audio.removeAttribute('src');
+      audio.load();
+      browserSpeech();
+    };
+    audio.onloadedmetadata = () => {
+      const ms = Number.isFinite(audio.duration) ? audio.duration * 1000 / audio.playbackRate : recording.durationMs ?? 0;
+      if (ms > 0) schedule(ms);
+    };
+    audio.onended = finish;
+    audio.onerror = onFailure;
+    cancelCurrent = () => {
+      clearTimers();
+      audio.onended = null; audio.onerror = null; audio.onloadedmetadata = null;
+      audio.pause(); audio.removeAttribute('src'); audio.load();
+    };
+    highlight();
+    // No pre-fetch await: iOS requires play() within the tap's user-activation window.
+    audio.play().catch(onFailure);
   };
   next();
   return true;
 }
-
 export function stopSpeaking() {
-  current?.();
-  current = null;
+  generation++;
+  cancelCurrent?.();
+  cancelCurrent = null;
   synth?.cancel();
-  clearHighlight();
+  if (typeof document !== 'undefined') clearHighlight();
 }
