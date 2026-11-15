@@ -255,3 +255,29 @@ Background: fully transparent. Output a PNG with a real alpha channel. Do not pa
 
 File name: word-mouse.png
 ```
+
+---
+
+## 다시 그리기 (선택)
+
+### 6쪽 — 순무를 앞 장면만큼 크게
+
+저장 이름: `turnip-06.png`  ·  첨부: turnip-06.png(지금 그림), turnip-05.png(크기 참고), char-turnip.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Same art style as the attached pictures.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Edit the attached picture turnip-06.png. Keep everything the same: the same characters, poses, expressions, order (from right to left: the turnip, Grandpa holding its leaves, Grandma, the granddaughter, the puppy biting her dress hem, the cat holding the puppy's tail), colors, garden and style.
+
+Change only the turnip: make it GIANT, exactly as enormous as in the attached turnip-05.png. Its round white-and-purple body is taller than Grandpa and wider than two people, half buried in the soil, with a huge crown of green leaves rising above everyone's heads. Grandpa still grips the leaves with both hands. To fit the giant turnip in the frame, the row of characters may move a little to the left and become slightly smaller, but nobody may be cut off or left out.
+
+Keep the cat's tail, the puppy and every character fully inside the frame. Keep important elements out of the bottom 15% of the frame.
+
+Format: Landscape 1536x1024 story illustration, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: turnip-06.png
+```

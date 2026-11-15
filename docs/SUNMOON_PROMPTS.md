@@ -274,3 +274,29 @@ Background: fully transparent. Output a PNG with a real alpha channel. Do not pa
 
 File name: word-sun.png
 ```
+
+---
+
+## 다시 그리기 (선택)
+
+### 3쪽 — 호랑이 옆 떡 바구니 지우기
+
+저장 이름: `sunmoon-03.png`  ·  첨부: sunmoon-03.png(지금 그림), char-sunmoon.png
+
+```
+Style: warm children's picture-book illustration, soft rounded shapes, gentle flat colors with subtle paper texture, no heavy black outlines, no 3D, no photorealism. Same art style as the attached pictures.
+
+Absolutely no text, letters, numbers or writing anywhere in the image.
+
+Edit the attached picture sunmoon-03.png. Keep everything the same: the tiger wearing Mom's red headscarf with its big happy grin and crumbs on its whiskers, the winding path, the little village and hills, Mom small in the distance running away, the colors and the style.
+
+Change only this: remove the basket of rice cakes next to the tiger completely. All the rice cakes are gone; where the basket was, draw the same grassy ground with just a few tiny white crumbs. Mom in the distance carries an EMPTY basket.
+
+Gentle and funny for 4-year-olds. Keep important elements out of the bottom 15% of the frame.
+
+Format: Landscape 1536x1024 story illustration, transparent background.
+
+Background: fully transparent. Output a PNG with a real alpha channel. Do not paint any background color, white fill, sky fill, gradient, frame, drop-shadow box or checkerboard pattern; everything outside the drawn subjects must be transparent.
+
+File name: sunmoon-03.png
+```
