@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "normalization": "unicode-nfc-trim-v1",
+  "audio": {
+    "format": "audio-24khz-48kbitrate-mono-mp3",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "bitrateKbps": 48
+  },
+  "languages": {},
+  "entries": {}
+}
