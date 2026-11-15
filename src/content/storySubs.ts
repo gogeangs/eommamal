@@ -36,6 +36,11 @@ const SUBS: Record<string, Record<LangId, string>> = {
     vi: 'Tết Trung thu Hàn Quốc và mùa thu ở quê mình', uz: 'Koreyadagi Chuseok va bizning yurtimizdagi kuz',
     zh: '韩国的中秋，和我们国家的秋天', en: 'Chuseok in Korea — and autumn back home',
   },
+  turnip: {
+    ru: 'Русская народная сказка: вместе мы всё сможем', mn: 'Оросын ардын үлгэр: хүч нэгтгэвэл бүгдийг чадна',
+    vi: 'Truyện cổ Nga: cùng chung sức thì việc gì cũng làm được', uz: "Rus xalq ertagi: birgalikda hamma narsani qila olamiz",
+    zh: '俄罗斯民间故事：齐心协力，什么都能做到', en: 'A Russian folk tale: together we can do anything',
+  },
 };
 
 /** Category names that already appear as a tag; dropped from a Korean fallback line ("… · 한국 전래 동화"). */

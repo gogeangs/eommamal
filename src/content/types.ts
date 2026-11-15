@@ -20,6 +20,8 @@ export interface Story {
   life?: boolean;
   /** a Korean folktale */
   folk?: boolean;
+  /** a folk tale from a family's home country (e.g. 'ru' = Russian) */
+  origin?: LangId;
   /** short phrases for sentence dictation; w = hint picture */
   phrases?: { ko: string; w: string }[];
   /** kept but not shown on the shelf */

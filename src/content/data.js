@@ -1,6 +1,6 @@
 // Story, vocabulary and culture content. Text in every supported language lives here.
 /* eslint-disable */
-import {fullMoon,songpyeon,persimmon,persimmonTree,dad,classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
+import {field,turnip,grandpa,mouse,fullMoon,songpyeon,persimmon,persimmonTree,dad,classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
 
 export const LANGS=[
  {id:'ru',name:'Русский',ko:'러시아어',tts:'ru-RU'},
@@ -242,6 +242,40 @@ Object.assign(ICON,{
 });
 PW.chuseok=[['family'],['songpyeon'],['persimmon'],['moon'],['moon','family'],['moon']];
 
+/* ---------- 커다란 순무 — a Russian folk tale (Репка, public domain). The first "story from Mom's country". Translations are drafts for native review. ---------- */
+STORIES.push({id:'turnip',origin:'ru',
+ title:{ko:'커다란 순무',ru:'Репка',mn:'Том манжин',vi:'Củ cải khổng lồ',uz:"Katta sholg'om",zh:'拔萝卜',en:'The Giant Turnip'},
+ sub:'러시아 옛이야기 · 힘을 모으면 무엇이든 할 수 있어요',
+ pages:[
+ {art:()=>field()+grandpa(150,104)+turnip(212,176,.35),
+  ko:"할아버지가 밭에 순무 씨앗을 심었어요. \"순무야, 순무야, 달콤하게 크게 자라라.\"",ru:"Посадил дед репку и говорит: «Расти, расти, репка, сладкая-пресладкая, большая-пребольшая!»",mn:"Өвөө талбайдаа манжингийн үр суулгав. «Манжин минь, манжин минь, амттай, том ургаарай».",vi:"Ông trồng một hạt củ cải ngoài vườn. \"Củ cải ơi, củ cải ơi, lớn thật to, thật ngọt nhé!\"",uz:"Bobo dalaga sholg'om urug'ini ekdi. \"Sholg'omcha, sholg'omcha, shirin bo'lib, katta bo'lib o's!\"",zh:"老爷爷在地里种下了一颗萝卜种子。\"萝卜呀萝卜，长得甜甜的，长得大大的！\"",en:"Grandpa planted a turnip seed in the field. \"Little turnip, little turnip, grow sweet and grow big!\""},
+ {art:()=>field()+turnip(170,140,2.1),
+  ko:"순무는 쑥쑥 자랐어요. 크게, 크게, 아주아주 크게 자랐어요.",ru:"Выросла репка большая-пребольшая.",mn:"Манжин хурдан ургав. Том, том, бүр их том болов.",vi:"Củ cải lớn nhanh lắm. Lớn, lớn, lớn ơi là lớn!",uz:"Sholg'om tez o'sdi. Katta, katta, juda-juda katta bo'lib o'sdi.",zh:"萝卜长呀长，长得大大的，大得不得了！",en:"The turnip grew and grew. It grew big, big, very, very big!"},
+ {art:()=>field()+turnip(220,140,1.6)+grandpa(150,100),
+  ko:"할아버지가 순무를 뽑으려고 했어요. 영차, 영차! 그런데 순무가 꿈쩍도 하지 않았어요.",ru:"Пошёл дед репку рвать. Тянет-потянет — вытянуть не может.",mn:"Өвөө манжинг сугалах гэв. Ээ хүүе, ээ хүүе! Гэвч манжин огт хөдөлсөнгүй.",vi:"Ông ra nhổ củ cải. Dô ta, dô ta! Nhưng củ cải chẳng nhúc nhích.",uz:"Bobo sholg'omni sug'urib olmoqchi bo'ldi. Hap-hap! Ammo sholg'om joyidan qimirlamadi.",zh:"老爷爷去拔萝卜。嗨哟，嗨哟！可是萝卜一动也不动。",en:"Grandpa tried to pull up the turnip. Heave-ho, heave-ho! But the turnip did not move."},
+ {art:()=>field()+turnip(240,140,1.5)+grandpa(180,100)+grandma(120,112),
+  ko:"할아버지가 할머니를 불렀어요. 할머니는 할아버지를 잡고, 할아버지는 순무를 잡고, 영차, 영차! 그래도 순무가 뽑히지 않았어요.",ru:"Позвал дед бабку. Бабка за дедку, дедка за репку — тянут-потянут, вытянуть не могут.",mn:"Өвөө эмээг дуудав. Эмээ өвөөгөөс, өвөө манжингаас бариад, ээ хүүе, ээ хүүе! Гэсэн ч манжин сугарсангүй.",vi:"Ông gọi bà ra giúp. Bà nắm ông, ông nắm củ cải, dô ta, dô ta! Củ cải vẫn không lên.",uz:"Bobo buvini chaqirdi. Buvi boboni, bobo sholg'omni ushladi, hap-hap! Baribir sholg'om chiqmadi.",zh:"老爷爷叫来了老奶奶。老奶奶拉着老爷爷，老爷爷拉着萝卜，嗨哟，嗨哟！萝卜还是拔不出来。",en:"Grandpa called Grandma. Grandma held Grandpa, Grandpa held the turnip, heave-ho, heave-ho! Still the turnip would not come up."},
+ {art:()=>field()+turnip(250,140,1.4)+grandpa(196,100,.9)+grandma(146,112)+girl(96,126),
+  ko:"할머니가 손녀를 불렀어요. 손녀는 할머니를 잡고, 영차, 영차! 그래도 순무가 뽑히지 않았어요.",ru:"Позвала бабка внучку. Внучка за бабку, бабка за дедку, дедка за репку — тянут-потянут, вытянуть не могут.",mn:"Эмээ ач охиноо дуудав. Ач охин эмээгээс бариад, ээ хүүе, ээ хүүе! Гэсэн ч манжин сугарсангүй.",vi:"Bà gọi cháu gái ra giúp. Cháu nắm bà, dô ta, dô ta! Củ cải vẫn không lên.",uz:"Buvi nevarasini chaqirdi. Nevara buvini ushladi, hap-hap! Baribir sholg'om chiqmadi.",zh:"老奶奶叫来了小孙女。小孙女拉着老奶奶，嗨哟，嗨哟！萝卜还是拔不出来。",en:"Grandma called her granddaughter. The granddaughter held Grandma, heave-ho, heave-ho! Still the turnip would not come up."},
+ {art:()=>field()+turnip(262,140,1.3)+grandpa(214,100,.85)+grandma(170,112)+girl(126,126)+puppy(84,176)+cat(36,180,.7),
+  ko:"손녀가 강아지를 부르고, 강아지가 고양이를 불렀어요. 모두 함께 영차, 영차! 그래도 순무가 뽑히지 않았어요.",ru:"Позвала внучка Жучку, Жучка позвала кошку. Тянут-потянут, вытянуть не могут.",mn:"Ач охин гөлгөө, гөлөг муурыг дуудав. Бүгдээрээ ээ хүүе, ээ хүүе! Гэсэн ч манжин сугарсангүй.",vi:"Cháu gọi cún con, cún con gọi mèo. Cả nhà cùng dô ta, dô ta! Củ cải vẫn không lên.",uz:"Nevara kuchukni, kuchuk mushukni chaqirdi. Hammasi birga hap-hap! Baribir sholg'om chiqmadi.",zh:"小孙女叫来了小狗，小狗叫来了小猫。大家一起嗨哟，嗨哟！萝卜还是拔不出来。",en:"The granddaughter called the puppy, and the puppy called the cat. All together, heave-ho, heave-ho! Still the turnip would not come up."},
+ {art:()=>field()+turnip(262,110,1.3)+grandpa(214,96,.85)+grandma(170,108)+girl(126,122)+puppy(84,172)+cat(44,176,.7)+mouse(14,196,.8),
+  ko:"고양이가 생쥐를 불렀어요. 작은 생쥐까지 모두 함께 영차, 영차… 쑥! 드디어 커다란 순무가 뽑혔어요!",ru:"Позвала кошка мышку. Мышка за кошку, кошка за Жучку, Жучка за внучку, внучка за бабку, бабка за дедку, дедка за репку — тянут-потянут… и вытянули репку!",mn:"Муур хулганыг дуудав. Жижигхэн хулгана хүртэл бүгдээрээ ээ хүүе, ээ хүүе… сугхийн! Эцэст нь том манжин сугарлаа!",vi:"Mèo gọi chuột nhắt. Cả chuột nhắt nhỏ xíu cũng cùng dô ta, dô ta… Phựt! Cuối cùng củ cải khổng lồ đã được nhổ lên!",uz:"Mushuk sichqonchani chaqirdi. Kichkina sichqoncha ham qo'shilib, hammasi birga hap-hap… Lop! Nihoyat katta sholg'om sug'urildi!",zh:"小猫叫来了小老鼠。连小老鼠也一起，嗨哟，嗨哟……噗！大萝卜终于拔出来啦！",en:"The cat called the little mouse. With even the tiny mouse, all together, heave-ho, heave-ho... POP! At last the giant turnip came up!"},
+ {art:()=>field('<rect x="70" y="150" width="190" height="16" rx="4" fill="#8C5F33"/>')+turnip(165,130,1.1)+grandpa(250,100,.85)+grandma(84,108,.9)+girl(130,124)+puppy(210,180)+cat(110,186,.6)+mouse(160,196,.7),
+  ko:"모두 함께 순무를 맛있게 나누어 먹었어요. 힘을 모으면 무엇이든 할 수 있어요.",ru:"Все вместе съели вкусную репку. Когда мы вместе — у нас всё получится!",mn:"Бүгдээрээ манжинг амттай хуваан идэв. Хүч нэгтгэвэл юуг ч хийж чадна.",vi:"Cả nhà cùng chia nhau ăn củ cải thật ngon. Khi cùng chung sức, việc gì cũng làm được.",uz:"Hammasi birga sholg'omni bo'lishib, mazza qilib yeyishdi. Kuchni birlashtirsak, hamma narsani qila olamiz.",zh:"大家一起分着吃了香香的萝卜。只要齐心协力，什么事都能做到。",en:"Everyone shared the tasty turnip together. When we work together, we can do anything."},
+ ]});
+Object.assign(V,{
+ turnip:{ko:'순무',ru:'репка',mn:'манжин',vi:'củ cải',uz:"sholg'om",zh:'萝卜',en:'turnip',bg:'#E6F0DF'},
+ grandpa:{ko:'할아버지',ru:'дедушка',mn:'өвөө',vi:'ông',uz:'bobo',zh:'爷爷',en:'grandpa',bg:'#FCE8D4'},
+ mouse:{ko:'생쥐',ru:'мышка',mn:'хулгана',vi:'chuột nhắt',uz:'sichqoncha',zh:'小老鼠',en:'mouse',bg:'#F3E9DC'},
+});
+Object.assign(ICON,{
+ turnip:[()=>turnip(0,0,1.2),'-40 -76 80 128'],
+ grandpa:[()=>grandpa(0,0),'-30 -26 60 94'],
+ mouse:[()=>mouse(0,0,1.4),'-34 -28 82 50'],
+});
+PW.turnip=[['grandpa','turnip'],['turnip'],['grandpa','turnip'],['grandma'],['grandma'],['puppy','cat'],['mouse'],['turnip']];
+
 /** Culture comparison card shown after a culture story, keyed by story id. img = picture prefix under images/culture/. */
 export const CULTURE={
 seollal:{img:'',lead:'의 새해는 어떨까요?',askKo:'우리 집은 새해를 어떻게 보내요? 엄마 아빠에게 물어봐요!',ask:{ru:'Как встречают Новый год в нашей семье? Спроси у мамы и папы!',mn:'Манай гэр бүл шинэ жилийг яаж угтдаг вэ? Ээж ааваасаа асуугаарай!',vi:'Nhà mình đón năm mới thế nào? Hãy hỏi bố mẹ nhé!',uz:"Bizning oilamiz Yangi yilni qanday kutib oladi? Ota-onangdan so'ra!",zh:'我们家怎么过新年？去问问爸爸妈妈吧！',en:'How does your family celebrate New Year? Ask your mom and dad!'},cards:{
@@ -271,6 +305,7 @@ const PHRASES={
  seollal:[['설날 아침','seollal'],['고운 한복','hanbok'],['새해 복 많이 받으세요','grandma'],['복주머니를 주셨어요','pouch'],['떡국을 먹었어요','tteokguk'],['윷놀이를 했어요','yut']],
  firstday:[['안녕하세요','teacher'],['제 이름은 민호예요','friend'],['같이 놀자','friend'],['화장실 가고 싶어요','toilet'],['잘 먹겠습니다','rice'],['도와주세요','teacher']],
  chuseok:[['추석이에요','family'],['송편을 빚었어요','songpyeon'],['감을 땄어요','persimmon'],['둥근 보름달','moon'],['소원을 빌었어요','moon'],['우리 가족','family']],
+ turnip:[['커다란 순무','turnip'],['할아버지가 심었어요','grandpa'],['영차 영차','turnip'],['할머니를 불렀어요','grandma'],['작은 생쥐','mouse'],['모두 함께 먹었어요','turnip']],
  axe:[['착한 나무꾼','woodcutter'],['도끼가 빠졌어요','axe'],['금도끼 은도끼','gold'],['제 도끼예요','axe'],['욕심쟁이 이웃','axe'],['정직한 마음','woodcutter']],
 };
 STORIES.forEach(s=>{if(PHRASES[s.id])s.phrases=PHRASES[s.id].map(([ko,w])=>({ko,w}));});
