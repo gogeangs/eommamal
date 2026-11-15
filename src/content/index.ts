@@ -25,7 +25,7 @@ export function findStory(id: string): Story {
 
 let KO_TO_ID: Record<string, string> = {};
 /** Text that must never be split into vocabulary words (character names etc.). */
-export const NOT_WORDS: string[] = ['나비', '조금', '비추', '비춰', '달려', '달아', '달콤', '살금', '새해', '해요', '해 주'];
+export const NOT_WORDS: string[] = ['나비', '조금', '비추', '비춰', '달려', '달아', '달콤', '살금', '새해', '해요', '해 주', '해져', '말했', '말하', '말았', '거짓말'];
 let KO_RE = /$^/g;
 const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
