@@ -46,6 +46,11 @@ const SUBS: Record<string, Record<LangId, string>> = {
     vi: 'Hai anh em trở thành Mặt Trời và Mặt Trăng', uz: "Quyosh va Oyga aylangan aka-singil",
     zh: '变成太阳和月亮的兄妹俩', en: 'The brother and sister who became the Sun and the Moon',
   },
+  arrows: {
+    ru: 'Монгольская легенда: вместе мы сильнее', mn: 'Монголын домог: эв нэгдвэл хүчтэй',
+    vi: 'Truyền thuyết Mông Cổ: đoàn kết thì mạnh hơn', uz: "Mo'g'ul afsonasi: birlikda kuch bor",
+    zh: '蒙古传说：团结起来力量大', en: 'A Mongolian legend: together we are stronger',
+  },
 };
 
 /** Category names that already appear as a tag; dropped from a Korean fallback line ("… · 한국 전래 동화"). */

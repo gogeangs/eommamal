@@ -93,7 +93,7 @@ export const WORD_ART: Record<string, string> = {
 };
 
 /** Word pairs whose pictures look alike; the word game never offers one as a wrong choice for the other. */
-const LOOKALIKE: [string, string][] = [['sky', 'rainbow'], ['night', 'star'], ['rice', 'tteokguk'], ['moon', 'night'], ['tteok', 'songpyeon'], ['tteok', 'tteokguk'], ['sun', 'sky']];
+const LOOKALIKE: [string, string][] = [['sky', 'rainbow'], ['night', 'star'], ['rice', 'tteokguk'], ['moon', 'night'], ['tteok', 'songpyeon'], ['tteok', 'tteokguk'], ['sun', 'sky'], ['mom', 'family'], ['mom', 'teacher']];
 export const looksAlike = (a: string, b: string) =>
   LOOKALIKE.some(([x, y]) => (x === a && y === b) || (x === b && y === a));
 

@@ -1,6 +1,6 @@
 // Story, vocabulary and culture content. Text in every supported language lives here.
 /* eslint-disable */
-import {tiger,sun,rope,tteok,cottage,field,turnip,grandpa,mouse,fullMoon,songpyeon,persimmon,persimmonTree,dad,classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
+import {steppe,gerIn,ger,horse,arrow,brokenArrow,bundle,sons,tiger,sun,rope,tteok,cottage,field,turnip,grandpa,mouse,fullMoon,songpyeon,persimmon,persimmonTree,dad,classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
 
 export const LANGS=[
  {id:'ru',name:'Русский',ko:'러시아어',tts:'ru-RU'},
@@ -333,6 +333,42 @@ chuseok:{img:'chuseok-',lead:'의 가을은 어떨까요?',askKo:'우리 집은 
 };
 
 
+/* ---------- 다섯 개의 화살 — a Mongolian legend (the mother's lesson of the five arrows, public domain). Second "story from Mom's country". Arrows have no sharp heads in the pictures. Translations are drafts for native review. ---------- */
+STORIES.push({id:'arrows',origin:'mn',
+ title:{ko:'다섯 개의 화살',ru:'Пять стрел',mn:'Таван сум',vi:'Năm mũi tên',uz:"Besh o'q",zh:'五支箭',en:'The Five Arrows'},
+ sub:'몽골 옛이야기 · 함께하면 더 강해져요',
+ pages:[
+ {art:()=>steppe()+ger(210,140,1.2)+horse(70,150,.8)+horse(120,162,.7,'#6B4A33')+mom(160,96,.8),
+  ko:"옛날 옛날, 넓고 넓은 초원에 엄마와 다섯 아들이 살았어요. 하얀 게르 옆에서는 말들이 풀을 먹었어요.",ru:"Давным-давно в широкой-широкой степи жили мама и пять сыновей. Возле белой юрты паслись лошади.",mn:"Эрт урьд цагт уудам их талд нэгэн ээж таван хүүтэйгээ амьдардаг байжээ. Цагаан гэрийн дэргэд адуу бэлчиж байв.",vi:"Ngày xửa ngày xưa, trên thảo nguyên rộng mênh mông, có một người mẹ sống cùng năm người con trai. Bên chiếc lều ger trắng, đàn ngựa đang gặm cỏ.",uz:"Qadim zamonda keng-keng dashtda bir ona besh o'g'li bilan yashar ekan. Oppoq o'tov yonida otlar o'tlab yurardi.",zh:"很久很久以前，在辽阔的大草原上，住着一位妈妈和她的五个儿子。白色的蒙古包旁边，马儿正在吃草。",en:"Long, long ago, on a wide, wide grassland, a mother lived with her five sons. Horses grazed beside their white ger."},
+ {art:()=>steppe()+horse(260,150,.8)+sons(60,96,40,.85),
+  ko:"다섯 형제는 자주 다투었어요. \"내가 말을 제일 잘 타!\" \"아니야, 내가 제일 세!\"",ru:"Пятеро братьев часто ссорились. «Я лучше всех езжу на коне!» — «Нет, я сильнее всех!»",mn:"Таван ах дүү байнга маргалддаг байв. «Би хамгийн сайн морь унана!» «Үгүй ээ, би хамгийн хүчтэй!»",vi:"Năm anh em hay cãi nhau. \"Tớ cưỡi ngựa giỏi nhất!\" \"Không, tớ khỏe nhất!\"",uz:"Besh aka-uka tez-tez urishib qolardi. \"Men otni hammadan yaxshi minaman!\" \"Yo'q, men hammadan kuchliman!\"",zh:"五兄弟常常吵架。\"我骑马骑得最好！\"\"不对，我力气最大！\"",en:"The five brothers often quarreled. \"I ride a horse the best!\" \"No, I'm the strongest!\""},
+ {art:()=>gerIn()+mom(70,110,.9)+arrow(110,140,.6,-30)+sons(130,106,36,.8),
+  ko:"어느 날, 엄마가 다섯 아들을 게르 안으로 불렀어요. 그리고 화살을 한 개씩 나누어 주었어요.",ru:"Однажды мама позвала пятерых сыновей в юрту и дала каждому по одной стреле.",mn:"Нэг өдөр ээж таван хүүгээ гэртээ дуудаж, хүү бүрт нэг нэг сум өгөв.",vi:"Một hôm, mẹ gọi năm người con vào trong lều ger và đưa cho mỗi người một mũi tên.",uz:"Bir kuni ona besh o'g'lini o'tovga chaqirdi va har biriga bittadan o'q berdi.",zh:"有一天，妈妈把五个儿子叫进蒙古包，给每人一支箭。",en:"One day, Mom called her five sons into the ger and gave each of them one arrow."},
+ {art:()=>gerIn()+mom(50,110,.85)+sons(100,106,44,.8)+[0,1,2,3,4].map(i=>brokenArrow(100+i*44,100+i*3,.7)).join(''),
+  ko:"\"화살을 부러뜨려 보렴.\" 똑! 똑! 형제들은 화살을 쉽게 부러뜨렸어요.",ru:"«Попробуйте сломать стрелу». Щёлк! Щёлк! Братья легко сломали стрелы.",mn:"«Сумаа хугалаад үз дээ». Хахт! Хахт! Ах дүүс сумаа амархан хугалжээ.",vi:"\"Các con thử bẻ mũi tên xem.\" Rắc! Rắc! Năm anh em bẻ gãy mũi tên thật dễ dàng.",uz:"\"O'qni sindirib ko'ringlar-chi.\" Qars! Qars! Aka-ukalar o'qlarni oson sindirishdi.",zh:"\"试着把箭折断吧。\"咔！咔！兄弟们很容易就把箭折断了。",en:"\"Try to break your arrow.\" Snap! Snap! The brothers broke their arrows easily."},
+ {art:()=>gerIn()+mom(110,110)+bundle(160,128,1.1)+sons(190,112,26,.7),
+  ko:"이번에는 엄마가 화살 다섯 개를 끈으로 꽁꽁 묶었어요. \"이것도 부러뜨려 보렴.\"",ru:"Тогда мама крепко связала пять стрел верёвкой. «А теперь попробуйте сломать это».",mn:"Дараа нь ээж таван сумыг олсоор чанга боов. «Энийг бас хугалаад үз дээ».",vi:"Lần này, mẹ lấy dây buộc chặt năm mũi tên lại với nhau. \"Các con thử bẻ bó này xem.\"",uz:"Endi ona besh o'qni arqon bilan mahkam bog'ladi. \"Buni ham sindirib ko'ringlar-chi.\"",zh:"这一次，妈妈用绳子把五支箭紧紧地捆在一起。\"再试试把这个折断吧。\"",en:"This time, Mom tied five arrows tightly together with a string. \"Now try to break this.\""},
+ {art:()=>gerIn()+sons(70,106,46,.85)+bundle(160,96,1.2,-8),
+  ko:"첫째도, 둘째도, 막내도 힘껏 애썼어요. 끙끙! 그래도 화살 묶음은 부러지지 않았어요.",ru:"И старший, и средний, и младший старались изо всех сил. Ух! Но связка стрел не сломалась.",mn:"Ах нь ч, дунд нь ч, отгон нь ч бүх хүчээрээ оролдов. Ыхх! Гэвч боосон сум хугарсангүй.",vi:"Anh cả, anh hai, rồi cả em út đều cố hết sức. Hự hự! Nhưng bó tên vẫn không gãy.",uz:"Kattasi ham, o'rtanchasi ham, kenjasi ham bor kuchi bilan urindi. Ih-ih! Ammo bog'langan o'qlar sinmadi.",zh:"老大、老二，连最小的弟弟都用尽了力气。嗯——！可是那捆箭怎么也折不断。",en:"The oldest, the second, even the youngest tried with all their might. Ugh! But the bundle of arrows would not break."},
+ {art:()=>gerIn()+mom(90,104)+bundle(90,170,.9)+sons(150,108,32,.75),
+  ko:"엄마가 웃으며 말했어요. \"화살 하나는 쉽게 부러져. 하지만 함께 묶인 화살은 아무도 꺾을 수 없단다.\"",ru:"Мама улыбнулась и сказала: «Одну стрелу сломать легко. А стрелы, связанные вместе, не сломает никто».",mn:"Ээж инээмсэглэн хэлэв: «Ганц сумыг амархан хугалж болно. Харин хамт боосон сумыг хэн ч хугалж чадахгүй».",vi:"Mẹ mỉm cười nói: \"Một mũi tên thì dễ gãy. Nhưng những mũi tên buộc cùng nhau thì không ai bẻ gãy được.\"",uz:"Ona jilmayib dedi: \"Bitta o'qni sindirish oson. Ammo birga bog'langan o'qlarni hech kim sindira olmaydi.\"",zh:"妈妈笑着说：\"一支箭很容易折断，可是捆在一起的箭，谁也折不断。\"",en:"Mom smiled and said, \"One arrow breaks easily. But arrows tied together, no one can break.\""},
+ {art:()=>steppe()+ger(266,140,.9)+mom(40,104,.8)+sons(80,104,36,.8)+horse(150,186,.6),
+  ko:"그날부터 다섯 형제는 서로 돕고 사이좋게 지냈어요. 함께하면 우리는 더 강해져요.",ru:"С того дня пятеро братьев помогали друг другу и жили дружно. Вместе мы сильнее!",mn:"Тэр өдрөөс хойш таван ах дүү бие биедээ тусалж, эв найртай амьдарчээ. Хамтдаа бид илүү хүчтэй.",vi:"Từ hôm đó, năm anh em giúp đỡ nhau và sống hòa thuận. Khi ở bên nhau, chúng ta mạnh mẽ hơn.",uz:"O'sha kundan boshlab besh aka-uka bir-biriga yordam berib, ahil yashashdi. Birga bo'lsak, biz kuchliroqmiz.",zh:"从那天起，五兄弟互相帮助，相亲相爱。只要在一起，我们就更强大。",en:"From that day on, the five brothers helped each other and got along well. Together, we are stronger."},
+ ]});
+Object.assign(V,{
+ arrow:{ko:'화살',ru:'стрела',mn:'сум',vi:'mũi tên',uz:"o'q",zh:'箭',en:'arrow',bg:'#FFF1C7'},
+ ger:{ko:'게르',ru:'юрта',mn:'гэр',vi:'lều ger',uz:"o'tov",zh:'蒙古包',en:'ger',bg:'#EAF2F7'},
+ horse:{ko:'말',ru:'лошадь',mn:'морь',vi:'ngựa',uz:'ot',zh:'马',en:'horse',bg:'#E6F0DF'},
+ mom:{ko:'엄마',ru:'мама',mn:'ээж',vi:'mẹ',uz:'ona',zh:'妈妈',en:'mom',bg:'#FCE8D4'},
+});
+Object.assign(ICON,{
+ arrow:[()=>arrow(0,0,1.4,-35),'-48 -40 96 80'],
+ ger:[()=>ger(0,0,1),'-50 -54 100 60'],
+ horse:[()=>horse(0,0,1),'-40 -36 86 70'],
+ mom:[()=>mom(0,0),'-30 -26 60 94'],
+});
+PW.arrows=[['ger','horse'],['horse'],['mom','ger'],['arrow'],['mom','arrow'],['arrow'],['mom','arrow'],['family']];
+
 // Finished illustrations (public/images/stories). Pages without one fall back to the drawn SVG.
 /* Short phrases for sentence dictation (stage 2). w = the picture shown as a hint. */
 const PHRASES={
@@ -343,6 +379,7 @@ const PHRASES={
  chuseok:[['추석이에요','family'],['송편을 빚었어요','songpyeon'],['감을 땄어요','persimmon'],['둥근 보름달','moon'],['소원을 빌었어요','moon'],['우리 가족','family']],
  turnip:[['커다란 순무','turnip'],['할아버지가 심었어요','grandpa'],['영차 영차','turnip'],['할머니를 불렀어요','grandma'],['작은 생쥐','mouse'],['모두 함께 먹었어요','turnip']],
  sunmoon:[['떡 하나 주면 안 잡아먹지','tteok'],['문 열어라','tiger'],['손을 보여 주세요','tiger'],['튼튼한 동아줄','rope'],['썩은 동아줄','rope'],['해님과 달님','sun']],
+ arrows:[['다섯 개의 화살','arrow'],['초원의 게르','ger'],['엄마가 불렀어요','mom'],['화살이 부러졌어요','arrow'],['함께 묶은 화살','arrow'],['사이좋은 형제','family']],
  axe:[['착한 나무꾼','woodcutter'],['도끼가 빠졌어요','axe'],['금도끼 은도끼','gold'],['제 도끼예요','axe'],['욕심쟁이 이웃','axe'],['정직한 마음','woodcutter']],
 };
 STORIES.forEach(s=>{if(PHRASES[s.id])s.phrases=PHRASES[s.id].map(([ko,w])=>({ko,w}));});
