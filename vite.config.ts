@@ -30,8 +30,13 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,png,svg,webp,woff2,ttf,json}'],
         // The server code is only downloaded when the app is built with a Firebase project.
-        globIgnores: process.env.VITE_FIREBASE_API_KEY ? [] : ['**/firebaseBackend-*.js'],
+        globIgnores: ['**/audio/**/*.mp3', ...(process.env.VITE_FIREBASE_API_KEY ? [] : ['**/firebaseBackend-*.js'])],
         runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.origin === self.location.origin && /\/audio\/(ko|ru|mn|vi|uz|zh|en)\/[^/]+\.mp3$/.test(url.pathname),
+            handler: 'CacheFirst',
+            options: { cacheName: 'eommamal-recorded-audio-v1', cacheableResponse: { statuses: [200] }, expiration: { maxEntries: 1200, maxAgeSeconds: 60 * 60 * 24 * 365, purgeOnQuotaError: true } },
+          },
           {
             urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/,
             handler: 'CacheFirst',
