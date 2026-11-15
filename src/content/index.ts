@@ -90,7 +90,7 @@ export const WORD_ART: Record<string, string> = {
   moon: '#E2E6F2', songpyeon: '#E6F0DF', persimmon: '#FFF1C7', family: '#FCE8D4',
   turnip: '#E6F0DF', grandpa: '#FCE8D4', mouse: '#F3E9DC',
   tiger: '#FFF1C7', tteok: '#FCE8D4', rope: '#F3E9DC', sun: '#EAF2F7',
-  arrow: '#FFF1C7',
+  arrow: '#FFF1C7', ger: '#EAF2F7',
 };
 
 /** Word pairs whose pictures look alike; the word game never offers one as a wrong choice for the other. */
