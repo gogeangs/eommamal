@@ -16,3 +16,4 @@ jobs:
       - run: npm run build
 
       - run: node scripts/audio/generate.mjs --dry-run --scope=full --languages=all
+      - run: node scripts/audio/test-speech.mjs
