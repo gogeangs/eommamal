@@ -22,10 +22,9 @@
    - **규칙** 탭에 저장소의 `firestore.rules` 내용을 붙여 넣고 **게시**
 4. **프로젝트 설정(톱니바퀴) → 일반 → 내 앱 → 웹 앱 추가(</>)** → 이름 `eommamal-web` (호스팅 체크 안 함)
    - 나오는 `firebaseConfig`의 `apiKey`, `authDomain`, `projectId`, `appId` 를 복사
-5. GitHub 저장소 → **Settings → Secrets and variables → Actions → Variables** 에 4개 추가
-   - `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`
-   - 공개돼도 되는 값이에요. 데이터는 보안 규칙(`firestore.rules`)이 가족별로 막아요.
-6. **Actions → Deploy to GitHub Pages → Run workflow** 로 다시 배포하면 로그인 메뉴가 나타나요.
+5. 그 값은 `.github/workflows/deploy.yml` 에 기본값으로 들어 있어요(공개돼도 되는 값이고, 데이터는 `firestore.rules` 가 가족별로 막아요). 다른 프로젝트로 바꿀 때만 GitHub → Settings → Secrets and variables → Actions → Variables 에 같은 이름(`VITE_FIREBASE_API_KEY` 등)으로 넣으면 그 값이 우선해요.
+
+> **현재 상태 (2026-11-15)**: 위 1~4 완료. 프로젝트 `eommamal`, Firestore 서울(asia-northeast3), 규칙 게시됨, 웹 앱 `eommamal-web` 등록됨.
 
 ## 관리자·검수자 지정
 앱에서 한 번 로그인한 뒤, Firebase 콘솔에서:

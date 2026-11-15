@@ -23,11 +23,12 @@ jobs:
       - run: npm run build
         env:
           BASE_PATH: /eommamal/
-          # Set in GitHub → Settings → Secrets and variables → Actions → Variables. Empty = device-only app.
-          VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY }}
-          VITE_FIREBASE_AUTH_DOMAIN: ${{ vars.VITE_FIREBASE_AUTH_DOMAIN }}
-          VITE_FIREBASE_PROJECT_ID: ${{ vars.VITE_FIREBASE_PROJECT_ID }}
-          VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}
+          # Firebase web config: public by design (it ships in the site's JS); Firestore rules protect the data.
+          # A repository variable with the same name overrides it.
+          VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY || 'AIzaSyA9kmo9k9ylNaTa7HEu9oWsQeHQR611E_I' }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ vars.VITE_FIREBASE_AUTH_DOMAIN || 'eommamal.firebaseapp.com' }}
+          VITE_FIREBASE_PROJECT_ID: ${{ vars.VITE_FIREBASE_PROJECT_ID || 'eommamal' }}
+          VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID || '1:939321811863:web:b2968278b838fc26d45ad2' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

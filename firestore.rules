@@ -42,7 +42,6 @@ service cloud.firestore {
     match /content/{id} {
       allow read: if true;
       allow write: if isAdmin();
-      allow create: if isReviewer() && request.resource.data.keys().hasOnly(['version', 'stories', 'words', 'text', 'review']);
       allow update: if isReviewer()
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'review', 'updated'])
         && request.resource.data.get('text', {}).diff(resource.data.get('text', {})).affectedKeys().hasOnly(reviewer().langs)
