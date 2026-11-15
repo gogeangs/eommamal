@@ -8,6 +8,13 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { store, type SubStatus } from './billing';
 import { CHANGE_EVENT, RELOAD_EVENT } from './progress';
 
+/**
+ * Paid plan switch. While false, there is no trial, no daily limit and no subscription anywhere in the app:
+ * every story is open and no price or subscribe button is shown. The code stays ready for later.
+ * (For testing the paid screens: ?plan=trial|free|sub on the URL still forces a state.)
+ */
+export const PAYMENTS_ENABLED = false;
+
 export const TRIAL_DAYS = 30;
 export const DAILY_STORIES = 2;
 
@@ -32,7 +39,8 @@ function forced(): 'trial' | 'free' | 'sub' | null {
   return v === 'trial' || v === 'free' || v === 'sub' ? v : null;
 }
 
-export type PlanState = 'trial' | 'free' | 'sub';
+/** 'open' = payments switched off: everything free, nothing about plans is shown. */
+export type PlanState = 'open' | 'trial' | 'free' | 'sub';
 
 interface Ctx {
   state: PlanState;
@@ -96,7 +104,7 @@ export function PlanProvider({ children }: { children: ReactNode }) {
 
   const f = forced();
   const dayIndex = dayNumber(today) - dayNumber(first); // 0 on the first day
-  const state: PlanState = f ?? (sub.active ? 'sub' : dayIndex < TRIAL_DAYS ? 'trial' : 'free');
+  const state: PlanState = f ?? (!PAYMENTS_ENABLED ? 'open' : sub.active ? 'sub' : dayIndex < TRIAL_DAYS ? 'trial' : 'free');
   const trialLeft = Math.max(0, TRIAL_DAYS - dayIndex);
   const todayIds = reads.day === today ? reads.ids : [];
   const todayLeft = Math.max(0, DAILY_STORIES - todayIds.length);

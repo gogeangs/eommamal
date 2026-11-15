@@ -65,6 +65,7 @@ export function SubscribePanel() {
   const plan = usePlan();
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
+  if (plan.state === 'open') return null;
   const L = (k: Key, n = 0) => planText(p.lang, k, n);
 
   if (plan.state === 'sub') {
@@ -135,7 +136,7 @@ export function ReadLimit() {
 export function PlanStatus() {
   const { p } = useProgress();
   const plan = usePlan();
-  if (plan.state === 'sub') return null;
+  if (plan.state === 'sub' || plan.state === 'open') return null;
   const t = plan.state === 'trial' ? planText(p.lang, 'trialLeft', plan.trialLeft) : planText(p.lang, 'todayLeft', plan.todayLeft);
   return (
     <p className={`plan-status ${plan.state}`}>
@@ -148,6 +149,7 @@ export function PlanStatus() {
 export function GatedSubscribe() {
   const plan = usePlan();
   const [open, setOpen] = useState(false);
+  if (plan.state === 'open') return null;
   if (plan.state === 'sub' || open) return <SubscribePanel />;
   return <GateThen onPass={() => setOpen(true)} />;
 }
