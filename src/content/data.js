@@ -1,6 +1,6 @@
 // Story, vocabulary and culture content. Text in every supported language lives here.
 /* eslint-disable */
-import {field,turnip,grandpa,mouse,fullMoon,songpyeon,persimmon,persimmonTree,dad,classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
+import {tiger,sun,rope,tteok,cottage,field,turnip,grandpa,mouse,fullMoon,songpyeon,persimmon,persimmonTree,dad,classroom,ari,teacher,mom,door,toilet,shoes,blocks,mountain,axe,pond,woodcutter,spirit,neighbor,star,twinkles,night,hill,cat,glow,owl,rainBg,umbrella,girl,puppy,frog,bird,rainbow,tree,room,hanbokGirl,grandma,pouch,bowl,yut,yard,globe} from './art.js';
 
 export const LANGS=[
  {id:'ru',name:'Русский',ko:'러시아어',tts:'ru-RU'},
@@ -276,6 +276,42 @@ Object.assign(ICON,{
 });
 PW.turnip=[['grandpa','turnip'],['turnip'],['grandpa','turnip'],['grandma'],['grandma'],['puppy','cat'],['mouse'],['turnip']];
 
+/* ---------- 해님 달님 — Korean folk tale (public domain), told gently: Mom gets away safely, the tiger only takes a tumble. Translations are drafts for native review. ---------- */
+STORIES.push({id:'sunmoon',folk:true,
+ title:{ko:'해님 달님',ru:'Солнце и Луна',mn:'Нар, сар хоёр',vi:'Mặt Trời và Mặt Trăng',uz:'Quyosh va Oy',zh:'太阳和月亮',en:'The Sun and the Moon'},
+ sub:'하늘로 올라가 해와 달이 된 오누이 · 한국 전래 동화',
+ pages:[
+ {art:()=>mountain(cottage(80,150))+mom(170,110)+ari(120,128,.8)+hanbokGirl(220,128)+tteok(170,92,.7),
+  ko:"옛날 옛날 산골 마을에 엄마와 오누이가 살았어요. 엄마는 떡을 팔러 고개 너머 장에 갔어요. \"문 꼭 잠그고 기다리렴.\"",ru:"Давным-давно в горной деревне жили мама, брат и сестра. Мама пошла через перевал на рынок продавать рисовые пирожки. «Заприте дверь покрепче и ждите меня».",mn:"Эрт урьд цагт уулын тосгонд ээж, ах дүү хоёр амьдардаг байжээ. Ээж нь даваа давж зах руу будааны боов зарахаар явав. «Хаалгаа сайн түгжээд хүлээж байгаарай».",vi:"Ngày xửa ngày xưa, ở một ngôi làng trên núi có mẹ và hai anh em. Mẹ qua đèo ra chợ bán bánh gạo. \"Các con đóng chặt cửa và đợi mẹ nhé.\"",uz:"Qadim zamonda tog' qishlog'ida ona va aka-singil yashardi. Ona dovondan oshib, bozorga guruch pishiriqlarini sotgani ketdi. \"Eshikni mahkam bekitib, meni kutinglar.\"",zh:"很久很久以前，山村里住着妈妈和兄妹俩。妈妈翻过山岭，去集市卖年糕。\"把门锁好，等妈妈回来。\"",en:"Long, long ago, a mother lived in a mountain village with her son and daughter. Mom went over the hill to sell rice cakes at the market. \"Lock the door tight and wait for me.\""},
+ {art:()=>mountain()+mom(110,110)+tiger(220,150,1.2)+tteok(160,170,.6),
+  ko:"고개를 넘는데 커다란 호랑이가 나타났어요. \"떡 하나 주면 안 잡아먹지!\" 엄마는 떡을 하나, 또 하나 주었어요. 호랑이는 떡을 몽땅 먹어 버렸어요.",ru:"На перевале появился огромный тигр. «Дай пирожок — не съем!» Мама дала ему пирожок, потом ещё один. Тигр съел все пирожки до одного.",mn:"Даваан дээр том бар гарч ирэв. «Нэг боов өгвөл чамайг идэхгүй!» Ээж нэг, бас нэг боов өгөв. Бар бүх боовыг идэж дуусгав.",vi:"Vừa lên đèo thì một con hổ to xuất hiện. \"Cho ta một cái bánh thì ta không ăn thịt!\" Mẹ đưa một cái, rồi lại một cái. Con hổ ăn sạch hết bánh.",uz:"Dovonda katta yo'lbars paydo bo'ldi. \"Bitta pishiriq bersang, seni yemayman!\" Ona bitta, yana bitta berdi. Yo'lbars hamma pishiriqni yeb qo'ydi.",zh:"翻山的时候，一只大老虎出现了。\"给我一块年糕，我就不吃你！\"妈妈给了一块，又给了一块。老虎把年糕全吃光了。",en:"On the hill, a huge tiger appeared. \"Give me a rice cake and I won't eat you!\" Mom gave one, and then another. The tiger gobbled up every single rice cake."},
+ {art:()=>mountain()+tiger(200,150,1.1)+'<path d="M176 112 q14 -18 30 -2 l-6 10 q-10 -8 -20 0Z" fill="#E86A5A"/>'+mom(60,112,.8),
+  ko:"떡이 다 떨어지자 엄마는 걸음아 날 살려라 도망쳤어요. 호랑이는 엄마가 떨어뜨린 머릿수건을 쓰고 오누이네 집으로 갔어요.",ru:"Когда пирожки кончились, мама убежала со всех ног. А тигр надел платок, который она обронила, и пошёл к дому брата и сестры.",mn:"Боов дуусахад ээж хамаг чадлаараа зугтав. Бар ээжийн унагаасан алчуурыг толгойдоо боогоод ах дүү хоёрын гэр рүү явав.",vi:"Hết bánh, mẹ chạy thật nhanh thoát thân. Con hổ đội chiếc khăn mẹ đánh rơi rồi đi đến nhà hai anh em.",uz:"Pishiriqlar tugagach, ona jon holatda qochib qoldi. Yo'lbars esa ona tushirib qoldirgan ro'molni boshiga o'rab, aka-singilning uyiga yo'l oldi.",zh:"年糕没有了，妈妈拼命地逃走了。老虎戴上妈妈掉下的头巾，朝兄妹俩的家走去。",en:"When the rice cakes ran out, Mom ran away as fast as she could. The tiger put on the headscarf she dropped and headed for the children's house."},
+ {art:()=>night(cottage(160,170))+tiger(250,180,.9)+ari(110,150,.7)+hanbokGirl(70,150),
+  ko:"\"얘들아, 엄마 왔다. 문 열어라.\" 오빠가 말했어요. \"손을 먼저 보여 주세요.\" 문틈으로 들어온 손은 털이 북슬북슬했어요. \"호랑이다!\"",ru:"«Дети, мама пришла. Откройте дверь». Брат сказал: «Сначала покажи руку». В щель просунулась лапа, вся в густой шерсти. «Это тигр!»",mn:"«Хүүхдүүд ээ, ээж нь ирлээ. Хаалгаа нээ». Ах нь: «Эхлээд гараа үзүүлээч» гэв. Хаалганы завсраар орж ирсэн гар нь сэвсгэр үстэй байв. «Бар байна!»",vi:"\"Các con ơi, mẹ về rồi. Mở cửa ra.\" Người anh nói: \"Mẹ cho con xem tay trước đã.\" Bàn tay thò qua khe cửa đầy lông xù. \"Là hổ!\"",uz:"\"Bolalarim, onang keldi. Eshikni och.\" Akasi dedi: \"Avval qo'lingizni ko'rsating.\" Eshik tirqishidan kirgan qo'l yungdor ekan. \"Bu yo'lbars!\"",zh:"\"孩子们，妈妈回来了，开门吧。\"哥哥说：\"先把手给我们看看。\"从门缝伸进来的手毛茸茸的。\"是老虎！\"",en:"\"Children, Mom is home. Open the door.\" The brother said, \"Show us your hand first.\" The hand that came through the crack was thick and furry. \"It's the tiger!\""},
+ {art:()=>night()+tree()+ari(236,72,.7)+hanbokGirl(206,90)+tiger(150,184),
+  ko:"오누이는 뒷문으로 살금살금 나가 우물가의 높은 나무 위로 올라갔어요. 호랑이는 나무를 오르려다 쭈르륵 미끄러졌어요.",ru:"Брат и сестра тихонько вышли через заднюю дверь и забрались на высокое дерево у колодца. Тигр полез за ними, но с-с-скользнул вниз.",mn:"Ах дүү хоёр арын хаалгаар сэм гараад худгийн дэргэдэх өндөр модонд авирав. Бар модонд авирах гээд гулсаад унав.",vi:"Hai anh em rón rén ra cửa sau, trèo lên cây cao bên giếng. Con hổ định trèo lên nhưng trượt xuống tuột tuột.",uz:"Aka-singil orqa eshikdan sekin chiqib, quduq yonidagi baland daraxtga chiqib olishdi. Yo'lbars daraxtga tirmashmoqchi bo'ldi-yu, sirpanib tushdi.",zh:"兄妹俩从后门悄悄溜出去，爬上了井边的大树。老虎想往上爬，却哧溜一下滑了下来。",en:"The children crept out the back door and climbed a tall tree by the well. The tiger tried to climb up, but slid right back down."},
+ {art:()=>night()+tree()+rope(236,0,60)+ari(236,72,.7)+hanbokGirl(206,90)+tiger(150,184),
+  ko:"오누이는 하늘에 빌었어요. \"저희를 살려 주시려면 튼튼한 동아줄을 내려 주세요.\" 그러자 하늘에서 새 동아줄이 스르르 내려왔어요.",ru:"Брат и сестра попросили небо: «Если хочешь нас спасти, спусти нам крепкую верёвку». И с неба тихо спустилась новая верёвка.",mn:"Ах дүү хоёр тэнгэрт залбирав. «Биднийг аврах гэвэл бат бөх олс буулгаж өгөөч». Тэгтэл тэнгэрээс шинэ олс аяархан буув.",vi:"Hai anh em cầu xin trời: \"Nếu trời muốn cứu chúng con, xin thả xuống một sợi dây thật chắc.\" Thế là từ trên trời, một sợi dây mới từ từ thả xuống.",uz:"Aka-singil osmonga iltijo qilishdi: \"Bizni qutqarmoqchi bo'lsangiz, mustahkam arqon tushiring.\" Shunda osmondan yangi arqon sekin tushib keldi.",zh:"兄妹俩向天空祈求：\"如果要救我们，请放下一根结实的绳子吧。\"于是，天上慢慢垂下了一根新绳子。",en:"The children prayed to the sky. \"If you will save us, please send down a strong rope.\" Then a new rope slowly came down from the sky."},
+ {art:()=>night(hill('#3B4A2E'))+rope(150,0,70,true)+tiger(160,170),
+  ko:"호랑이도 똑같이 빌었어요. 그런데 호랑이에게 내려온 것은 썩은 동아줄이었어요. 툭! 호랑이는 수수밭에 쿵 엉덩방아를 찧고 멀리 달아났어요.",ru:"Тигр тоже попросил. Но ему спустилась гнилая верёвка. Хрусь! Тигр плюхнулся в поле сорго и убежал далеко-далеко.",mn:"Бар ч бас адилхан залбирав. Гэтэл барт ялзарсан олс буужээ. Тас! Бар шар будааны талбайд пид унаад хол зугтав.",vi:"Con hổ cũng cầu xin y như thế. Nhưng sợi dây thả xuống cho hổ lại là dây mục. Phựt! Hổ ngã phịch xuống ruộng cao lương rồi bỏ chạy thật xa.",uz:"Yo'lbars ham xuddi shunday iltijo qildi. Ammo unga chirigan arqon tushdi. Tars! Yo'lbars jo'xori dalasiga gup etib tushdi-da, uzoqqa qochib ketdi.",zh:"老虎也照样祈求。可是放给老虎的是一根烂绳子。啪！老虎一屁股摔进了高粱地，远远地逃走了。",en:"The tiger prayed the same way. But the rope that came down for the tiger was rotten. Snap! The tiger landed bump on its bottom in the sorghum field and ran far away."},
+ {art:()=>'<rect width="320" height="220" fill="#CFE6F2"/><rect x="160" width="160" height="220" fill="#1E2A4A"/>'+sun(80,60)+fullMoon(240,60,22)+cottage(160,190)+mom(160,150,.7),
+  ko:"하늘로 올라간 오누이는 해님과 달님이 되었어요. 밤이 무서운 누이는 해님이, 오빠는 달님이 되었지요. 해님과 달님은 날마다 엄마를 환하게 비춰 주었어요.",ru:"Брат и сестра поднялись на небо и стали Солнцем и Луной. Сестра боялась темноты и стала Солнцем, а брат — Луной. Каждый день и каждую ночь они ласково светят маме.",mn:"Тэнгэрт гарсан ах дүү хоёр нар, сар болжээ. Харанхуйгаас айдаг дүү нь нар, ах нь сар болов. Нар, сар хоёр өдөр бүр ээжийгээ гэрэлтүүлдэг.",vi:"Lên trời, hai anh em trở thành Mặt Trời và Mặt Trăng. Cô em sợ bóng tối nên làm Mặt Trời, còn người anh làm Mặt Trăng. Ngày nào Mặt Trời và Mặt Trăng cũng soi sáng cho mẹ.",uz:"Osmonga chiqqan aka-singil Quyosh va Oyga aylanishdi. Qorong'ulikdan qo'rqadigan singil Quyosh, akasi esa Oy bo'ldi. Quyosh va Oy har kuni onasini yoritib turadi.",zh:"兄妹俩升上天空，变成了太阳和月亮。怕黑的妹妹变成了太阳，哥哥变成了月亮。太阳和月亮每天都把妈妈照得亮亮的。",en:"Up in the sky, the brother and sister became the Sun and the Moon. The sister, who was afraid of the dark, became the Sun, and the brother became the Moon. Every day and every night, they shine brightly on Mom."},
+ ]});
+Object.assign(V,{
+ tiger:{ko:'호랑이',ru:'тигр',mn:'бар',vi:'con hổ',uz:"yo'lbars",zh:'老虎',en:'tiger',bg:'#FFF1C7'},
+ tteok:{ko:'떡',ru:'рисовый пирожок',mn:'будааны боов',vi:'bánh gạo',uz:'guruch pishirig‘i',zh:'年糕',en:'rice cake',bg:'#FCE8D4'},
+ rope:{ko:'동아줄',ru:'верёвка',mn:'олс',vi:'sợi dây',uz:'arqon',zh:'绳子',en:'rope',bg:'#F3E9DC'},
+ sun:{ko:'해',ru:'солнце',mn:'нар',vi:'mặt trời',uz:'quyosh',zh:'太阳',en:'sun',bg:'#EAF2F7'},
+});
+Object.assign(ICON,{
+ tiger:[()=>tiger(0,0),'-48 -38 98 72'],
+ tteok:[()=>tteok(0,0,1.3),'-34 -22 68 42'],
+ rope:[()=>rope(0,-40,80),'-20 -44 40 90'],
+ sun:[()=>sun(0,0),'-38 -38 76 76'],
+});
+PW.sunmoon=[['tteok'],['tiger','tteok'],['tiger'],['tiger'],['tree','tiger'],['rope','sky'],['tiger','rope'],['sun','moon']];
+
 /** Culture comparison card shown after a culture story, keyed by story id. img = picture prefix under images/culture/. */
 export const CULTURE={
 seollal:{img:'',lead:'의 새해는 어떨까요?',askKo:'우리 집은 새해를 어떻게 보내요? 엄마 아빠에게 물어봐요!',ask:{ru:'Как встречают Новый год в нашей семье? Спроси у мамы и папы!',mn:'Манай гэр бүл шинэ жилийг яаж угтдаг вэ? Ээж ааваасаа асуугаарай!',vi:'Nhà mình đón năm mới thế nào? Hãy hỏi bố mẹ nhé!',uz:"Bizning oilamiz Yangi yilni qanday kutib oladi? Ota-onangdan so'ra!",zh:'我们家怎么过新年？去问问爸爸妈妈吧！',en:'How does your family celebrate New Year? Ask your mom and dad!'},cards:{
@@ -306,6 +342,7 @@ const PHRASES={
  firstday:[['안녕하세요','teacher'],['제 이름은 민호예요','friend'],['같이 놀자','friend'],['화장실 가고 싶어요','toilet'],['잘 먹겠습니다','rice'],['도와주세요','teacher']],
  chuseok:[['추석이에요','family'],['송편을 빚었어요','songpyeon'],['감을 땄어요','persimmon'],['둥근 보름달','moon'],['소원을 빌었어요','moon'],['우리 가족','family']],
  turnip:[['커다란 순무','turnip'],['할아버지가 심었어요','grandpa'],['영차 영차','turnip'],['할머니를 불렀어요','grandma'],['작은 생쥐','mouse'],['모두 함께 먹었어요','turnip']],
+ sunmoon:[['떡 하나 주면 안 잡아먹지','tteok'],['문 열어라','tiger'],['손을 보여 주세요','tiger'],['튼튼한 동아줄','rope'],['썩은 동아줄','rope'],['해님과 달님','sun']],
  axe:[['착한 나무꾼','woodcutter'],['도끼가 빠졌어요','axe'],['금도끼 은도끼','gold'],['제 도끼예요','axe'],['욕심쟁이 이웃','axe'],['정직한 마음','woodcutter']],
 };
 STORIES.forEach(s=>{if(PHRASES[s.id])s.phrases=PHRASES[s.id].map(([ko,w])=>({ko,w}));});

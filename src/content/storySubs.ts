@@ -41,6 +41,11 @@ const SUBS: Record<string, Record<LangId, string>> = {
     vi: 'Truyện cổ Nga: cùng chung sức thì việc gì cũng làm được', uz: "Rus xalq ertagi: birgalikda hamma narsani qila olamiz",
     zh: '俄罗斯民间故事：齐心协力，什么都能做到', en: 'A Russian folk tale: together we can do anything',
   },
+  sunmoon: {
+    ru: 'Брат и сестра, которые стали Солнцем и Луной', mn: 'Нар, сар болсон ах дүү хоёр',
+    vi: 'Hai anh em trở thành Mặt Trời và Mặt Trăng', uz: "Quyosh va Oyga aylangan aka-singil",
+    zh: '变成太阳和月亮的兄妹俩', en: 'The brother and sister who became the Sun and the Moon',
+  },
 };
 
 /** Category names that already appear as a tag; dropped from a Korean fallback line ("… · 한국 전래 동화"). */

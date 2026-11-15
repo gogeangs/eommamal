@@ -25,7 +25,7 @@ export function findStory(id: string): Story {
 
 let KO_TO_ID: Record<string, string> = {};
 /** Text that must never be split into vocabulary words (character names etc.). */
-export const NOT_WORDS: string[] = ['나비', '조금', '비추', '비춰', '달려'];
+export const NOT_WORDS: string[] = ['나비', '조금', '비추', '비춰', '달려', '달아', '달콤', '살금', '새해', '해요', '해 주'];
 let KO_RE = /$^/g;
 const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -92,7 +92,7 @@ export const WORD_ART: Record<string, string> = {
 };
 
 /** Word pairs whose pictures look alike; the word game never offers one as a wrong choice for the other. */
-const LOOKALIKE: [string, string][] = [['sky', 'rainbow'], ['night', 'star'], ['rice', 'tteokguk'], ['moon', 'night']];
+const LOOKALIKE: [string, string][] = [['sky', 'rainbow'], ['night', 'star'], ['rice', 'tteokguk'], ['moon', 'night'], ['tteok', 'songpyeon'], ['tteok', 'tteokguk'], ['sun', 'sky']];
 export const looksAlike = (a: string, b: string) =>
   LOOKALIKE.some(([x, y]) => (x === a && y === b) || (x === b && y === a));
 
