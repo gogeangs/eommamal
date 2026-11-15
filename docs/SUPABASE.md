@@ -28,6 +28,12 @@
 9. 관리자 지정: 관리자 이메일로 앱에서 한 번 로그인한 뒤 SQL Editor에서
    `insert into public.admins (user_id) select id from auth.users where email = '관리자 이메일';`
 
+## 번역 검수자 (선택)
+- SQL Editor에서 `supabase/migrations/002_translation_review.sql` 도 실행해요.
+- 검수자가 앱에서 한 번 로그인한 뒤, 검수할 언어를 지정해요:
+  `insert into public.reviewers (user_id, langs) select id, '{vi}' from auth.users where email = '검수자 이메일' on conflict (user_id) do update set langs = excluded.langs;`
+- 검수자는 `…/eommamal/#review` 에서 자기 언어를 고치고 "서버에 저장"을 눌러요. 다른 검수자와 겹쳐도 줄 단위로 합쳐져요.
+
 ## 구독 연결 (앱 출시 후)
 - `supabase/functions/revenuecat-webhook` 를 배포하고 RevenueCat 웹훅을 연결해요. 방법은 파일 맨 위 주석에 있어요.
 - 앱은 로그인한 보호자의 계정 ID로 RevenueCat에 구매자를 연결해요(`identifyBuyer`).

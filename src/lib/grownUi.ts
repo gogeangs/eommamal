@@ -682,3 +682,6 @@ export function g(lang: LangId, key: Key, vars: Record<string, string | number> 
 
 /** Locale for dates and weekday names in the family's language. */
 export const LOCALE: Record<LangId, string> = { ru: 'ru-RU', mn: 'mn-MN', vi: 'vi-VN', uz: 'uz-UZ', zh: 'zh-CN', en: 'en-US' };
+
+/** For the translation review screen (read and patched there). */
+export const GROWN_TABLES = { ALL, KO };

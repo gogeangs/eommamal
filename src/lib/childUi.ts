@@ -18,3 +18,6 @@ const TERMS: Record<LangId,Terms> = {
   en:{books:'Stories',play:'Play',words:'My words',next:'Next',back:'Back',listen:'Listen',retry:'Try again',hint:'Hint',choose:'Pick a picture',write:'Build the word',wellDone:'Great job!',home:'Stories',continue:'Keep reading',newStories:'More stories',parent:'For parents',settings:'Settings',trace:"Trace",dictation:"Spell",storyPrompt:"Which story today?",sentence:'Write phrases',quit:'Quit',listenAgain:'Listen again',erase:'Erase',clear:'Clear',check:'Check',readAgain:'Read again',showMe:'Show me',finish:'Done',trial:'Free trial',member:'Membership',active:'Active',notYet:'Not yet',ended:'Ended',subscribe:'Subscribe',prev:'Back',emptyWords:"Shall we go meet some words?\nStart in Play!",progressShort:"Child's progress",progressTab:"Progress",appName:"Picture books in Mom's language",tagCulture:"Culture compare",tagFolk:"Korean folk tale",tagLife:"Kindergarten & school",tagLater:"Read tomorrow",language:"Language",soon:"Coming soon",cultureStories:"Korean culture stories"}
 };
 export const t = (lang:LangId,key:keyof Terms) => TERMS[lang][key];
+
+/** For the translation review screen (read and patched there). */
+export const CHILD_TERMS = TERMS;

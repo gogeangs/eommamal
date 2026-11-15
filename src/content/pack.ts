@@ -7,6 +7,7 @@
 // A Supabase-backed store can later provide the same Pack shape.
 
 import { STORIES, V, refreshIndex } from './index';
+import { applyText, captureShipped } from './i18n';
 import type { LangId, Page, Story, Text } from './types';
 
 export const LANG_IDS: LangId[] = ['ru', 'mn', 'vi', 'uz', 'zh', 'en'];
@@ -38,11 +39,18 @@ export interface PackWord extends Partial<Text> {
   bg?: string;
 }
 
+/** A reviewer's mark on one text: checked as is, corrected, or needs another look. */
+export interface ReviewMark { s: 'ok' | 'fixed' | 'flag'; note?: string; by?: string; at?: string }
+
 export interface Pack {
   version: 1;
   updated?: string;
   stories: PackStory[];
   words: PackWord[];
+  /** translation corrections by key (see content/i18n.ts): { lang: { key: text } } */
+  text?: Partial<Record<LangId, Record<string, string>>>;
+  /** translation review marks: { lang: { key: mark } } */
+  review?: Partial<Record<LangId, Record<string, ReviewMark>>>;
 }
 
 export const emptyPack = (): Pack => ({ version: 1, stories: [], words: [] });
@@ -66,6 +74,7 @@ function fillText<T extends Partial<Text>>(target: T, src: Partial<Text>) {
 
 /** Merges a pack into the live content. Safe to call more than once. */
 export function applyPack(pack: Pack | null | undefined) {
+  captureShipped(LANG_IDS); // the built-in text, before any pack changes it
   if (!pack || pack.version !== 1) return;
 
   for (const w of pack.words ?? []) {
@@ -106,5 +115,6 @@ export function applyPack(pack: Pack | null | undefined) {
     }
     s.words = [...new Set(s.pages.flatMap((p) => p.w))];
   }
+  applyText(pack.text);
   refreshIndex();
 }

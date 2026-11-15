@@ -5,6 +5,7 @@ export type Route =
   | { view: 'home'; tab?: HomeTab }
   | { view: 'contact' }
   | { view: 'admin' }
+  | { view: 'review' }
   | { view: 'parent' }
   | { view: 'read' | 'done' | 'quiz' | 'dict' | 'trace' | 'sent'; story: string };
 

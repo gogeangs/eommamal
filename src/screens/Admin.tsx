@@ -148,6 +148,7 @@ export function Admin() {
             <button aria-current="page">동화</button>
             <button onClick={() => setView({ v: 'words' })}>낱말</button>
             <button onClick={() => setView({ v: 'publish' })}>내려받기·게시</button>
+            <button onClick={() => nav({ view: 'review' })}>번역 검수</button>
           </nav>
           <section className="admin-list">
             {shelf.map((s) => (

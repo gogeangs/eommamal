@@ -14,6 +14,8 @@ interface Ctx {
   email: string | null;
   userId: string | null;
   isAdmin: boolean;
+  /** languages this account may review (all for admins) */
+  reviewLangs: string[];
   sync: SyncState;
   sendCode: (email: string) => Promise<void>;
   verifyCode: (email: string, code: string) => Promise<void>;
@@ -35,6 +37,7 @@ const friendly = (e: unknown) => {
 export function AccountProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [reviewLangs, setReviewLangs] = useState<string[]>([]);
   const [sync, setSync] = useState<SyncState>({ state: supabase ? 'idle' : 'off' });
   const running = useRef(false);
   const again = useRef(false);
@@ -64,7 +67,8 @@ export function AccountProvider({ children }: { children: ReactNode }) {
 
   // On sign-in: link store purchases to the family, check admin rights, sync.
   useEffect(() => {
-    if (!supabase || !userId) { setIsAdmin(false); return; }
+    if (!supabase || !userId) { setIsAdmin(false); setReviewLangs([]); return; }
+    supabase.from('reviewers').select('langs').eq('user_id', userId).maybeSingle().then(({ data }) => setReviewLangs((data?.langs as string[] | undefined) ?? []));
     void identifyBuyer(userId);
     supabase.from('admins').select('user_id').eq('user_id', userId).maybeSingle().then(({ data }) => setIsAdmin(!!data));
     void run();
@@ -92,6 +96,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
     email: session?.user.email ?? null,
     userId,
     isAdmin,
+    reviewLangs: isAdmin ? ['ru', 'mn', 'vi', 'uz', 'zh', 'en'] : reviewLangs,
     sync,
     async sendCode(email) {
       const { error } = await supabase!.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
@@ -112,7 +117,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
       try { localStorage.removeItem('emb-sync-base'); } catch { /* ignore */ }
       await supabase!.auth.signOut();
     },
-  }), [session, userId, isAdmin, sync, run]);
+  }), [session, userId, isAdmin, reviewLangs, sync, run]);
 
   return <AccountContext.Provider value={value}>{children}</AccountContext.Provider>;
 }

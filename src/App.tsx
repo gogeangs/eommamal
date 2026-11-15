@@ -11,6 +11,7 @@ import { Trace } from './screens/Trace';
 import { Contact } from './screens/Contact';
 import { Sentence } from './screens/Sentence';
 import { Admin } from './screens/Admin';
+import { Review } from './screens/Review';
 import { Parent } from './screens/Parent';
 import { contentStore, previewActive } from './lib/contentStore';
 
@@ -23,6 +24,7 @@ function parse(hash: string): Route {
   if (h === 'study' || h === 'words' || h === 'progress' || h === 'settings') return { view: 'home', tab: h };
   if (h === 'contact') return { view: 'contact' };
   if (h === 'admin') return { view: 'admin' };
+  if (h === 'review') return { view: 'review' };
   if (h === 'parent') return { view: 'parent' };
   const m = hash.replace(/^#/, '').match(/^(read|done|quiz|dict|trace|sent)-([a-z]+)$/);
   if (!m || !hasStory(m[2])) return { view: 'home' };
@@ -30,7 +32,7 @@ function parse(hash: string): Route {
   return { view: m[1] as Exclude<Route['view'], 'home'>, story: m[2] };
 }
 const toHash = (r: Route) =>
-  r.view === 'home' ? (r.tab && r.tab !== 'books' ? `#${r.tab}` : '') : r.view === 'contact' ? '#contact' : r.view === 'admin' ? '#admin' : r.view === 'parent' ? '#parent' : `#${r.view}-${r.story}`;
+  r.view === 'home' ? (r.tab && r.tab !== 'books' ? `#${r.tab}` : '') : r.view === 'contact' ? '#contact' : r.view === 'admin' ? '#admin' : r.view === 'review' ? '#review' : r.view === 'parent' ? '#parent' : `#${r.view}-${r.story}`;
 
 export function App() {
   const [route, setRoute] = useState<Route>(() => parse(location.hash));
@@ -71,6 +73,7 @@ export function App() {
     case 'trace': screen = <Trace storyId={route.story} />; break;
     case 'contact': screen = <Contact />; break;
     case 'admin': screen = <Admin />; break;
+    case 'review': screen = <Review />; break;
     case 'parent': screen = <Parent />; break;
     case 'sent': screen = <Sentence storyId={route.story} />; break;
     default: screen = <Home tab={route.tab ?? 'books'} />;
@@ -78,14 +81,14 @@ export function App() {
 
   return (
     <NavContext.Provider value={nav}>
-      {previewActive() && route.view !== 'admin' && (
+      {previewActive() && route.view !== 'admin' && route.view !== 'review' && (
         <div className="preview-bar" role="status">
           <span>미리 보기 중 · 이 기기에서만 보여요</span>
           <button onClick={() => { location.hash = '#admin'; }}>관리 화면</button>
           <button onClick={() => { contentStore.stopPreview(); location.hash = ''; location.reload(); }}>끝내기</button>
         </div>
       )}
-      <main className={`wrap v-${route.view}${route.view === 'admin' ? ' wide' : ''}`} key={`${toHash(route)}:${nonce}`}>
+      <main className={`wrap v-${route.view}${route.view === 'admin' || route.view === 'review' ? ' wide' : ''}`} key={`${toHash(route)}:${nonce}`}>
         {screen}
       </main>
     </NavContext.Provider>

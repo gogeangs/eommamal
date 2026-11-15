@@ -2,7 +2,8 @@
 // previews in this browser. Later a Supabase store can implement the same interface,
 // and the admin screen will not need to change.
 
-import { emptyPack, type Pack } from '../content/pack';
+import { emptyPack, type Pack, type ReviewMark } from '../content/pack';
+import type { LangId } from '../content/types';
 import { supabase } from './supabase';
 import { dataUrlBytes } from './imageTools';
 
@@ -99,8 +100,23 @@ export async function publishToServer(pack: Pack, userId: string, onStep?: (msg:
     r.set(db.storage.from('content').getPublicUrl(path).data.publicUrl);
   }
   onStep?.('내용 저장 중');
+  // Translation corrections may have been saved by reviewers since this draft started: keep theirs, then ours.
+  const { data: cur } = await db.from('content_packs').select('pack').eq('id', 'main').maybeSingle();
+  const server = cur?.pack as Pack | undefined;
+  for (const field of ['text', 'review'] as const) {
+    const merged: Record<string, Record<string, unknown>> = {};
+    for (const src of [server?.[field], out[field]]) for (const [l, m] of Object.entries(src ?? {})) merged[l] = { ...(merged[l] ?? {}), ...(m ?? {}) };
+    (out as unknown as Record<string, unknown>)[field] = merged;
+  }
   const { error } = await db.from('content_packs').upsert({ id: 'main', pack: out, updated_at: out.updated, updated_by: userId });
   if (error) throw new Error(`게시하지 못했어요: ${error.message}`);
   setPublishedPack(out);
   return out;
+}
+
+/** Saves one language's translation corrections and review marks to the server (reviewers and admins). */
+export async function saveReviewToServer(lang: LangId, texts: Record<string, string | null>, marks: Record<string, ReviewMark | null>) {
+  if (!supabase) throw new Error('서버가 설정되지 않았어요.');
+  const { error } = await supabase.rpc('save_review', { lang, texts, marks });
+  if (error) throw new Error(error.message.includes('not a reviewer') ? '이 언어의 검수 권한이 없어요.' : error.message);
 }

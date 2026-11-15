@@ -80,3 +80,6 @@ const MO: Record<LangId, Record<Key, string>> = {
 };
 
 export const pt = (lang: LangId, key: Key) => (grownKorean() ? KO[key] : MO[lang][key]);
+
+/** For the translation review screen (read and patched there). */
+export const PARENT_TABLES = { MO, KO };

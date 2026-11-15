@@ -48,3 +48,6 @@ export function storySub(s: Story, lang: LangId) {
   for (const w of TAG_WORDS) ko = ko.replace(new RegExp(`\\s*·\\s*${w}`), '');
   return { text: ko, lang: 'ko' as const };
 }
+
+/** For the translation review screen (read and patched there). */
+export const STORY_SUBS = SUBS;

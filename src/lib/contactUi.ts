@@ -155,3 +155,6 @@ const KO: Record<Key, string> = {
 
 const ALL: Record<LangId, Record<Key, string>> = { ru: RU, mn: MN, vi: VI, uz: UZ, zh: ZH, en: EN };
 export const ct = (lang: LangId, key: Key) => (grownKorean() ? KO[key] : ALL[lang][key]);
+
+/** For the translation review screen (read and patched there). */
+export const CONTACT_TABLES = { ALL, KO };
